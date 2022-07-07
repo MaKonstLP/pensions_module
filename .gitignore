@@ -1,5 +1,6 @@
 web/node_modules/*
 web/dist/*
 runtime/*
+web/img_d/*
 web/upload/
 web/*.html
