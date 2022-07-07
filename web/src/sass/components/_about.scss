@@ -1,0 +1,29 @@
+.about {
+	h2 {
+		margin-top: 24px;
+	}
+
+	.about__wrap {
+		max-width: 924px;
+	}
+	.about__popular {
+		margin-bottom: 64px;
+
+		@include for-laptop {
+			margin-bottom: 40px;
+		}
+		@include for-mobile {
+			margin-bottom: 32px;
+		}
+
+		.listing {
+			background-color: transparent;
+			padding: 0;
+
+			.listing__item {
+				margin-bottom: 32px;
+			}
+		}
+		
+	}
+}

@@ -29,11 +29,11 @@
     "gulp-touch-fd": "github:funkedigital/gulp-touch-fd",
     "gulp-uglify": "^3.0.2",
     "inputmask": "^4.0.9",
-    "jquery": "^3.4.1",
+    "jquery": "^3.6.0",
     "merge-stream": "^1.0.1",
     "node-sass": "^4.13.0",
     "sass-loader": "^7.3.1",
-    "swiper": "^4.5.1",
+    "swiper": "^8.1.4",
     "webpack": "^4.41.4",
     "webpack-stream": "^5.2.1"
   },
@@ -47,6 +47,7 @@
     "js-cookie": "2.1.4",
     "lightbox2": "2.11.1",
     "slick-carousel": "^1.8.1",
-    "sortablejs": "^1.10.0"
+    "sortablejs": "^1.10.0",
+    "youtube-player": "^5.5.2"
   }
 }

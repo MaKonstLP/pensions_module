@@ -1,0 +1,80 @@
+<div class="faq">
+	<div class="container">
+		<div class="title">
+			<h1>Вопросы и ответы</h1>
+		</div>
+
+		<div class="faq__form-wrapper">
+			<div class="faq__form">
+				<div class="faq__form-info">
+					<h2 class="faq__form-title">Есть вопросы?</h2>
+					<div class="faq__form-text">
+						Прочитайте ответы на&nbsp;популярные вопросы или&nbsp;задайте свой по&nbsp;телефону
+						или&nbsp;через форму обратной связи
+					</div>
+					<div class="faq__form-wrap">
+						<div class="faq__form-item">
+							<div class="faq__form-label">Телефон горячей линии:</div>
+							<a href="tel:84953002200" class="faq__form-phone">8 (495) 300 22 00</a>
+						</div>
+						<div class="faq__form-item">
+							<div class="faq__form-label">Техническая поддержка:</div>
+							<a href="mailto:support@hospis-msk.ru" class="faq__form-email">support@hospis-msk.ru</a>
+						</div>
+					</div>
+				</div>
+
+				<form class="faq__form-form" action="/ajax/form/" data-type="faq">
+					<div class="form__inputs">
+						<div class="form__input-wrap">
+							<input type="text" name="name" data-required placeholder="Имя">
+						</div>
+						<div class="form__input-wrap">
+							<input type="text" name="email" data-required placeholder="Электронная почта">
+						</div>
+						<div class="form__input-wrap _comment">
+							<textarea name="comment" placeholder="Ваше сообщение"></textarea>
+						</div>
+					</div>
+					<div class="form__submit">
+						<button class="form__submit-btn _btn" type="submit">
+							Отправить
+						</button>
+						<div class="form_policy checkbox_item _active" data-action="form_checkbox" data-form-privacy>
+							<input type="checkbox" name="policy" class="personalData" checked data-required=>
+							<p class="checkbox_pseudo">Согласен с&nbsp;</p>
+							<a class="form_policy_link" href="/privacy-policy/" target="_blank">
+								политикой обработки персональных данных
+							</a>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div class="faq__form-success">
+				<h2 class="faq__form-success-title">Вопрос успешно отправен</h2>
+				<div class="faq__form-success-text">
+					Спасибо за проявленный интерес. Мы свяжемся с Вами в ближайшее время.
+				</div>
+				<div class="faq__form-success-btn _btn" data-form-faq-success>Понятно, спасибо</div>
+			</div>
+		</div>
+
+		<div class="faq__question seo">
+			<h2 class="faq__question-title">Нас часто спрашивают</h2>
+			<div class="faq__accordion">
+				{% for question in faq %}
+					<div class="faq__accordion-item">
+						<div class="faq__accordion-item-title">
+							{{question.title}}
+						</div>
+						<div class="faq__accordion-item-text">
+							{{question.text|raw}}
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+
+	</div>
+</div>

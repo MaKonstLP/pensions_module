@@ -1,7 +1,7 @@
 <div class="filter_select">
 	<p class="filter_label">{{filter_item.name}}</p>
 	<div class="filter_select_block" data-type="{{label}}" data-filter-select-block>
-		<div class="filter_select_current" data-filter-select-current>
+		{# <div class="filter_select_current" data-filter-select-current>
 			{% if filter_item.active is not null %}
 				{% if filter_item.active|length > 1 %}
 					<p>Выбрано ({{filter_item.active|length}})</p>
@@ -11,11 +11,49 @@
 				{% else %}
 					<p>-</p>
 				{% endif %}
-		</div>
-		<div class="filter_select_list">
+		</div> #}
+
+		{# <div class="filter_select_list">
 			{% for key,value in filter_item.items %}
-				<div class="filter_select_item {{filter_item.active[key] is defined ? '_active':''}}" data-value="{{key}}" data-filter-select-item><p>{{value}}</p></div>
+				{% if loop.index > 5 %}
+					<div class="filter_select_item _hide {{filter_item.active[key] is defined ? '_active':''}}" data-value="{{key}}" data-filter-select-item><p>{{value}}</p></div>
+				{% else %}
+					<div class="filter_select_item {{filter_item.active[key] is defined ? '_active':''}}" data-test="{{filter_item.sort}}" data-value="{{key}}" data-filter-select-item><p>{{value}}</p></div>
+				{% endif %}
 			{% endfor %}
+			{% if filter_item.items|length > 5 %}
+				<div class="filter_select_more" data-filter-select-more>
+					Показать все
+				</div>
+			{% endif %}
+		</div> #}
+		
+		<div class="filter_select_list">
+			{% for key,item in filter_item.items %}
+				{% if loop.index > 5 %}
+					<div class="filter_select_item _hide {{filter_item.active[key] is defined ? '_active':''}}" data-id="{{item.id}}" data-value="{{key}}" data-filter-select-item>
+						<p>{{item.name}}</p>
+						<span></span>
+					</div>
+				{% else %}
+					<div class="filter_select_item {{filter_item.active[key] is defined ? '_active':''}}" data-id="{{item.id}}" data-value="{{key}}" data-filter-select-item>
+						<p>{{item.name}}</p>
+						<span></span>
+					</div>
+				{% endif %}
+			{% endfor %}
+			{% if filter_item.items|length > 5 %}
+				<div class="filter_select_more" data-filter-select-more>
+					Показать все
+				</div>
+			{% endif %}
 		</div>
+
+
+		{# <div class="filter_check">
+			{% for key,value in filter_item.items %}
+				<div class="filter_check_item {{filter_item.active[key] is defined ? '_active':''}}" data-value="{{key}}" data-filter-select-item><p>{{value}}</p></div>
+			{% endfor %}
+		</div> #}
 	</div>
 </div>

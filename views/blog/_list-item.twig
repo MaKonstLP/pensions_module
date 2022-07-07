@@ -1,21 +1,26 @@
-<div class="blog_item_wrapper">
+{# <div class="blog_item_wrapper">
 
-    <a class="blog_item" href="{{ model.getUrl() }}">
+	<a class="blog_item" href="{{ model.getUrl('ideas') }}">
+		<img class="blog_item_img" src="{{ model.getFileData('image').src }}" alt="{{ model.name }}">
 
-      <img class="blog_item_img" src="/image/listing_card_photo.svg" alt="blog article image">
+		<div class="blog_item_text_wrapper">
 
-      <div class="blog_item_text_wrapper">
+			<div class="blog_item_title">
+				{{ model.name }}
+			</div>
+			<div class="blog_item_date">
+				{{ model.rusDate }}
+			</div>
 
-        <div class="blog_item_title">
-          {{ model.name }}
-        </div>
+		</div>
+	</a>
+</div> #}
 
-        <div class="blog_item_text">
-          {{ model.short_intro }}
-        </div>
+<a class="blog__item" href="{{ model.getUrl('Статьи') }}">
+	<div class="blog__item-image">
+		<img src="{{ model.getFileData('image').src }}" alt="{{ model.name }}">
+	</div>
+	<div class="blog__item-name">{{ model.name }}</div>
+	<div class="blog__item-date">{{ model.rusDate }}</div>
+</a>
 
-      </div>
-
-    </a>
-    
-  </div>

@@ -1,0 +1,377 @@
+footer {
+	font-size: 14px;
+	position: relative;
+	z-index: auto;
+	background: #ffcc01;
+
+	.footer_wrap {
+		padding: 40px 0px;
+		height: 120px;
+
+		.footer_row {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			@include for-mobile {
+				flex-direction: column-reverse;
+				align-items: flex-start;
+			}
+
+			.footer_block {
+				&._left {
+					margin-left: 40px;
+					width: 555px;
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+
+					.footer_phone {
+						@include for-notdesc {
+							margin-bottom: 4px;
+						}
+
+						@include for-laptop {
+							margin-top: 4px;
+						}
+
+						@include for-mobile {
+							margin-top: 0px;
+							margin-bottom: 0px;
+						}
+					}
+
+					.footer_callback_button {
+						@include for-mobile {
+							width: 100%;
+							height: 48px;
+							padding-top: 4px;
+
+							p {
+								width: 150px;
+								line-height: 20px;
+							}
+						}
+					}
+
+					@include for-notdesc {
+						width: fit-content;
+						flex-direction: column;
+						align-items: flex-start;
+						margin-left: 8px;
+						justify-content: unset;
+						align-self: center;
+					}
+
+					@include for-laptop {
+						margin-left: 16px;
+						align-self: unset;
+					}
+
+					@include for-mobile {
+						order: 1;
+						width: 100%;
+						margin-left: 0;
+						margin-bottom: 19px;
+					}
+				}
+
+				&._right {
+					display: flex;
+					flex-direction: row;
+					width: 496px;
+					margin-right: 42px;
+					justify-content: flex-end;
+
+					.footer_logo {
+						width: 32px;
+						height: 40px;
+						background: url(/image/footer_owl.png);
+						line-height: 20px;
+
+						@include for-notdesc {
+							margin-left: 0;
+						}
+					}
+
+					.footer_block_logo_text {
+						margin-left: 12px;
+
+						div {
+							color: #f79122;
+							font-size: 26px;
+							font-weight: 700;
+							line-height: 23px;
+						}
+
+						div:first-of-type {
+							@include for-mobile {
+								margin-bottom: 3px;
+							}
+						}
+
+						div:last-of-type {
+							font-size: 10px;
+							font-weight: 400;
+							color: #f79122;
+							line-height: 14px;
+						}
+
+						@include for-mobile {
+							margin: 0 auto 8px 12px;
+						}
+					}
+
+					.footer_block_copyright {
+						color: #363c4a;
+						font-size: 12px;
+						line-height: 20px;
+						letter-spacing: 0.02em;
+						margin-left: 16px;
+
+						span {
+							font-size: 12px;
+							line-height: 20px;
+							letter-spacing: 0.02em;
+						}
+
+						a > p {
+							font-size: 12px;
+							line-height: 20px;
+							letter-spacing: 0.02em;
+						}
+
+						p {
+							color: #363c4a;
+							// border-bottom: 1px solid #363c4a;
+							// box-shadow: inset 0 -1px 0 #363c4a;
+							position: relative;
+
+							&::after {
+								content: "";
+								width: 100%;
+								height: 1px;
+								background-color: rgba(54, 60, 74, 0.3);
+								position: absolute;
+								bottom: 1px;
+								left: 0;
+							}
+						}
+
+						@include for-notdesc {
+							margin-left: 0;
+						}
+
+						@include for-laptop {
+							margin-top: 6px;
+							margin-right: 73px;
+						}
+
+						@include for-mobile {
+							margin-top: 0;
+						}
+					}
+
+					@include for-notdesc {
+						flex-flow: row wrap;
+						width: 321px;
+						justify-content: flex-start;
+						min-width: 274px;
+						padding-top: 4px;
+						margin-right: 8px;
+					}
+
+					@include for-laptop {
+						justify-content: flex-end;
+						margin-right: 15px;
+						padding-top: 8px;
+					}
+
+					@include for-mobile {
+						justify-content: flex-start;
+						width: 100%;
+						margin-right: 0;
+					}
+				}
+
+				.footer_logo {
+					display: flex;
+					align-items: center;
+
+					.footer_logo_img {
+						width: 56px;
+						height: 56px;
+						background-image: url(/img/korporativ-ng/ny_ball.svg);
+						background-size: contain;
+						background-repeat: no-repeat;
+						transition: filter 0.2s ease;
+					}
+
+					.footer_logo_text span {
+						font-weight: bold;
+						font-size: 13px;
+						line-height: 18px;
+						letter-spacing: 0.01em;
+						text-transform: uppercase;
+						color: #ba1904;
+
+						&:last-of-type {
+							font-weight: 600;
+							font-size: 7px;
+							line-height: 10px;
+							letter-spacing: 0.2em;
+							color: #000000;
+						}
+					}
+				}
+
+				.footer_info {
+					font-size: 12px;
+					font-size: 500;
+					line-height: 15px;
+
+					@include for-mobile {
+						text-align: center;
+					}
+
+					.footer_pc._link {
+						color: #c4c4c4;
+						border-bottom: 1px solid #c4c4c4;
+
+						&:hover {
+							color: #666666;
+							border-bottom: 1px solid #666666;
+						}
+
+						@include for-notdesc {
+							color: #666666;
+							border-bottom: 1px solid #666666;
+						}
+					}
+				}
+
+				.footer_phone {
+					background-image: url(/img/phone_icon.svg);
+					background-position: 0px 50%;
+					background-repeat: no-repeat;
+					line-height: 32px;
+
+					a {
+						font-weight: 600;
+						font-size: 24px;
+						line-height: 32px;
+
+						@include for-notdesc {
+							font-size: 20px;
+							line-height: 24px;
+						}
+					}
+
+					@include for-notdesc {
+						margin-bottom: 4px;
+					}
+				}
+
+				.footer_callback_button {
+					width: 304px;
+					height: 40px;
+					display: flex;
+					flex-flow: row nowrap;
+					justify-content: center;
+					padding: 10px 16px;
+					cursor: pointer;
+					position: relative;
+					border: none;
+					border-radius: 4px;
+					// bottom: 2px;
+					right: 1px;
+
+					background: radial-gradient(ellipse at center, rgb(223, 66, 0) 70%, transparent calc(70% + 3px)),
+						radial-gradient(ellipse at center, rgb(236, 73, 0) 70%, transparent calc(70% + 3px)), #fe5200;
+					background-size: 420px 120px;
+					background-position: 50% -104px, 50% -87px;
+					background-repeat: no-repeat;
+					color: black;
+					font-size: 14px;
+					font-weight: 700;
+
+					&:hover {
+						background: radial-gradient(ellipse at center, rgb(242, 71, 10) 70%, transparent calc(70% + 3px)),
+							radial-gradient(ellipse at center, rgb(248, 76, 14) 70%, transparent calc(70% + 3px)), #ff5214;
+						background-size: 420px 120px;
+						background-position: 50% -113px, 50% -87px;
+						background-repeat: no-repeat;
+					}
+
+					&:active {
+						background: radial-gradient(ellipse at center, #a52f07 70%, transparent calc(70% + 3px)),
+						radial-gradient(ellipse at center, #a52f07 70%, transparent calc(70% + 3px)), #ba1904;
+						background-size: 420px 120px;
+						background-position: 50% -113px, 50% -87px;
+						background-repeat: no-repeat;
+					}
+
+					&._inactive {
+						background: #dadee1;
+						color: #b3b6be;
+						cursor: initial;
+					}
+
+					& > p {
+						text-align: center;
+						font-size: 14px;
+						line-height: 20px;
+						letter-spacing: 0.01em;
+						font-weight: 700;
+						color: #fff;
+					}
+
+					@include for-mobile {
+						padding: 0;
+						right: 0;
+						top: 3px;
+					}
+				}
+			}
+
+			align-items: flex-start;
+		}
+
+		@include for-notdesc {
+			padding: 16px 0;
+		}
+
+		@include for-laptop {
+			padding: 8px 0;
+		}
+
+		@include for-mobile {
+			padding: 13px 12px 24px;
+			height: unset;
+		}
+	}
+}
+
+[data-page-type="index"] .content_block.form_booking_wrapper {
+	padding: 84px 0 48px;
+
+	@include for-notdesc {
+		padding: 40px 0 40px;
+	}
+
+	@include for-mobile {
+		padding-bottom: 0;
+	}
+}
+
+[data-page-type="item"] .content_block.form_booking_wrapper {
+	padding: 60px 0 60px;
+
+	@include for-laptop {
+		padding: 40px 0 40px;
+	}
+
+	@include for-mobile {
+		padding: 0;
+	}
+}

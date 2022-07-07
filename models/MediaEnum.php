@@ -1,5 +1,5 @@
 <?php
-namespace frontend\modules\graduation\models;
+namespace frontend\modules\pensions\models;
 
 use common\models\Pages;
 use common\models\siteobject\BaseMediaEnum;

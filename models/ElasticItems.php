@@ -1,457 +1,576 @@
 <?php
-namespace frontend\modules\graduation\models;
+
+namespace frontend\modules\pensions\models;
 
 use Yii;
 use common\models\Restaurants;
+use common\models\PansionMain;
+use common\models\Pansion;
 use common\models\RestaurantsTypes;
 use yii\helpers\ArrayHelper;
 use common\models\Subdomen;
 use common\models\RestaurantsSpec;
 use common\models\RestaurantsSpecial;
 use common\models\RestaurantsExtra;
+use common\widgets\ProgressWidget;
+use common\models\elastic\ItemsFilterElastic;
+use common\models\FilterItems;
+use common\models\PansionTypeVia;
 
 class ElasticItems extends \yii\elasticsearch\ActiveRecord
 {
-    public function attributes()
-    {
-        return [
-            'id',
-            'restaurant_id',
-            'restaurant_gorko_id',
-            'restaurant_min_capacity',
-            'restaurant_max_capacity',
-            'restaurant_district',
-            'restaurant_parent_district',
-            'restaurant_city_id',
-            'restaurant_alcohol',
-            'restaurant_firework',
-            'restaurant_name',
-            'restaurant_address',
-            'restaurant_cover_url',
-            'restaurant_latitude',
-            'restaurant_longitude',
-            'restaurant_own_alcohol',
-            'restaurant_own_alcohol_id',
-            'restaurant_cuisine',
-            'restaurant_parking',
-            'restaurant_extra_services',
-            'restaurant_payment',
-            'restaurant_special',
-            'restaurant_phone',
-            'restaurant_images',
-            'restaurant_commission',
-            'restaurant_types',
-            'restaurant_location',
-            'restaurant_price',
-            'restaurant_spec',
-            'restaurant_specials',
-            'restaurant_extra',
-            'restaurant_slug',
-            'rooms',
-        ];
-    }
+	public function attributes()
+	{
+		return [
+			'id',
+			'pansion_id',
+			'pansion_name',
+			'pansion_url',
+			'pansion_price',
+			'pansion_price_old',
+			'pansion_address',
+			'pansion_latitude',
+			'pansion_longitude',
+			'pansion_armed_bed',
+			'pansion_review_yandex',
+			'pansion_our',
+			'pansion_district',
+			'pansion_metro',
+			'pansion_network',
+			'pansion_type',
+			'pansion_meal',
+			'pansion_cities',
+			'pansion_conditions',
+			'pansion_conveniencies',
+			'pansion_entertainments',
+			'pansion_features',
+			'pansion_highways',
+			'pansion_images',
+			'pansion_rooms',
+			'pansion_specials',
+			'pansion_slug',
+			'pansion_types',
+			'pansion_rev_ya',
+			// 'pansion_rev_ya_id',
+			// 'pansion_rev_ya_rate',
+			// 'pansion_rev_ya_count'
+		];
+	}
 
-    public static function index() {
-        return 'pmn_graduation_restaurants';
-    }
-    
-    public static function type() {
-        return 'items';
-    }
+	public static function index()
+	{
+		return 'pansions';
+	}
 
-    /**
-     * @return array This model's mapping
-     */
-    public static function mapping()
-    {
-        return [
-            static::type() => [
-                'properties' => [
-                    'id'                            => ['type' => 'integer'],
-                    'restaurant_id'                 => ['type' => 'integer'],
-                    'restaurant_gorko_id'           => ['type' => 'integer'],
-                    'restaurant_min_capacity'       => ['type' => 'integer'],
-                    'restaurant_max_capacity'       => ['type' => 'integer'],
-                    'restaurant_district'           => ['type' => 'integer'],
-                    'restaurant_parent_district'    => ['type' => 'integer'],
-                    'restaurant_city_id'            => ['type' => 'integer'],
-                    'restaurant_alcohol'            => ['type' => 'integer'],
-                    'restaurant_firework'           => ['type' => 'integer'],
-                    'restaurant_price'              => ['type' => 'integer'],
-                    'restaurant_name'               => ['type' => 'text'],
-                    'restaurant_address'            => ['type' => 'text'],
-                    'restaurant_cover_url'          => ['type' => 'text'],
-                    'restaurant_latitude'           => ['type' => 'text'],
-                    'restaurant_longitude'          => ['type' => 'text'],
-                    'restaurant_own_alcohol'        => ['type' => 'text'],
-                    'restaurant_own_alcohol_id'     => ['type' => 'integer'],
-                    'restaurant_cuisine'            => ['type' => 'text'],
-                    'restaurant_parking'            => ['type' => 'integer'],
-                    'restaurant_extra_services'     => ['type' => 'text'],
-                    'restaurant_payment'            => ['type' => 'text'],
-                    'restaurant_special'            => ['type' => 'text'],
-                    'restaurant_phone'              => ['type' => 'text'],
-                    'restaurant_commission'         => ['type' => 'integer'],
-                    'restaurant_slug'               => ['type' => 'keyword'],
-                    'restaurant_types'              => ['type' => 'nested', 'properties' =>[
-                        'id'                            => ['type' => 'integer'],
-                        'name'                          => ['type' => 'text'],
-                    ]],
-                    'restaurant_spec'               => ['type' => 'nested', 'properties' => [
-                        'id'                            => ['type' => 'integer'],
-                        'name'                          => ['type' => 'text'],
-                    ]],
-                    'restaurant_specials'           => ['type' => 'nested', 'properties' =>[
-                        'id'                            => ['type' => 'integer'],
-                        'name'                          => ['type' => 'text'],
-                    ]],
-                    'restaurant_extra'           => ['type' => 'nested', 'properties' =>[
-                        'id'                            => ['type' => 'integer'],
-                        'name'                          => ['type' => 'text'],
-                    ]],
-                    'restaurant_location'              => ['type' => 'nested', 'properties' =>[
-                        'id'                            => ['type' => 'integer'],
-                    ]],
-                    'restaurant_images'             => ['type' => 'nested', 'properties' =>[
-                        'id'                            => ['type' => 'integer'],
-                        'sort'                          => ['type' => 'integer'],
-                        'realpath'                      => ['type' => 'text'],
-                        'subpath'                       => ['type' => 'text'],
-                        'waterpath'                     => ['type' => 'text'],
-                        'timestamp'                     => ['type' => 'text'],
-                    ]],
-                    'rooms'                             => ['type' => 'nested', 'properties' =>[
-                        'id'                            => ['type' => 'integer'],
-                        'gorko_id'                      => ['type' => 'integer'],
-                        'restaurant_id'                 => ['type' => 'integer'],
-                        'price'                         => ['type' => 'integer'],
-                        'capacity_reception'            => ['type' => 'integer'],
-                        'capacity'                      => ['type' => 'integer'],
-                        'type'                          => ['type' => 'integer'],
-                        'rent_only'                     => ['type' => 'integer'],
-                        'banquet_price'                 => ['type' => 'integer'],
-                        'bright_room'                   => ['type' => 'integer'],
-                        'separate_entrance'             => ['type' => 'integer'],
-                        'type_name'                     => ['type' => 'text'],
-                        'name'                          => ['type' => 'text'],
-                        'features'                      => ['type' => 'text'],
-                        'cover_url'                     => ['type' => 'text'],
-                        'images'                        => ['type' => 'nested', 'properties' =>[
-                            'id'                            => ['type' => 'integer'],
-                            'sort'                          => ['type' => 'integer'],
-                            'realpath'                      => ['type' => 'text'],
-                            'subpath'                       => ['type' => 'text'],
-                            'waterpath'                     => ['type' => 'text'],
-                            'timestamp'                     => ['type' => 'text'],
-                        ]],
-                    ]]
-                ]
-            ],
-        ];
-    }
+	public static function type()
+	{
+		return 'items';
+	}
 
-    /**
-     * Set (update) mappings for this model
-     */
-    public static function updateMapping()
-    {
-        $db = static::getDb();
-        $command = $db->createCommand();
-        $command->setMapping(static::index(), static::type(), static::mapping());
-    }
+	/**
+	 * @return array This model's mapping
+	 */
+	public static function mapping()
+	{
+		return [
+			static::type() => [
+				'properties' => [
+					'id'                           => ['type' => 'integer'],
+					'pansion_id'                   => ['type' => 'integer'],
+					'pansion_name'                 => ['type' => 'text'],
+					'pansion_slug'                 => ['type' => 'text'],
+					'pansion_url'                  => ['type' => 'text'],
+					'pansion_price'                => ['type' => 'integer'],
+					'pansion_price_old'            => ['type' => 'integer'],
+					'pansion_address'              => ['type' => 'text'],
+					'pansion_latitude'             => ['type' => 'text'],
+					'pansion_longitude'            => ['type' => 'text'],
+					'pansion_armed_bed'            => ['type' => 'integer'],
+					'pansion_review_yandex'        => ['type' => 'text'],
+					'pansion_our'                  => ['type' => 'integer'],
+					'pansion_district'             => ['type' => 'nested', 'properties' => [
+						'id'                        => ['type' => 'integer'],
+						'name'                      => ['type' => 'text'],
+					]],
+					'pansion_metro'                => ['type' => 'nested', 'properties' => [
+						'id'                        => ['type' => 'integer'],
+						'name'                      => ['type' => 'text'],
+					]],
+					'pansion_network'              => ['type' => 'nested', 'properties' => [
+						'id'                        => ['type' => 'integer'],
+						'name'                      => ['type' => 'text'],
+					]],
+					'pansion_type'                 => ['type' => 'nested', 'properties' => [
+						'id'                        => ['type' => 'integer'],
+						'name'                      => ['type' => 'text'],
+					]],
+					'pansion_meal'                 => ['type' => 'nested', 'properties' => [
+						'id'                        => ['type' => 'integer'],
+						'name'                      => ['type' => 'text'],
+					]],
+					'pansion_cities'               => ['type' => 'nested', 'properties' => [
+						'id'                        => ['type' => 'integer'],
+						'name'                      => ['type' => 'text'],
+					]],
+					'pansion_conditions'           => ['type' => 'nested', 'properties' => [
+						'id'                        => ['type' => 'integer'],
+						'name'                      => ['type' => 'text'],
+					]],
+					'pansion_conveniencies'        => ['type' => 'nested', 'properties' => [
+						'id'                        => ['type' => 'integer'],
+						'name'                      => ['type' => 'text'],
+					]],
+					'pansion_entertainments'       => ['type' => 'nested', 'properties' => [
+						'id'                        => ['type' => 'integer'],
+						'name'                      => ['type' => 'text'],
+					]],
+					'pansion_features'             => ['type' => 'nested', 'properties' => [
+						'id'                        => ['type' => 'integer'],
+						'name'                      => ['type' => 'text'],
+					]],
+					'pansion_highways'             => ['type' => 'nested', 'properties' => [
+						'id'                        => ['type' => 'integer'],
+						'name'                      => ['type' => 'text'],
+					]],
+					'pansion_images'               => ['type' => 'nested', 'properties' => [
+						'path'               		=> ['type' => 'text'],
+						'path_thumb'				=> ['type' => 'text'],
+						'path_catalog'				=> ['type' => 'text'],
+						'path_swiper'				=> ['type' => 'text'],
+					]],
+					'pansion_rooms'                => ['type' => 'nested', 'properties' => [
+						'id'                        => ['type' => 'integer'],
+						'name'                      => ['type' => 'text'],
+					]],
+					'pansion_specials'        	   => ['type' => 'nested', 'properties' => [
+						'id'                        => ['type' => 'integer'],
+						'name'                      => ['type' => 'text'],
+					]],
+					'pansion_types'        	   => ['type' => 'nested', 'properties' => [
+						'id'                        => ['type' => 'integer'],
+						'name'                      => ['type' => 'text'],
+					]],
+					'pansion_rev_ya'  	      => ['type' => 'nested', 'properties' => [
+						'id'                        => ['type' => 'long'],
+						'rate'                      => ['type' => 'text'],
+						'count'                     => ['type' => 'text'],
+						'active'                    => ['type' => 'integer'],
+					]],
+					// 'pansion_rev_ya_id'       		 => ['type' => 'integer'],
+					// 'pansion_rev_ya_rate'       	 => ['type' => 'text'],
+					// 'pansion_rev_ya_count'         => ['type' => 'text'],
+				]
+			],
+		];
+	}
 
-    /**
-     * Create this model's index
-     */
-    public static function createIndex()
-    {
-        $db = static::getDb();
-        $command = $db->createCommand();
-        $command->createIndex(static::index(), [
-            'settings' => [
-                'number_of_replicas' => 0,
-                'number_of_shards' => 1,
-            ],
-            'mappings' => static::mapping(),
-            //'warmers' => [ /* ... */ ],
-            //'aliases' => [ /* ... */ ],
-            //'creation_date' => '...'
-        ]);
-    }
+	/**
+	 * Set (update) mappings for this model
+	 */
+	public static function updateMapping()
+	{
+		$db = static::getDb();
+		$command = $db->createCommand();
+		$command->setMapping(static::index(), static::type(), static::mapping());
+	}
 
-    /**
-     * Delete this model's index
-     */
-    public static function deleteIndex()
-    {
-        $db = static::getDb();
-        $command = $db->createCommand();
-        $command->deleteIndex(static::index(), static::type());
-    }
+	/**
+	 * Create this model's index
+	 */
+	public static function createIndex()
+	{
+		$db = static::getDb();
+		$command = $db->createCommand();
+		$command->createIndex(static::index(), [
+			'settings' => [
+				'number_of_replicas' => 0,
+				'number_of_shards' => 1,
+			],
+			'mappings' => static::mapping(),
+		]);
+	}
 
-    public static function refreshIndex() {
-        $res = self::deleteIndex();
-        $res = self::updateMapping();
-        $res = self::createIndex();
-        $connection = new \yii\db\Connection([
-            'dsn'       => 'mysql:host=localhost;dbname=pmn_graduation',
-            'username'  => 'root',
-            'password'  => 'Gkcfmdsop',
-            'charset'   => 'utf8',
-        ]);
-        $connection->open();
-        Yii::$app->set('db', $connection);
-        $restaurants = Restaurants::find()
-            ->with('rooms')
-            ->with('images')
-            ->with('subdomen')
-            ->limit(100000)
-            ->all($connection);
+	/**
+	 * Delete this model's index
+	 */
+	public static function deleteIndex()
+	{
+		$db = static::getDb();
+		$command = $db->createCommand();
+		$command->deleteIndex(static::index(), static::type());
+	}
 
-        $all_res = '';
-        $restaurants_types = RestaurantsTypes::find()
-            ->limit(100000)
-            ->asArray()
-            ->all($connection);
-        //$subdomens = Subdomen::find()->all();
-        $restaurants_types = ArrayHelper::index($restaurants_types, 'value');
+	public static function refreshIndex($params)
+	{
+		$connection = new \yii\db\Connection($params['main_connection_config']);
+		$connection->open();
+		Yii::$app->set('db', $connection);
 
-        $restaurants_specials = RestaurantsSpecial::find()
-            ->limit(100000)
-            ->asArray()
-            ->all($connection);
-        //$subdomens = Subdomen::find()->all();
-        $restaurants_specials = ArrayHelper::index($restaurants_specials, 'value');
+		$res = self::deleteIndex();
+		$res = self::updateMapping();
+		$res = self::createIndex();
 
-        $restaurants_extra = RestaurantsExtra::find()
-            ->limit(100000)
-            ->asArray()
-            ->all($connection);
-        //$subdomens = Subdomen::find()->all();
-        $restaurants_extra = ArrayHelper::index($restaurants_extra, 'value');
+		$pansions = PansionMain::find()
+			->with('districts')
+			->with('metros')
+			->with('networks')
+			->with('otherTypes')
+			->with('meals')
+			->with('cities')
+			->with('conditions')
+			->with('conveniencies')
+			->with('features')
+			->with('highways')
+			->with('images')
+			->with('rooms')
+			->with('entertainments')
+			->limit(100000)
+			->all();
 
-        $restaurants_spec = RestaurantsSpec::find()
-            ->limit(100000)
-            ->asArray()
-            ->all($connection);
+		$connection_local = new \yii\db\Connection($params['site_connection_config']);
+		$connection_local->open();
 
-        $restaurants_spec = ArrayHelper::index($restaurants_spec, 'id');
-        //echo '<pre>';
-        //print_r($restaurants_types);
-        //exit;
-        foreach ($restaurants as $restaurant) {
-            $res = self::addRecord($restaurant, $restaurants_types, $restaurants_spec, $restaurants_specials ,$restaurants_extra);   
-            //$all_res .= $res.'<br><br><br><br><br><br><br><br><br><br><br><br>';
-        }
-        echo 'Обновление индекса '. self::index().' '. self::type() .' завершено<br>'.$all_res;
-    }
+		$all_res = '';
 
-    public static function getTransliterationForUrl($name)
-    {
-        $latin = array('-', "Sch", "sch", 'Yo', 'Zh', 'Kh', 'Ts', 'Ch', 'Sh', 'Yu', 'ya', 'yo', 'zh', 'kh', 'ts', 'ch', 'sh', 'yu', 'ya', 'A', 'B', 'V', 'G', 'D', 'E', 'Z', 'I', 'Y', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', '', 'Y', '', 'E', 'a', 'b', 'v', 'g', 'd', 'e', 'z', 'i', 'y', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'f', '', 'y', '', 'e');
-        $cyrillic = array(' ', "Щ", "щ", 'Ё', 'Ж', 'Х', 'Ц', 'Ч', 'Ш', 'Ю', 'я', 'ё', 'ж', 'х', 'ц', 'ч', 'ш', 'ю', 'я', 'А', 'Б', 'В', 'Г', 'Д', 'Е', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Ь', 'Ы', 'Ъ', 'Э', 'а', 'б', 'в', 'г', 'д', 'е', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'ь', 'ы', 'ъ', 'э');
-        return trim(
-            preg_replace(
-                "/(.)\\1+/",
-                "$1",
-                strtolower(
-                    preg_replace(
-                        "/[^a-zA-Z0-9-]/",
-                        '',
-                        str_replace($cyrillic, $latin, $name)
-                    )
-                )
-            ),
-            '-'
-        );
-    }
+		$pens_count = count($pansions);
+		$pens_iter = 0;
+		foreach ($pansions as $pansion) {
+			$res = self::addRecord($pansion, $connection, $connection_local);
+			echo ProgressWidget::widget(['done' => $pens_iter++, 'total' => $pens_count]);
+		}
+		echo 'Обновление индекса ' . self::index() . ' ' . self::type() . ' завершено<br>' . $all_res;
+	}
 
-    public static function addRecord($restaurant, $restaurants_types, $restaurants_spec, $restaurants_specials ,$restaurants_extra){
-        $isExist = false;
-        
-        try{
-            $record = self::get($restaurant->id);
-            if(!$record){
-                $record = new self();
-                $record->setPrimaryKey($restaurant->id);
-            }
-            else{
-                $isExist = true;
-            }
-        }
-        catch(\Exception $e){
-            $record = new self();
-            $record->setPrimaryKey($restaurant->id);
-        }
+	public static function updateFilter($params)
+	{
+		$connection = new \yii\db\Connection($params['site_connection_config']);
+		$connection->open();
+		Yii::$app->set('db', $connection);
 
-        if(!$restaurant->commission){
-            return 'Не платный';
-        }
+		$filter_items = FilterItems::find()
+			->with(['filter'])
+			->all();
 
-        if(!$restaurant->subdomen->active){
-            return 'Мало ресторанов';
-        }
+		foreach ($filter_items as $filter_item) {
+			$elastic_model = new self();
+			$items = new ItemsFilterElastic([$filter_item->filter->alias => [0 => $filter_item->value]], 1, 1, false, 'restaurants', $elastic_model, false, false, false, true);
+			if ($items->total) {
+				$filter_item->active = 1;
+			} else {
+				$filter_item->active = 0;
+			}
+			$filter_item->save();
+			echo $items->total . '
+';
+		}
+	}
 
-        //Св-ва ресторана
-        $record->id = $restaurant->id;
-        $record->restaurant_commission = $restaurant->commission;
-        $record->restaurant_id = $restaurant->id;
-        $record->restaurant_gorko_id = $restaurant->gorko_id;
-        $record->restaurant_min_capacity = $restaurant->min_capacity;
-        $record->restaurant_max_capacity = $restaurant->max_capacity;
-        $record->restaurant_district = $restaurant->district;
-        $record->restaurant_parent_district = $restaurant->parent_district;
-        $record->restaurant_city_id = $restaurant->city_id;
-        $record->restaurant_alcohol = $restaurant->alcohol;
-        $record->restaurant_firework = $restaurant->firework;
-        $record->restaurant_name = $restaurant->name;
-        $record->restaurant_address = $restaurant->address;
-        $record->restaurant_cover_url = $restaurant->cover_url;
-        $record->restaurant_latitude = $restaurant->latitude;
-        $record->restaurant_longitude = $restaurant->longitude;
-        $record->restaurant_own_alcohol = $restaurant->own_alcohol;
-        $record->restaurant_own_alcohol_id = $restaurant->alcohol;
-        $record->restaurant_cuisine = $restaurant->cuisine;
-        $record->restaurant_parking = $restaurant->parking;
-        $record->restaurant_extra_services = $restaurant->extra_services;
-        $record->restaurant_payment = $restaurant->payment;
-        $record->restaurant_special = $restaurant->special;
-        $record->restaurant_phone = $restaurant->phone;
+	public static function getTransliterationForUrl($name)
+	{
+		$name = preg_replace('/[^ a-zа-яё\d]/ui', '', $name);
+		$latin = array('-', "Sch", "sch", 'Yo', 'Zh', 'Kh', 'Ts', 'Ch', 'Sh', 'Yu', 'ya', 'yo', 'zh', 'kh', 'ts', 'ch', 'sh', 'yu', 'ya', 'A', 'B', 'V', 'G', 'D', 'E', 'Z', 'I', 'Y', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', '', 'Y', '', 'E', 'a', 'b', 'v', 'g', 'd', 'e', 'z', 'i', 'y', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'f', '', 'y', '', 'e');
+		$cyrillic = array(' ', "Щ", "щ", 'Ё', 'Ж', 'Х', 'Ц', 'Ч', 'Ш', 'Ю', 'я', 'ё', 'ж', 'х', 'ц', 'ч', 'ш', 'ю', 'я', 'А', 'Б', 'В', 'Г', 'Д', 'Е', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Ь', 'Ы', 'Ъ', 'Э', 'а', 'б', 'в', 'г', 'д', 'е', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'ь', 'ы', 'ъ', 'э');
+		return trim(
+			preg_replace(
+				"/(.)\\1+/",
+				"$1",
+				strtolower(
+					str_replace(
+						" ",
+						"-",
+						$name
+					)
+				)
+			),
+			'-'
+		);
+	}
 
-        //Картинки ресторана
-        $images = [];
-        foreach ($restaurant->images as $key => $image) {
-            $image_arr = [];
-            $image_arr['id'] = $image->id;
-            $image_arr['sort'] = $image->sort;
-            $image_arr['realpath'] = $image->realpath;
-            $image_arr['subpath'] = $image->subpath ? $image->subpath : $image->realpath;
-            $image_arr['waterpath'] = $image->waterpath ? $image->waterpath : $image->realpath;
-            $image_arr['timestamp'] = $image->timestamp;
-            array_push($images, $image_arr);
-        }
-        $record->restaurant_images = $images;
+	public static function addRecord($pansion, $connection, $connection_local)
+	{
+		$isExist = false;
 
-        //Тип мероприятия
-        $restaurant_spec = [];
-        $restaurant_spec_rest = explode(',', $restaurant->restaurants_spec);
-        
-        foreach ($restaurant_spec_rest as $key => $value) {
-            $restaurant_spec_arr = [];
-            $restaurant_spec_arr['id'] = $value;
-            $restaurant_spec_arr['name'] = isset($restaurants_spec[$value]['name']) ? $restaurants_spec[$value]['name'] : '';
-            array_push($restaurant_spec, $restaurant_spec_arr);
-        }
+		try {
+			// $record = self::get($restaurant->id);
+			$record = self::get($pansion->id);
+			if (!$record) {
+				$record = new self();
+				// $record->setPrimaryKey($restaurant->id);
+				$record->setPrimaryKey($pansion->id);
+			} else {
+				$isExist = true;
+			}
+		} catch (\Exception $e) {
+			$record = new self();
+			// $record->setPrimaryKey($restaurant->id);
+			$record->setPrimaryKey($pansion->id);
+		}
 
-        $record->restaurant_spec = $restaurant_spec;
+		Yii::$app->set('db', $connection);
 
-        //Тип помещения
-        $restaurant_types = [];
-        $restaurant_types_rest = explode(',', $restaurant->type);
-        foreach ($restaurant_types_rest as $key => $value) {
-            $restaurant_types_arr = [];
-            $restaurant_types_arr['id'] = $value;
-            $restaurant_types_arr['name'] = isset($restaurants_types[$value]['text']) ? $restaurants_types[$value]['text'] : '';
-            array_push($restaurant_types, $restaurant_types_arr);
-        }
-        $record->restaurant_types = $restaurant_types;
+		$record->id = $pansion->id;
+		$record->pansion_id = $pansion->pansion_id;
+		$record->pansion_name = $pansion->name;
+		$record->pansion_url = $pansion->url;
+		$record->pansion_price = $pansion->price;
+		$record->pansion_price_old = $pansion->price_old;
+		$record->pansion_address = $pansion->address;
+		$record->pansion_latitude = $pansion->latitude;
+		$record->pansion_longitude = $pansion->longitude;
+		$record->pansion_armed_bed = $pansion->armed_bed;
+		$record->pansion_review_yandex = $pansion->review_yandex;
+		$record->pansion_our = $pansion->our;
 
-        //Особенности
-        $restaurant_specials = [];
-        $restaurant_specials_rest = explode(',', $restaurant->special_ids);
-        foreach ($restaurant_specials_rest as $key => $value) {
-            $restaurant_specials_arr = [];
-            $restaurant_specials_arr['id'] = $value;
-            $restaurant_specials_arr['name'] = isset($restaurants_specials[$value]['text']) ? $restaurants_specials[$value]['text'] : '';
-            array_push($restaurant_specials, $restaurant_specials_arr);
-        }
-        $record->restaurant_specials = $restaurant_specials;
+		//Районы
+		$districts = [];
+		foreach ($pansion->districts as $district) {
+			$district_arr = [];
+			$district_arr['id'] = $district->district_id;
+			$district_arr['name'] = $district->name;
+			array_push($districts, $district_arr);
+		}
+		$record->pansion_district = $districts;
 
-        //Extra
-        $restaurant_extra = [];
-        $restaurant_extra_rest = explode(',', $restaurant->extra_services_ids);
-        foreach ($restaurant_extra_rest as $key => $value) {
-            $restaurant_extra_arr = [];
-            $restaurant_extra_arr['id'] = $value;
-            $restaurant_extra_arr['name'] = isset($restaurants_extra[$value]['text']) ? $restaurants_extra[$value]['text'] : '';
-            array_push($restaurant_extra, $restaurant_extra_arr);
-        }
-        $record->restaurant_extra = $restaurant_extra;
+		//Метро
+		$metros = [];
+		foreach ($pansion->metros as $metro) {
+			$metro_arr = [];
+			$metro_arr['id'] = $metro->metro_id;
+			$metro_arr['name'] = $metro->name;
+			array_push($metros, $metro_arr);
+		}
+		$record->pansion_metro = $metros;
 
-        //Тип локации
-        $restaurant_location = [];
-        $restaurant_location_rest = explode(',', $restaurant->location);
-        foreach ($restaurant_location_rest as $key => $value) {
-            $restaurant_location_arr = [];
-            $restaurant_location_arr['id'] = $value;
-            array_push($restaurant_location, $restaurant_location_arr);
-        }
-        $record->restaurant_location = $restaurant_location;
+		//Сеть пансионата
+		$networks = [];
+		foreach ($pansion->networks as $network) {
+			$network_arr = [];
+			$network_arr['id'] = $network->network_id;
+			$network_arr['name'] = $network->name;
+			array_push($networks, $network_arr);
+		}
+		$record->pansion_network = $networks;
 
-        if ($row = (new \yii\db\Query())->select('slug')->from('restaurant_slug')->where(['gorko_id' => $restaurant->gorko_id])->one()) {
-            $record->restaurant_slug = $row['slug'];
-        } else {
-            $record->restaurant_slug = self::getTransliterationForUrl($restaurant->name);
-            \Yii::$app->db->createCommand()->insert('restaurant_slug', ['gorko_id' => $restaurant->gorko_id, 'slug' =>  $record->restaurant_slug])->execute();
-        }
+		//Тип пансионата
+		$sorts = [];
+		foreach ($pansion->otherTypes as $type) {
+			$type_arr = [];
+			$type_arr['id'] = $type->type_id;
+			$type_arr['name'] = $type->name;
+			array_push($sorts, $type_arr);
+		}
+		$record->pansion_type = $sorts;
 
-        //Св-ва залов
-        $rooms = [];
-        $restaurant_price = 9999999999;
-        foreach ($restaurant->rooms as $key => $room) {
-            $room_arr = [];
-            $room_arr['id'] = $room->id;
-            $room_arr['gorko_id'] = $room->gorko_id;
-            $room_arr['restaurant_id'] = $room->restaurant_id;
-            $room_arr['capacity_reception'] = $room->capacity_reception;
-            $room_arr['capacity'] = $room->capacity;
-            $room_arr['type'] = $room->type;
-            $room_arr['rent_only'] = $room->rent_only;
-            $room_arr['banquet_price'] = $room->banquet_price;
-            $room_arr['bright_room'] = $room->bright_room;
-            $room_arr['separate_entrance'] = $room->separate_entrance;
-            $room_arr['type_name'] = $room->type_name;
-            $room_arr['name'] = $room->name;
-            $room_arr['features'] = $room->features;
-            $room_arr['cover_url'] = $room->cover_url;
-            $room_arr['price'] = $room->price;
-            if(($room->price < $restaurant_price) and $room->price)
-                $restaurant_price = $room->price;
+		//Приемы пищи
+		$meals = [];
+		foreach ($pansion->meals as $meal) {
+			$meal_arr = [];
+			$meal_arr['id'] = $meal->meal_id;
+			$meal_arr['name'] = $meal->name;
+			array_push($meals, $meal_arr);
+		}
+		$record->pansion_meal = $meals;
 
-            //Картинки залов
-            $images = [];
-            foreach ($room->images as $key => $image) {
-                $image_arr = [];
-                $image_arr['id'] = $image->id;
-                $image_arr['sort'] = $image->sort;
-                $image_arr['realpath'] = $image->realpath;
-                $image_arr['subpath'] = $image->subpath ? $image->subpath : $image->realpath;
-                $image_arr['waterpath'] = $image->waterpath ? $image->waterpath : $image->realpath;
-                $image_arr['timestamp'] = $image->timestamp;
-                array_push($images, $image_arr);
-            }
-            $room_arr['images'] = $images;
+		//Города
+		$cities = [];
+		foreach ($pansion->cities as $key => $city) {
+			$city_arr = [];
+			$city_arr['id'] = $city->city_id;
+			$city_arr['name'] = $city->name;
+			array_push($cities, $city_arr);
+		}
+		$record->pansion_cities = $cities;
 
-            array_push($rooms, $room_arr);
-        }
-        $record->rooms = $rooms;
+		//Состояние пожилого
+		$conditions = [];
+		foreach ($pansion->conditions as $condition) {
+			$condition_arr = [];
+			$condition_arr['id'] = $condition->condition_id;
+			$condition_arr['name'] = $condition->name;
+			array_push($conditions, $condition_arr);
+		}
+		$record->pansion_conditions = $conditions;
 
-        $record->restaurant_price = $restaurant_price;
+		//Удобства
+		$conveniencies = [];
+		foreach ($pansion->conveniencies as $convenience) {
+			$convenience_arr = [];
+			$convenience_arr['id'] = $convenience->convenience_id;
+			$convenience_arr['name'] = $convenience->name;
+			array_push($conveniencies, $convenience_arr);
+		}
+		$record->pansion_conveniencies = $conveniencies;
+
+		//Развлечения
+		$entertainments = [];
+		foreach ($pansion->entertainments as $entertainment) {
+			$entertainment_arr = [];
+			$entertainment_arr['id'] = $entertainment->entertainment_id;
+			$entertainment_arr['name'] = $entertainment->name;
+			array_push($entertainments, $entertainment_arr);
+		}
+		$record->pansion_entertainments = $entertainments;
+
+		//Особенности
+		$features = [];
+		foreach ($pansion->features as $feature) {
+			$feature_arr = [];
+			$feature_arr['id'] = $feature->feature_id;
+			$feature_arr['name'] = $feature->name;
+			array_push($features, $feature_arr);
+		}
+		$record->pansion_features = $features;
+
+		//Шоссе
+		$highways = [];
+		foreach ($pansion->highways as $highway) {
+			$highway_arr = [];
+			$highway_arr['id'] = $highway->highway_id;
+			$highway_arr['name'] = $highway->name;
+			array_push($highways, $highway_arr);
+		}
+		$record->pansion_highways = $highways;
+
+		//Картинки пансионата
+		// $images = [];
+		// foreach ($pansion->images as $image) {
+		// 	if (!$image->img_d)
+		// 		continue;
+		// 	$image_arr = [];
+		// 	$file_type = '.' . pathinfo($image->img_path, PATHINFO_EXTENSION);
+		// 	$file_name_trim = basename($image->img_path, $file_type);
+		// 	$image_arr['path'] = '/img_d/webp/' . $pansion->pansion_id . '/' . $file_name_trim . '.webp';
+		// 	$image_arr['path_thumb'] = '/img_d/webp-thumb/' . $pansion->pansion_id . '/' . $file_name_trim . '.webp';
+		// 	$image_arr['path_catalog'] = '/img_d/webp-thumb-catalog/' . $pansion->pansion_id . '/' . $file_name_trim . '.webp';
+		// 	$image_arr['path_swiper'] = '/img_d/webp-thumb-swiper/' . $pansion->pansion_id . '/' . $file_name_trim . '.webp';
+		// 	array_push($images, $image_arr);
+		// }
+		// $record->pansion_images = $images;
+
+		//Количество мест в комнате
+		$rooms = [];
+		foreach ($pansion->rooms as $room) {
+			$room_arr = [];
+			$room_arr['id'] = $room->room_id;
+			$room_arr['size'] = $room->room_size;
+			array_push($rooms, $room_arr);
+		}
+		$record->pansion_rooms = $rooms;
+
+		//Особенности для фильтра
+		$specials = [];
+		foreach ($pansion->features as $feature) {
+			$feature_specials_arr = [
+				1 => 1,
+				3 => 2,
+				4 => 3,
+				5 => 4,
+				6 => 5
+			];
+			if (array_key_exists($feature->feature_id, $feature_specials_arr)) {
+				$special_arr = [];
+				$special_arr['id'] = $feature_specials_arr[$feature->feature_id];
+				$special_arr['name'] = $feature->name;
+				array_push($specials, $special_arr);
+			}
+		}
+		foreach ($pansion->conditions as $condition) {
+			$condition_specials_arr = [
+				1658 => 6,
+				571  => 7
+			];
+			if (array_key_exists($condition->condition_id, $condition_specials_arr)) {
+				$special_arr = [];
+				$special_arr['id'] = $condition_specials_arr[$condition->condition_id];
+				$special_arr['name'] = $condition->name;
+				array_push($specials, $special_arr);
+			}
+		}
+		foreach ($pansion->meals as $meal) {
+			$meal_specials_arr = [4 => 8];
+			if (array_key_exists($meal->meal_id, $meal_specials_arr)) {
+				$special_arr = [];
+				$special_arr['id'] = $meal_specials_arr[$meal->meal_id];
+				$special_arr['name'] = $meal->name;
+				array_push($specials, $special_arr);
+			}
+		}
+		if ($pansion->armed_bed == 1) {
+			$specials[] = ['id' => 9, 'name' => 'Армед кровати для лежачих'];
+		}
+		$record->pansion_specials = $specials;
+
+		//Основной тип пансионата
+		$types = [];
+		$main_types = PansionTypeVia::find()
+			->where(['pansion_id' => $pansion->pansion_id])
+			->with('type')
+			->all();
+		foreach ($main_types as $key => $type) {
+			$types_arr = [];
+			$types_arr['id'] = $type->type_id;
+			$types_arr['name'] = $type->type->name;
+			array_push($types, $types_arr);
+		}
+		$record->pansion_types = $types;
+
+		//Отзывы с Яндекса из общей базы
+		$reviews = [];
+		$reviews['id'] = $pansion->rev_ya_id;
+		$reviews['rate'] = $pansion->rev_ya_rate;
+		$reviews['count'] = $pansion->rev_ya_count;
+		//$record->pansion_rev_ya = $reviews;
+
+		//подключение к локальной БД
+		Yii::$app->set('db', $connection_local);
+
+		$pansion_local = Pansion::find()
+			->where(['pansion_id' => $pansion->pansion_id])
+			->one();
+
+		//Отзывы с Яндекса "активность" из локальной базы
+		$reviews['active'] = $pansion_local->rev_ya_active;
+		$record->pansion_rev_ya = $reviews;
 
 
-        
-        try{
-            if(!$isExist){
-                $result = $record->insert();
-            }
-            else{
-                $result = $record->update();
-            }
-        }
-        catch(\Exception $e){
-            $result = $e;
-        }
-        
-        return $result;
-    }
+		//Картинки пансионата
+		$images = [];
+		// foreach ($pansion->images as $image) {
+		foreach ($pansion_local->images as $image) {
+			if (!$image->img_d)
+				continue;
+			$image_arr = [];
+			// $file_type = '.' . pathinfo($image->img_path, PATHINFO_EXTENSION);
+			$file_type = '.' . pathinfo($image->img_d, PATHINFO_EXTENSION);
+			// $file_name_trim = basename($image->img_path, $file_type);
+			$file_name_trim = basename($image->img_d, $file_type);
+			$image_arr['path'] = '/img_d/webp/' . $pansion->pansion_id . '/' . $file_name_trim . '.webp';
+			$image_arr['path_thumb'] = '/img_d/webp-thumb/' . $pansion->pansion_id . '/' . $file_name_trim . '.webp';
+			$image_arr['path_catalog'] = '/img_d/webp-thumb-catalog/' . $pansion->pansion_id . '/' . $file_name_trim . '.webp';
+			$image_arr['path_swiper'] = '/img_d/webp-thumb-swiper/' . $pansion->pansion_id . '/' . $file_name_trim . '.webp';
+			array_push($images, $image_arr);
+		}
+		$record->pansion_images = $images;
+
+		// restaurant slug
+		if ($row = (new \yii\db\Query())->select('slug')->from('pansion_slug')->where(['pansion_id' => $pansion->pansion_id])->one()) {
+			$record->pansion_slug = $row['slug'];
+		} else {
+			$record->pansion_slug = self::getTransliterationForUrl($pansion->name);
+			\Yii::$app->db->createCommand()->insert('pansion_slug', ['pansion_id' => $pansion->pansion_id, 'slug' =>  $record->pansion_slug])->execute();
+		}
+
+		try {
+			if (!$isExist) {
+				$result = $record->insert();
+			} else {
+				$result = $record->update();
+			}
+		} catch (\Exception $e) {
+			$result = $e;
+			echo $result;
+		}
+
+		return $result;
+	}
 }

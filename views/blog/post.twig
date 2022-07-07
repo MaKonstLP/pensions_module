@@ -1,144 +1,505 @@
-<div data-page-type="post">
+<div class="article" data-page-type="post">
 
-  	<a class="post back_to_blog_list" href="/blog/">Выпускной вечер 2020 &#8594; Блог</a>
-	  
-	<div class="post_wrapper">
+	{# <div class="content_block" data-listing-title>
+		{{ this.render('//components/generic/title.twig', {'seo':seo, 'breadcrumbs':breadcrumbs}) | raw }}
+	</div> #}
 
-		<h1>{{ post.name}}</h1>
+	<div class="container">
+		<div class="breadcrumbs">
+			<div class="breadcrumbs_item">
+				<a href="/">
+					<span><img src="/image/icons/breadcrump_home.svg" alt=""></span>
+				</a>
+			</div>
+			<div class="breadcrumbs_item">
+				<a href="/Статьи">
+					<span>Блог</span>
+				</a>
+			</div>
+		</div>
+		<div class="title">
+			{% if seo.heading %}
+				<h1>{{ seo.heading }}</h1>
+			{% else %}
+				<h1>{{ post.name }}</h1>
+			{% endif %}
+			<div class="title__date">{{post.rusDate}}</div>
+		</div>
 		
-		<img class="blog_post_img" src="/image/slider_pic.png" alt="blog article image">
-
-		<div class="comments" style="display: none;">
-
-			<figure>
-				
-			</figure>
-
-		</div>
-
-		{{ post.getHtml()|raw}}
-
-		{# НОВЫЙ СЛАЙДЕР НАЧАЛО #}
-
-		<div class="post_gallery_wrapper">
-
-			<div class="swiper-container post_gallery">
-				<div class="swiper-wrapper">
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-				</div>
-				<div class="swiper-button-prev"></div>
-				<div class="swiper-button-next"></div>
-				<div class="post-swiper-pagination swiper-pagination"></div>
+		{# <img class="blog_post_img" src="{{ post.getFileData('image').src }}" alt="{{seo.media['header-image']|first.alt}}"> #}
+		
+		<div class="post_wrapper post__wrap seo">
+			<div class="post__container">
+				{{ preview ? post.getBodyHtml()|raw : post.getHtml([1])|raw }}
 			</div>
 
-			<div class="swiper-container gallery-thumbs">
-				<div class="first_slide_gradient _hide"></div>
-				<div class="swiper-wrapper">
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
+			<div class="article__side-block" data-da="article__container,12,1024" data-da-index="1">
+				<img src="{{ post.getFilesData('image')[1].src }}">
+				<div class="article__side-block-text">
+					{{seo.text2|raw}}
 				</div>
-				<div class="last_slide_gradient"></div>
+				{# <a href="#" class="article__side-block-btn _btn">Подробнее</a> #}
+				<div class="article__side-block-btn _btn">{{seo.text3|raw}}</div>
 			</div>
 
 		</div>
 
-		<div class="post_images_wrapper">
-
-			<div class="swiper-container post_images">
-				<div class="swiper-wrapper">
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-					<div class="swiper-slide">
-						<a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="/image/post.svg" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-					</div>
-				</div>
-				<div class="swiper-button-prev"></div>
-				<div class="swiper-button-next"></div>
-				<div class="post-swiper-pagination swiper-pagination"></div>
+		<div class="article__similar seo">
+			<h2>Похожие статьи</h2>
+			<div class="blog__list">
+				{% for similarPost in similarPosts %}
+					<a href="/Статьи/{{ similarPost.alias }}" class="blog__item">
+						<div class="blog__item-image">
+							<img class="another_posts_img" src="{{ similarPost.getFileData('image').src }}">
+						</div>
+						<div class="blog__item-name">{{ similarPost.name }}</div>
+						{# <div class="blog__item-date">{{ similarPost.published_at }}</div> #}
+						<div class="blog__item-date">{{ similarPost.rusDate }}</div>
+					</a>
+				{% endfor %}
 			</div>
-
 		</div>
 
-		{# НОВЫЙ СЛАЙДЕР КОНЕЦ #}
 
-		<div class="another_posts">
+		{# <div class="content_block form_booking_wrapper form_booking_popup _hide">
+			{{ this.render('//components/generic/form_booking_header.twig', {'items':other_rooms, 'city_dec':city_dec}) | raw }}
+		</div> #}
+	</div>
+</div>
+{{ this.render('//components/generic/form_booking.twig') | raw }}
 
-			<h5>Возможно будет интересно</h5>
-			<div class="another_posts_row">
-				<a href="#" class="another_posts_link">
-					<img class="another_posts_img" src="/image/listing_card_photo.svg" alt="blog article image">
-					<p>Познакомьтесь с людьми, которые вложили деньги в «Кэшбери»</p>
-				</a>
-				<a href="#" class="another_posts_link">
-					<img class="another_posts_img" src="/image/listing_card_photo.svg" alt="blog article image">
-					<p>Сколько стоит отдохнуть в Грузии</p>
-				</a>
-				<a href="#" class="another_posts_link">
-					<img class="another_posts_img" src="/image/listing_card_photo.svg" alt="blog article image">
-					<p>Хочу купить билет на чартерный рейс. Можно ли это сделать самостоятельно?</p>
+{# <div class="article" data-page-type="post">
+	<div class="container">
+		<div class="breadcrumbs">
+			<div class="breadcrumbs_item">
+				<a href="/">
+					<span><img src="/image/icons/breadcrump_home.svg" alt=""></span>
 				</a>
 			</div>
+			<div class="breadcrumbs_item">
+				<a href="/ideas">
+					<span>Блог</span>
+				</a>
+			</div>
+		</div>
+		<div class="title">
+			<h1>Пневмония у пожилых людей — причины и лечение</h1>
+			<div class="title__date">22 февраля 2022</div>
+		</div>
 
+		<div class="article__wrap seo">
+			<div class="article__container">
+				<h3>Содержание</h3>
+				<div class="contents">
+					<a href="#"><span>Чем опасна пневмония в пожилом возрасте</span></a>
+					<a href="#"><span>Факторы и группы риска</span></a>
+					<a href="#"><span>Симптомы пневмонии и диагностика</span></a>
+					<a href="#"><span>Лечение и реабилитация</span></a>
+					<a href="#"><span>Возможные осложнения</span></a>
+					<a href="#"><span>Короновирусная инфекция и пневмония</span></a>
+				</div>
+				<p>
+					Располагающийся на западе Рузский район, помимо различных социальных объектов инфраструктуры,
+					служит территорией для большого числа пансионатов для пожилых людей. Пансионаты для пожилых
+					Рузского района привлекательны для жителей западных областей Москвы и области, а также для
+					других частей мегаполиса. Транспортная доступность, чистота и экология Рузского района служат
+					причинами для размещения пожилых людей в местных пансионатах. Основной достопримечательностью
+					Рузского района является река Руза с ее немногочисленными притоками.
+				</p>
+				<p>
+					Пансионаты для пожилых, расположенные в Рузском районе, оказывают пациентам полный комплекс
+					услуг по оздоровлению, проживанию, реабилитации и общей терапии. Дома престарелых Рузского
+					района приспособлены и имеют всю необходимую оснастку для размещения лежачих пациентов и пожилых
+					людей со сложными формами патологий, в том числе с психическими отклонениями. Персонал таких
+					учреждений имеет высокую квалификацию и богатый опыт в уходе за пожилыми людьми. Спектр
+					предоставляемых услуг включает в себя:
+				</p>
+				<h2>Факторы и группы риска</h2>
+				<p>
+					Двусторонней пневмонии подвержены, в первую очередь, лежачие пенсионеры. Постоянное нахождение в
+					горизонтальном положении затрудняет отхождение мокроты в лёгких. В альвеолах, которые участвуют
+					в процессе дыхания, нарушается газообмен. Жидкость проникает в альвеолы и приводит к воспалению.
+				</p>
+				<p>
+					При пневмонии страдают лёгочные ткани. В группу риска входят молодые и пожилые люди, зависимые
+					от курения. Сажа и дёготь от табачного дыма оседают в большом количестве в дыхательных путях.
+					Избыточная слизь в лёгких курящих становится рассадником инфекций.
+				</p>
+				<h3>Проявление, основные симптомы и диагностика</h3>
+				<p>
+					Признаки бактериальной и вирусной пневмонии несколько отличаются друг от друга, но в целом,
+					напоминают симптомы гриппа и простуды. Если у близкого человека наблюдаются подобные нарушения,
+					не нужно откладывать визит к врачу даже на несколько дней.
+				</p>
+				<p>
+					От недостатка кислорода больной старается дышать глубже, но каждый вдох приносит резкую боль.
+					Периодически пенсионеру кажется, что ему не хватает воздуха.
+				</p>
+				<ul>
+					<li>Проживание в удобных номерах, оснащенных всем необходимым;</li>
+					<li>Многоразовое диетическое питание, подбор рациона;</li>
+					<li>Уход, медицинское обслуживание, круглосуточный присмотр;</li>
+					<li>Досуг, праздники, развлечения, мероприятия;</li>
+					<li>Свидания с родными и близкими.</li>
+				</ul>
+				<p>
+					Наибольшую угрозу короновирусная инфекция представляет для людей пожилого возраста с
+					хроническими заболеваниями сердечно-сосудистой системы, сахарным диабетом, онкологией,
+					патологией лёгких.
+				</p>
+				<h4>Лечение и реабилитация</h4>
+				<p>
+					Терапию пневмонии бактериального происхождения составляют антибиотики. Препараты подбирают,
+					исходя из анализов отделяемой мокроты, чувствительности возбудителя к определённой группе
+					лекарств. Не рекомендуется больному самостоятельно выбирать медикаменты. Из-за неверной тактики
+					лечения, болезнь переходит в хроническую форму, не поддаётся излечению и даёт осложнения.
+				</p>
+				<p>
+					В схему лечения вирусной пневмонии включаются противовирусные препараты, интерферон, средства,
+					облегчающие симптомы и препятствующие осложнениям.
+				</p>
+				<ol>
+					<li>Проживание в удобных номерах, оснащенных всем необходимым;</li>
+					<li>Многоразовое диетическое питание, подбор рациона;</li>
+					<li>Уход, медицинское обслуживание, круглосуточный присмотр;</li>
+					<li>Досуг, праздники, развлечения, мероприятия;</li>
+					<li>Свидания с родными и близкими.</li>
+				</ol>
+				<p>
+					COVID-19 – инфекция, вызванная короновирусом, который до 2020 года не выявлялся у человека.
+					Симптоматика в большинстве случае неярко выражена: сухой кашель, повышение температуры тела на
+					1-2 градуса, чувство утомления.
+				</p>
+				<h5>Лечение и реабилитация</h5>
+				<p>
+					Если появляется бронхоспазм, врач назначает бронхолитики для расширения просвета дыхательных
+					путей и облегчения дыхания. В тяжёлых случаях, при заболевании COVID-19, больного подключают к
+					ИВЛ (искусственной вентиляции лёгких).
+				</p>
+				<p>
+					После лечения от пневмонии и COVID-19 рекомендуется пройти курс реабилитации. Программа
+					восстановления должна включать: дыхательную гимнастику, ЛФК, массаж, плавание, иммунотерапию.
+				</p>
+				<div class="photo-big">
+					<div class="photo-big__img">
+						<img src="/image/article/01.jpg" alt="">
+					</div>
+					<p>Подпись к фото</p>
+				</div>
+				<p>
+					Все пансионаты и центры, с которыми мы сотрудничаем, организуют грамотный уход за каждым
+					постояльцем, комфортные условия проживания и интересный досуг, а также готовы прийти на помощь в
+					любую минуту. Сотрудники пансионатов ежедневно мониторят состояние здоровья пожилых людей,
+					измеряют давление и температуру. Все проживающие находятся под контролем специалистов 24/7, так
+					как люди пожилого возраста требуют особых условий проживания и ухода.
+				</p>
+				<p>
+					Если вы не можете обеспечить близкому человеку должный уход, особенно в случае наличия тяжелых
+					заболеваний и инвалидности, обратитесь за помощью к профессионалам. Мы поможем вам подобрать
+					достойный пансионат или дом-интернат для инвалидов и пожилых лежачих людей в своем городе.
+					Поместив близкого человека в дом престарелых, вы можете быть уверены в том, что он окружен
+					вниманием и заботой, за ним ведется грамотный квалифицированный уход.
+				</p>
+				<div class="photo-middle">
+					<div class="photo-middle__img">
+						<img src="/image/article/02.jpg" alt="">
+					</div>
+					<p>Подпись к фото</p>
+				</div>
+				<p>
+					Все пансионаты и центры, с которыми мы сотрудничаем, организуют грамотный уход за каждым
+					постояльцем, комфортные условия проживания и интересный досуг, а также готовы прийти на помощь в
+					любую минуту. Сотрудники пансионатов ежедневно мониторят состояние здоровья пожилых людей,
+					измеряют давление и температуру. Все проживающие находятся под контролем специалистов 24/7, так
+					как люди пожилого возраста требуют особых условий проживания и ухода.
+				</p>
+				<p>
+					Если вы не можете обеспечить близкому человеку должный уход, особенно в случае наличия тяжелых
+					заболеваний и инвалидности, обратитесь за помощью к профессионалам. Мы поможем вам подобрать
+					достойный пансионат или дом-интернат для инвалидов и пожилых лежачих людей в своем городе.
+					Поместив близкого человека в дом престарелых, вы можете быть уверены в том, что он окружен
+					вниманием и заботой, за ним ведется грамотный квалифицированный уход.
+				</p>
+
+				<div class="listing">
+					{{ this.render('//components/generic/listing.twig', {'items':items}) | raw }}
+				</div>
+
+				<h5>Чем отличаются патронаж, попечительство, опека</h5>
+				<p>
+					Условия услуги накладывают ряд ограничений. Подопечный без разрешения опекуна не сможет открыть
+					банковский счёт и совершать какие-либо действия с вкладами. Он также не должен тратить выплаты,
+					которые выделяются на его содержание: пенсию, алименты от детей. Но при наличии дополнительного
+					дохода, пожилой человек вправе распоряжаться им по своему усмотрению.
+				</p>
+				<div class="attention-block">
+					Если вы ищете достоверный рейтинг пансионатов для пожилых людей в вашем городе, зайдите на сайт
+					vsepansionati.ru. Здесь вы получите ответы на самые распространенные вопросы, связанные с
+					выбором пансионата, сможете посмотреть, как выглядит тот или иной дом престарелых, а также
+					определиться с критериями выбора организации.
+				</div>
+				<h4>Оформление опекунства</h4>
+				<p>
+					Условия услуги накладывают ряд ограничений. Подопечный без разрешения опекуна не сможет открыть
+					банковский счёт и совершать какие-либо действия с вкладами. Он также не должен тратить выплаты,
+					которые выделяются на его содержание: пенсию, алименты от детей. Но при наличии дополнительного
+					дохода, пожилой человек вправе распоряжаться им по своему усмотрению.
+				</p>
+				<p>
+					Патронаж устанавливается для престарелого человека, не имеющего нарушений психики, который
+					отвечает за свои действия, поступки, способен совершать различные сделки, но периодически
+					нуждается в помощи со стороны. В этом случае куратор не имеет права контролировать выплаты и
+					финансы стариков.
+				</p>
+
+				<div class="article__slider">
+					<div class="swiper article__slider-slider">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide article__slider-slide">
+								<img src="/image/article/slider01.jpg" />
+							</div>
+							<div class="swiper-slide article__slider-slide">
+								<img src="/image/article/slider02.jpg" />
+							</div>
+							<div class="swiper-slide article__slider-slide">
+								<img src="/image/article/slider03.jpg" />
+							</div>
+							<div class="swiper-slide article__slider-slide">
+								<img src="/image/article/slider04.jpg" />
+							</div>
+							<div class="swiper-slide article__slider-slide">
+								<img src="/image/article/slider05.jpg" />
+							</div>
+							<div class="swiper-slide article__slider-slide">
+								<img src="/image/article/slider06.jpg" />
+							</div>
+						</div>
+						<div class="article__slider-next">
+							<img src="/image/icons/slider_arrow.svg" alt="">
+						</div>
+						<div class="article__slider-prev">
+							<img src="/image/icons/slider_arrow.svg" alt="">
+						</div>
+					</div>
+					<div class="article__slider-pagination swiper-pagination"></div>
+					<div class="swiper article__slider-thumb">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide article__slider-thumb-slide">
+								<img src="/image/article/slider01.jpg" />
+							</div>
+							<div class="swiper-slide article__slider-thumb-slide">
+								<img src="/image/article/slider02.jpg" />
+							</div>
+							<div class="swiper-slide article__slider-thumb-slide">
+								<img src="/image/article/slider03.jpg" />
+							</div>
+							<div class="swiper-slide article__slider-thumb-slide">
+								<img src="/image/article/slider04.jpg" />
+							</div>
+							<div class="swiper-slide article__slider-thumb-slide">
+								<img src="/image/article/slider05.jpg" />
+							</div>
+							<div class="swiper-slide article__slider-thumb-slide">
+								<img src="/image/article/slider06.jpg" />
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="images-block">
+					<div class="images-block__item">
+						<img src="/image/article/01.jpg" alt="">
+					</div>
+					<div class="images-block__item">
+						<img src="/image/article/04.jpg" alt="">
+					</div>
+				</div>
+				<h3>Виды платного патронажа</h3>
+				<p>
+					Если пожилой человек является инвалидом I группы, ему требуется круглосуточный уход. В этом
+					случае помощнику полагаются денежные выплаты от государства. Ему нужно с заявлением обратиться в
+					местные органы социальной защиты, собрать справки. Период исполнения опекунских обязанностей
+					войдёт в общий трудовой стаж, будет учитываться при начислении пенсии.
+				</p>
+				<h2>Сиделка или пансионат</h2>
+				<div class="comparison">
+					<table>
+						<tbody>
+							<tr class="comparison__head">
+								<th></th>
+								<th class="comparison__head-first-col">Сиделка с проживанием</th>
+								<th class="comparison__head-second-col">Пансионат</th>
+							</tr>
+							<tr class="comparison__body-row">
+								<td class="comparison__body-title">Общение со сверстниками</td>
+								<td class="comparison__body-col"><span>—</span></td>
+								<td class="comparison__body-col comparison__body-col_check"><span></span></td>
+							</tr>
+							<tr class="comparison__body-row">
+								<td class="comparison__body-title">
+									Занятия на мелкую моторику, поделки, настольные игры, рисование
+								</td>
+								<td class="comparison__body-col"><span>—</span></td>
+								<td class="comparison__body-col comparison__body-col_check"><span></span></td>
+							</tr>
+							<tr class="comparison__body-row">
+								<td class="comparison__body-title">Регулярный контроль здоровья</td>
+								<td class="comparison__body-col"><span>—</span></td>
+								<td class="comparison__body-col comparison__body-col_check"><span></span></td>
+							</tr>
+							<tr class="comparison__body-row">
+								<td class="comparison__body-title">Приглашенные аниматоры</td>
+								<td class="comparison__body-col comparison__body-col_check"><span></span></td>
+								<td class="comparison__body-col comparison__body-col_check"><span></span></td>
+							</tr>
+							<tr class="comparison__body-row">
+								<td class="comparison__body-title">Выездные экскурсии</td>
+								<td class="comparison__body-col"><span>—</span></td>
+								<td class="comparison__body-col comparison__body-col_check"><span></span></td>
+							</tr>
+							<tr class="comparison__body-row">
+								<td class="comparison__body-title">Празднование дней рождения</td>
+								<td class="comparison__body-col"><span>—</span></td>
+								<td class="comparison__body-col comparison__body-col_check"><span></span></td>
+							</tr>
+							<tr class="comparison__body-row">
+								<td class="comparison__body-title">Празднование церковных праздников</td>
+								<td class="comparison__body-col"><span>—</span></td>
+								<td class="comparison__body-col comparison__body-col_check"><span></span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<h3>Проявление, основные симптомы и диагностика</h3>
+				<p>
+					Условия услуги накладывают ряд ограничений. Подопечный без разрешения опекуна не сможет открыть
+					банковский счёт и совершать какие-либо действия с вкладами. Он также не должен тратить выплаты,
+					которые выделяются на его содержание: пенсию, алименты от детей. Но при наличии дополнительного
+					дохода, пожилой человек вправе распоряжаться им по своему усмотрению.
+				</p>
+				<p>
+					Патронаж устанавливается для престарелого человека, не имеющего нарушений психики, который
+					отвечает за свои действия, поступки, способен совершать различные сделки, но периодически
+					нуждается в помощи со стороны. В этом случае куратор не имеет права контролировать выплаты и
+					финансы стариков.
+				</p>
+				<ul>
+					<li>Проживание в удобных номерах, оснащенных всем необходимым;</li>
+					<li>Многоразовое диетическое питание, подбор рациона;</li>
+					<li>Уход, медицинское обслуживание, круглосуточный присмотр;</li>
+					<li>Досуг, праздники, развлечения, мероприятия;</li>
+					<li>Свидания с родными и близкими.</li>
+				</ul>
+				<p>
+					Наибольшую угрозу короновирусная инфекция представляет для людей пожилого возраста с
+					хроническими заболеваниями сердечно-сосудистой системы, сахарным диабетом, онкологией,
+					патологией лёгких.
+				</p>
+				<div class="faq">
+					<h2>Часто задаваемые вопросы</h2>
+					<div class="faq__accordion">
+						<div class="faq__accordion-item">
+							<div class="faq__accordion-item-title">
+								Какие цены в домах престарелых для лежачих больных?
+							</div>
+							<div class="faq__accordion-item-text">
+								Пансионаты для пожилых, расположенные в Рузском районе, оказывают пациентам полный
+								комплекс услуг по оздоровлению, проживанию, реабилитации и общей терапии. Дома
+								престарелых Рузского района приспособлены и имеют всю необходимую оснастку для
+								размещения лежачих пациентов и пожилых людей со сложными формами патологий, в том
+								числе с психическими отклонениями.
+							</div>
+						</div>
+						<div class="faq__accordion-item">
+							<div class="faq__accordion-item-title">
+								Какие условия предоставляются для лежачих больных?
+							</div>
+							<div class="faq__accordion-item-text">
+								Пансионаты для пожилых, расположенные в Рузском районе, оказывают пациентам полный
+								комплекс услуг по оздоровлению, проживанию, реабилитации и общей терапии. Дома
+								престарелых Рузского района приспособлены и имеют всю необходимую оснастку для
+								размещения лежачих пациентов и пожилых людей со сложными формами патологий, в том
+								числе с психическими отклонениями.
+							</div>
+						</div>
+						<div class="faq__accordion-item">
+							<div class="faq__accordion-item-title">
+								Как выбрать лучший пансионат?
+							</div>
+							<div class="faq__accordion-item-text">
+								Пансионаты для пожилых, расположенные в Рузском районе, оказывают пациентам полный
+								комплекс услуг по оздоровлению, проживанию, реабилитации и общей терапии. Дома
+								престарелых Рузского района приспособлены и имеют всю необходимую оснастку для
+								размещения лежачих пациентов и пожилых людей со сложными формами патологий, в том
+								числе с психическими отклонениями.
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="video _big">
+					<div class="video__wrap">
+						<img src="/image/article/03.jpg" alt="">
+						<div class="video__btn"></div>
+					</div>
+					<div class="video__title">Как выбрать лучший пансионат?</div>
+				</div>
+				<div class="video">
+					<div class="video__wrap">
+						<img src="/image/article/03.jpg" alt="">
+						<div class="video__btn"></div>
+					</div>
+					<div class="video__title">Как выбрать лучший пансионат?</div>
+				</div>
+
+				<div class="article__author">
+					<div class="article__author-image">
+						<img src="/image/article/author.png" alt="">
+					</div>
+					<div class="article__author-info">
+						<div class="article__author-title">Автор статьи</div>
+						<div class="article__author-name">Анна Николаевна Мещерякова </div>
+						<div class="article__author-text">Акушер-гинеколог, стаж 28 лет</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="article__side-block" data-da="article__container,12,1024">
+				<img src="/image/article/side_block_img.jpg" alt="">
+				<div class="article__side-block-text">
+					Профессиональный уход за пожилыми
+				</div>
+				<div class="article__side-block-btn _btn">Подробнее</div>
+			</div>
+		</div>
+
+		<div class="article__similar seo">
+			<h2>Похожие статьи</h2>
+			<div class="blog__list">
+				<a href="/article.html" class="blog__item">
+					<div class="blog__item-image">
+						<img src="/image/blog/01.jpg" alt="">
+					</div>
+					<div class="blog__item-name">ОРВИ и грипп у пожилых людей</div>
+					<div class="blog__item-date">12 января 2022</div>
+				</a>
+				<a href="/article.html" class="blog__item">
+					<div class="blog__item-image">
+						<img src="/image/blog/02.jpg" alt="">
+					</div>
+					<div class="blog__item-name">Особенности ухода за онкобольными</div>
+					<div class="blog__item-date">12 января 2022</div>
+				</a>
+				<a href="/article.html" class="blog__item">
+					<div class="blog__item-image">
+						<img src="/image/blog/03.jpg" alt="">
+					</div>
+					<div class="blog__item-name">Симптомы сахарного диабета у пожилых людей</div>
+					<div class="blog__item-date">12 января 2022</div>
+				</a>
+			</div>
 		</div>
 
 	</div>
-</div>
-
+</div> #}

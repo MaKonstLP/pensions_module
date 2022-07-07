@@ -1,0 +1,320 @@
+.form_wrapper {
+	width: 100%;
+	background: white;
+	border-radius: 5px;
+	box-shadow: 0px 5px 20px rgba(47, 61, 2, 0.1);
+	padding: 32px 80px 40px;
+
+	button.button__pending {
+		background: #df6038;
+		pointer-events: none;
+	}
+
+	.header_form_popup_message_sent {
+		display: flex;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: #004171;
+		opacity: 0.9;
+		border-radius: 4px;
+		padding: 25px 75px 40px;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		h2 {
+			font-size: 32px;
+			line-height: 40px;
+			font-weight: 700;
+		}
+
+		.header_form_popup_message {
+			margin: 20px 0px;
+			text-align: center;
+			font-size: 16px;
+			line-height: 24px;
+			letter-spacing: 0.01em;
+			font-weight: 400;
+		}
+
+		.header_form_popup_message_close {
+			cursor: pointer;
+		}
+	}
+
+	@include for-notdesc {
+		padding: 24px 16px 32px;
+	}
+
+	@include for-mobile {
+		padding: 23px 12px 30px;
+		border-radius: unset;
+	}
+}
+
+[data-page-type="index"] .content_block.form_booking_wrapper {
+	padding: 84px 0 48px;
+
+	@include for-notdesc {
+		padding: 40px 0 40px;
+	}
+
+	@include for-mobile {
+		padding-bottom: 0;
+	}
+}
+
+[data-page-type="item"] .content_block.form_booking_wrapper {
+	padding: 60px 0 58px;
+
+	@include for-laptop {
+		padding: 40px 0 36px;
+	}
+
+	@include for-mobile {
+		padding: 0;
+	}
+}
+
+.form_title {
+	width: 100%;
+	margin-bottom: 12px;
+	// display: flex;
+	// justify-content: center;
+	// align-items: center;
+
+	.form_title_main {
+		font-weight: 700;
+		font-size: 32px;
+		line-height: 40px;
+		text-align: center;
+		// width: 704px;
+		// margin: 0 auto;
+
+		@include for-mobile {
+			font-size: 28px;
+			line-height: 32px;
+			// width: 93vw;
+		}
+	}
+
+	.form_title_desc {
+		font-weight: bold;
+		font-size: 16px;
+		color: #ffb30f;
+	}
+}
+
+.form_block {
+	display: flex;
+	// margin-top: 16px;
+
+	.form_inputs {
+		display: flex;
+		flex-wrap: wrap;
+		width: 780px;
+		justify-content: space-between;
+
+		.input_wrapper {
+			width: 130px;
+
+			&._big {
+				width: 220px;
+			}
+
+			.input_label {
+				font-weight: 400;
+				font-size: 14px;
+				line-height: 20px;
+				letter-spacing: 0.01em;
+				margin-bottom: 8px;
+			}
+
+			input {
+				// border: 1px solid #c4c4c4;
+				border: 1px solid #dadee1;
+				box-sizing: border-box;
+				border-radius: 2px;
+				width: 100%;
+				height: 48px;
+				// padding: 9px 16px 6px;
+
+				font-size: 14px;
+				letter-spacing: 0.01em;
+				color: #363C4A;
+				padding: 9px 8px;
+
+				&._invalid {
+					// border-color: #ea3e3e;
+					border-color: #df0c0c;
+				}
+
+				&:focus {
+					border-color: #b8becb;
+				}
+
+				&::placeholder {
+					color: #B3B6BE;
+				}
+			}
+
+			.input_desc {
+				font-weight: 500;
+				font-size: 12px;
+				line-height: 20px;
+				color: #666666;
+			}
+		}
+
+		.form_checkboxes {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			margin-top: 20px;
+
+			.checkbox_title {
+				font-weight: bold;
+				font-size: 16px;
+				line-height: 26px;
+				margin-right: 15px;
+			}
+
+			.checkbox_wrapper {
+				display: flex;
+			}
+		}
+	}
+
+	.form_submit {
+		width: calc(100% - 780px);
+
+		button {
+			height: 50px;
+			margin-top: 21px;
+		}
+
+		.form_policy {
+			margin-top: 10px;
+
+			p {
+				font-weight: 500;
+				font-size: 12px;
+				line-height: 15px;
+
+				&:before {
+					top: 0px;
+				}
+
+				&:after {
+					top: 3px;
+				}
+			}
+
+			a {
+				color: #5ba641;
+			}
+		}
+	}
+
+	@include for-mobile {
+		margin-top: 12px;
+	}
+}
+
+.popup_form_close {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	width: 32px;
+	height: 32px;
+	background: url("/image/popup_form_close.svg");
+	background-position: center;
+	background-repeat: no-repeat;
+	cursor: pointer;
+
+	@include for-mobile {
+		display: none;
+	}
+}
+
+.popup_form_close_mobile {
+	display: none;
+	top: unset;
+	bottom: 25px;
+	right: 50%;
+	transform: translateX(50%);
+	background: none;
+	width: auto;
+	height: auto;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: 0.01em;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+	padding-bottom: 1px;
+
+	@include for-mobile {
+		display: block;
+	}
+}
+
+.content_block.form_booking_wrapper.popup_form {
+	position: fixed;
+	top: -96px;
+	top: 50%;
+	transform: translateY(-50%);
+	overflow-y: scroll;
+	z-index: 100;
+	background-color: rgba(255, 255, 255, 0.8);
+	// height: 120vh;
+	height: 100vh;
+	padding: 30px 0;
+	// padding: 0;
+
+	@include for-notdesc {
+		// top: -90px;
+	}
+
+	@include for-laptop {
+		// top: -66px;
+	}
+
+	@include for-mobile {
+		// overflow-y: scroll;
+		padding: 35px 12px 60px;
+	}
+
+	// .form_wrapper.booking {
+	//   top: 50%;
+	//   left: 50%;
+	//   transform: translate(-50%, -50%);
+	//   margin: 0;
+	// }
+
+	.form_wrapper.booking {
+		@include for-mobile {
+			background-position: -65px 100%;
+			padding-bottom: 65px;
+		}
+	}
+
+	.calendar_container .calendar {
+		@include for-mobile {
+			width: 272px;
+		}
+	}
+
+	button._button {
+		@include for-mobile {
+			width: 100%;
+			max-width: 272px;
+			background-size: 400px 127px;
+		}
+	}
+}
+
+body.overflow {
+	overflow: hidden;
+}

@@ -1,0 +1,21 @@
+<div class="about seo">
+	<div class="container">
+		<div class="about__wrap">
+			<div class="title">
+				<h1>{{seo.h1}}</h1>
+			</div>
+			{% if seo.text_1 %}
+				{{seo.text_1|raw}}
+			{% endif %}
+
+			{{ this.render('//components/generic/form_consult.twig') | raw }}
+
+			<div class="about__popular">
+				<h2>Популярные места</h2>
+				<div class="listing">
+					{{ this.render('//components/generic/listing.twig', {'items':items}) | raw }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

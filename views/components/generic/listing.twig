@@ -1,131 +1,143 @@
 {% for item in items %}
-    <a href="/ploshhadki/{{item.id}}/" class="item swiper-slide {{type}}">
-        <div class="item_img">
-            <img src="{{item.restaurant_images[0].subpath}}=w440-h302-n-l95" loading="lazy" alt="{{img_alt | replace({"**rest_name**" : item.restaurant_name})}}"/>
+	{% if loop.index > 2 %}
+		{% set lazy = "lazy"%}
+	{% else %}
+		{% set lazy = '' %}
+	{% endif %}
+	
+	
+	<div class="listing__item" data-pansion-id="{{item.id}}" data-pansion-name="{{item.pansion_name}}" data-pansion-address="{{item.pansion_address}}" data-pansion-mapDotX="{{item.pansion_latitude}}" data-pansion-mapDotY="{{item.pansion_longitude}}">
+	{# {% if other_pensions %}<a href="/Каталог/{{item.pansion_slug}}/">{% endif %} #}
+		<div class="listing__item-images">
+			<div class="swiper listing__images-slider">
+				<div class="swiper-wrapper">
+				{% for image in item.pansion_images %}
+					<div class="swiper-slide listing__images-slide">
+						<img src="{{image.path_thumb}}" loading="{{lazy}}"/>
+					</div>
+				{% endfor %}
+				</div>
+				<div class="listing__item-images-slider-next">
+					<img src="/image/icons/slider_arrow.svg" alt="">
+				</div>
+				<div class="listing__item-images-slider-prev">
+					<img src="/image/icons/slider_arrow.svg" alt="">
+				</div>
+			</div>
+			<div class="swiper listing__images-thumb">
+				<div class="swiper-wrapper">
+					{% for image in item.pansion_images %}
+						<div class="swiper-slide listing__images-thumb-slide">
+							<img src="{{image.path_catalog}}" loading="{{lazy}}"/>
+						</div>
+					{% endfor %}
+				</div>
+				{% if item.pansion_images|length > 3 %}
+					<div class="listing__images-count">
+						<img src="/image/icons/camera.svg" alt="">
+						<span>{{item.pansion_images|length}} фото</span>
+					</div>
+				{% endif %}
+			</div>
+		</div>
 
-            {#<div class="item_date-availability">
-                <span>Свободно 12 декабря</span>
-            </div>#}
+		<div class="listing__item-info">
+			<a href="/Каталог/{{item.pansion_slug}}/" class="listing__item-info-title">
+				{{item.pansion_name}}
+			</a>
+			{% if item.pansion_address %}
+				{% if other_pensions %}
+					<a href="/Каталог/{{item.pansion_slug}}/" class="listing__item-info-address">
+						<span>{{item.pansion_address}}</span>
+					</a>
+				{% else %}
+					<div class="listing__item-info-address" data-address>
+						<span>{{item.pansion_address}}</span>
+					</div>
+				{% endif %}
+			{% endif %}
+			<div class="listing__item-info-review">
+				<img src="/image/icons/verified.svg" alt="" class="listing__item-info-verified">
+				{% if item.pansion_rev_ya.id %}
+					<div class="rate">
+						<div class="stars">
+							<div class="stars__empty"></div>
+							<div class="stars__fill" style="width:calc({{item.pansion_rev_ya.rate}} * 20%)"></div>
+						</div>
+						<p class="rate__count">{{item.pansion_rev_ya.rate}}</p>
+						<p class="rate__reviews">(<a href="https://yandex.ru/maps/org/{{item.pansion_rev_ya.id}}/" target="_blank">{{item.pansion_rev_ya.count}}</a>)</p>
+					</div>
+				{% endif %}
+			</div>
+			<div class="listing__item-info-price">от <span>{{item.pansion_price}} ₽</span> за сутки</div>
+			<div class="listing__item-info-btns">
+				<a href="/Каталог/{{item.pansion_slug}}/" class="listing__item-info-btn-more _btn-transparent">Подробнее</a>
+				<div class="listing__item-info-btn-check _btn" data-check>
+					<span>Уточнить наличие мест</span>
+					<span class="_mobile">Наличие мест</span>
+				</div>
+			</div>
+			{% if item.pansion_conditions %}
+				<div class="listing__item-info-benefits">
+					{% for condition in item.pansion_conditions %}
+						{% if condition.name == "С деменцией" %}
+							<div class="listing__item-info-benefits-item" data-title="Реабилитация для пожилых с деменцией">
+								<img src="/image/icons/benefits/dementia.svg" alt="{{condition.name}}">
+							</div>
+						{% elseif condition.name == "После инсульта" %}
+							<div class="listing__item-info-benefits-item" data-title="Реабилитация для больных после инсульта">
+								<img src="/image/icons/benefits/stroke.svg" alt="{{condition.name}}">
+							</div>
+						{% elseif condition.name == "С альцгеймером" %}
+							<div class="listing__item-info-benefits-item" data-title="Реабилитация для пожилых с Альцгеймером">
+								<img src="/image/icons/benefits/alzheimer.svg" alt="{{condition.name}}">
+							</div>
+						{% elseif condition.name == "Онкология" %}
+							<div class="listing__item-info-benefits-item" data-title="Специальные условия для онкологических больных">
+								<img src="/image/icons/benefits/oncology.svg" alt="{{condition.name}}">
+							</div>
+						{% elseif condition.name == "Забота о пожилых с Паркинсоном" %}
+							<div class="listing__item-info-benefits-item" data-title="Реабилитация для пациентов с болезнью Паркинсона">
+								<img src="/image/icons/benefits/parkinson.svg" alt="{{condition.name}}">
+							</div>
+						{% elseif condition.name == "Перелом шейки бедра" %}
+							<div class="listing__item-info-benefits-item" data-title="Реабилитация после перелома шейки бедра">
+								<img src="/image/icons/benefits/broken_bone.svg" alt="{{condition.name}}">
+							</div>
+						{% endif %}
+					{% endfor %}
 
-        </div>
-        <div class="item_info">
-            <div class="item_info_top">
-                <p class="item_name">{{item.restaurant_name}}</p>
+					{% for type in item.pansion_type %}
+						{% if type.name == "Государственные" %}
+							<div class="listing__item-info-benefits-item" data-title="Государственное учреждение" data-title="Частное учреждение">
+								<img src="/image/icons/benefits/government.svg" alt="{{type.name}}">
+							</div>
+						{% elseif type.name == "Частные" %}
+							<div class="listing__item-info-benefits-item" data-title="Частное учреждение">
+								<img src="/image/icons/benefits/private.svg" alt="{{type.name}}">
+							</div>
+						{% endif %}
+					{% endfor %}
+					{% for convenience in item.pansion_conveniencies %}
+						{% if convenience.name == "Круглосуточное курирование постояльцев. За каждым пожилым закрепляется ночная и дневная сиделка." %}
+							<div class="listing__item-info-benefits-item" data-title="Уход за больными 24/7">
+								<img src="/image/icons/benefits/24_7.svg" alt="{{convenience.name}}">
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+		{# {% if other_pensions %}</a>{% endif %} #}
+	</div>
+	{# {% if other_pensions %}</a>{% endif %} #}
 
-                <p class="item_district"><span class="problems">--</span>{{item.restaurant_district}}</p>
-                <object>
-                    <a class="item_address _link_blue">{{item.restaurant_address}}</a>
-                </object>
-
-                {# <div style="display: inline; font-size: 14px; font-weight: 400; line-height: 20px; color: #225db7;">
-                    <a href="#" style="border-bottom: 1px dashed #225db7; padding-bottom: 1px;" class="item_address">{{item.restaurant_address}}</a>
-                </div> #}
-                
-                {# <div class="another_restaurant_row restaurant_address">
-                    <a href="#">{{item.restaurant_address}}</a>
-                </div> #}
-
-                <!-- <hr class="item_horizontal_raw"> -->
-                    
-                <div class="item_meta">
-
-                    <div class="item_meta_item">
-                        <span class="item_meta_label">
-                            {# {% for type in item.restaurant_types %}
-                                {{type.name}}
-                            {% endfor %} #}
-                            <span class="problems">-- Загородная площадка</span> на </span><span class="item_meta_text">{{item.restaurant_max_capacity}} человек</span>
-                    </div>
-
-                    <!-- {% if item.restaurant_min_capacity != item.restaurant_max_capacity %}
-                        <div class="item_meta_item">
-                            {# <span class="item_meta_label">Вместимость: </span><span class="item_meta_text">{{item.restaurant_min_capacity}} - {{item.restaurant_max_capacity}} чел.</span> #}
-                            <span class="item_meta_label">Загородная площадка на </span><span class="item_meta_text">{{item.restaurant_min_capacity}} чел.</span>
-                        </div>
-                    {% else %}
-                        <div class="item_meta_item">
-                            {# <span class="item_meta_label">Вместимость: </span><span class="item_meta_text">{{item.restaurant_min_capacity}} чел.</span> #}
-                            <span class="item_meta_label">Загородная площадка на</span><span class="item_meta_text">{{item.restaurant_min_capacity}} человек</span>
-                        </div>
-                    {% endif %} #} -->
-
-                    {# {% if item.restaurant_price %}
-                        <div class="item_meta_item">
-                            <span class="item_meta_label">Стоимость: </span><span class="item_meta_text">от {{item.restaurant_price}} ₽/чел.</span>
-                        </div>
-                    {% endif %} #}
-
-                </div>
-
-                <div class="item_row restaurant_own">
-                    {% if item.restaurant_own_alcohol %}
-                        <div class="restaurant_option_wrapper">
-                            <p>Со своей едой</p>
-                        </div>
-                        {% if item.restaurant_own_alcohol %}
-                        <div class="restaurant_option_wrapper">
-                            <div class="gray_circle"></div>
-                            <p>Со своим алкоголем</p>
-                        </div>
-                        {% endif %}
-                        {% if item.restaurant_firework %}
-                        <div class="restaurant_option_wrapper">
-                            <div class="gray_circle"></div>
-                            <p>Фейерверк</p>
-                        </div>
-                        {% endif %}
-                        {% elseif item.restaurant_own_alcohol %}
-                            <div class="restaurant_option_wrapper">
-                                <div class="gray_circle"></div>
-                                <p>Со своим алкоголем</p>
-                            </div>
-                            {% if item.restaurant_firework %}
-                                <div class="restaurant_option_wrapper">
-                                    <p>Фейерверк</p>
-                                </div>
-                            {% endif %}
-                            {% elseif item.restaurant_firework %}
-                                <div class="restaurant_option_wrapper">
-                                    <p>Фейерверк</p>
-                                </div>
-                    {% endif %}
-                </div>
-
-                <div class="item_row restaurant_price">
-                    от {% set lowestPrice = item.restaurant_price %}
-                    {% for room in item.rooms %}
-                        {% if room.price < lowestPrice %}
-                            {% set lowestPrice = room.price %}
-                        {% endif %}
-                    {% endfor %}
-                    {{lowestPrice}} ₽/чел.
-                </div>
-
-            </div>
-        </div>
-        <div class="item_additional-info">
-
-            {% if item.id > 50 %}
-                <div class="object_benefit">
-                    <div class="object_benefit_img"></div>
-                    <div class="object_benefit_text">Получи подарок за бронь!</div>
-                </div>
-            {% else %}
-                <div class="object_reservation">
-                    <div class="object_reservation_img"></div>
-                    <div class="object_reservation_text">Успей забронировать!</div>
-                </div>
-            {% endif %}
-
-            <!-- <div class="item_gift-for-early-reservation">
-                    <span>Подарок за бронирование</span>
-                </div> -->
-            <!-- {% if item.restaurant_firework %}
-            <div class="item_fireworks-availability">
-                <span>Возможность фейерверка</span>
-            </div>
-            {% endif %} -->
-
-        </div>
-    </a>
+	{% if loop.index == 6 and page == 'listing' %}
+		{{ this.render('//components/generic/form_choose.twig', {'cities':cities, 'diseasies':diseasies}) | raw }}
+	{% endif %}
 {% endfor %}
+{% if items|length < 6 and page == 'listing' %}
+	{{ this.render('//components/generic/form_choose.twig', {'cities':cities, 'diseasies':diseasies}) | raw }}
+{% endif %}
+
+{{ this.render('//components/generic/form_booking.twig') | raw }}

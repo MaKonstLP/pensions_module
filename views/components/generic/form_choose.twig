@@ -1,0 +1,129 @@
+<div class="form form-choose">
+	<div class="form_wrapper">
+		<p class="form__title">Устали выбирать?</p>
+		<p class="form__subtitle">
+			Ответьте на 3 вопроса и мы подберем для вас оптимальный вариант!
+		</p>
+		<form class="form__form" action="/ajax/form/" data-type="listing-choose">
+			<div class="form-choose__first-step _active">
+				<div class="form-choose__selects">
+
+					<div class="select">
+						<input type="hidden" name="location">
+						<div class="new-select">Местоположение</div>
+
+						<div class="new-select__list">
+							{% for city in cities %}
+								<div class="new-select__item"><span>{{city.text}}</span></div>
+							{% endfor %}
+							{# <div class="new-select__item"><span>Андреевка</span></div>
+							<div class="new-select__item"><span>Балашиха</span></div>
+							<div class="new-select__item"><span>Барвиха</span></div>
+							<div class="new-select__item"><span>Бронницы</span></div>
+							<div class="new-select__item"><span>Видное</span></div>
+							<div class="new-select__item"><span>Дедовск</span></div>
+							<div class="new-select__item"><span>Дмитров</span></div>
+							<div class="new-select__item"><span>Егорьевск</span></div>
+							<div class="new-select__item"><span>Домодедово</span></div>
+							<div class="new-select__item"><span>Жуковский</span></div>
+							<div class="new-select__item"><span>Железнодорожный</span></div>
+							<div class="new-select__item"><span>Звенигород</span></div>
+							<div class="new-select__item"><span>Зеленоград</span></div>
+							<div class="new-select__item"><span>Истра</span></div>
+							<div class="new-select__item"><span>Климовск</span></div>
+							<div class="new-select__item"><span>Клин</span></div>
+							<div class="new-select__item"><span>Коломна</span></div>
+							<div class="new-select__item"><span>Королев</span></div>
+							<div class="new-select__item"><span>Красногорск</span></div>
+							<div class="new-select__item"><span>Лобня</span></div>
+							<div class="new-select__item"><span>Люберцы</span></div>
+							<div class="new-select__item"><span>Митино</span></div>
+							<div class="new-select__item"><span>Москва</span></div>
+							<div class="new-select__item"><span>Мытищи</span></div>
+							<div class="new-select__item"><span>Ногинск</span></div>
+							<div class="new-select__item"><span>Одинцово</span></div>
+							<div class="new-select__item"><span>Орехово-Зуево</span></div>
+							<div class="new-select__item"><span>Подольск</span></div>
+							<div class="new-select__item"><span>Пушкино</span></div>
+							<div class="new-select__item"><span>Раменское</span></div>
+							<div class="new-select__item"><span>Реутов</span></div>
+							<div class="new-select__item"><span>Сергиев-Посад</span></div>
+							<div class="new-select__item"><span>Серпухов</span></div>
+							<div class="new-select__item"><span>Солнечногорск</span></div>
+							<div class="new-select__item"><span>Ступино</span></div>
+							<div class="new-select__item"><span>Троицк</span></div>
+							<div class="new-select__item"><span>Химки</span></div>
+							<div class="new-select__item"><span>Чехов</span></div>
+							<div class="new-select__item"><span>Щелково</span></div>
+							<div class="new-select__item"><span>Электросталь</span></div> #}
+						</div>
+					</div>
+					<div class="select">
+						<input type="hidden" name="disease" >
+						<div class="new-select">Болезнь</div>
+
+						<div class="new-select__list">
+							{% for disease in diseasies %}
+								<div class="new-select__item"><span>{{disease.text}}</span></div>
+							{% endfor %}
+							{# <div class="new-select__item"><span>Болезнь Паркинсона</span></div>
+							<div class="new-select__item"><span>Деменция</span></div>
+							<div class="new-select__item"><span>Болезнь Альцгеймера</span></div>
+							<div class="new-select__item"><span>Склероз у пожилых</span></div>
+							<div class="new-select__item"><span>Уход за инвалидами</span></div> #}
+						</div>
+					</div>
+					<div class="select">
+						<input type="hidden" name="condition">
+						<div class="new-select">Требования</div>
+
+						<div class="new-select__list">
+							<div class="new-select__item"><span>Развлекательные мероприятия</span></div>
+							<div class="new-select__item"><span>Собственный транспорт для трансфера</span></div>
+							<div class="new-select__item"><span>Реабилитация больных</span></div>
+							<div class="new-select__item"><span>Инфраструктура для колясочников</span></div>
+							<div class="new-select__item"><span>Фунциональные кровати для лежачих больных</span></div>
+						</div>
+					</div>
+
+				</div>
+				<div class="form-choose__btn-next _btn_form" data-form-choose-step-two>
+					Получить <span>&nbsp;персональное&nbsp;</span> предложение
+				</div>
+			</div>
+			<div class="form-choose__second-step">
+				<div class="form__inputs">
+					<div class="form__input-wrap">
+						<input type="text" name="name" data-required placeholder="Ваше имя">
+					</div>
+					<div class="form__input-wrap">
+						<input type="text" name="phone" data-required placeholder="Номер телефона">
+					</div>
+				</div>
+				<div class="form__submit">
+					<button class="form__submit-btn _btn_form" type="submit">Оставить
+						заявку</button>
+					<div class="form_policy checkbox_item _active" data-action="form_checkbox"
+						data-form-privacy>
+						<input type="checkbox" name="policy" class="personalData" checked data-required>
+						<p class="checkbox_pseudo">Согласен с&nbsp;</p>
+						<a class="form_policy_link" href="/privacy-policy/" target="_blank">политикой
+							обработки персональных данных</a>
+					</div>
+					<span class="form-choose__back" data-form-choose-step-one>Назад</span>
+				</div>
+			</div>
+		</form>
+		<img src="/image/form_choose_image.webp" class="form__img">
+	</div>
+	<div class="form__success">
+		<p class="form__title">Спасибо за обращение</p>
+		<p class="form__subtitle">
+			Мы получили вашу заявку. В ближайшее время с вами свяжется наш специалист.
+		</p>
+		<div class="form__btn-succes _btn_form" data-form-choose-success>
+			Понятно, спасибо
+		</div>
+		<img src="/image/form_choose_success_image.webp" class="form__img">
+	</div>
+</div>

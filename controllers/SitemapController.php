@@ -1,5 +1,5 @@
 <?php
-namespace app\modules\graduation\controllers;
+namespace app\modules\pensions\controllers;
 
 use Yii;
 use yii\base\InvalidParamException;
@@ -8,7 +8,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use common\models\Slices;
 use common\models\elastic\ItemsFilterElastic;
-use frontend\modules\graduation\models\ElasticItems;
+use frontend\modules\pensions\models\ElasticItems;
 
 class SitemapController extends Controller
 {

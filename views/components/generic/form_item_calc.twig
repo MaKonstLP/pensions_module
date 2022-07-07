@@ -1,0 +1,111 @@
+<div class="item__calc form">
+	<div class="form_wrapper">
+		<form class="item__calc-form" action="/ajax/form/" data-type="item-calc">
+			<div class="item__calc-top">
+				<h2 class="item__calc-title">
+					Узнайте точную стоимость проживания
+				</h2>
+				<div class="item__calc-conditions">
+
+					<div class="item__calc-condition">
+						<div class="item__calc-condition-title">
+							Физическое состояние
+						</div>
+						<div class="item__calc-condition-list">
+							<div class="item__calc-condition-item">
+								<input type="radio" id="physical1" name="physical"
+									value="Самостоятельно передвигающийся">
+								<label for="physical1">Самостоятельно передвигающийся</label>
+							</div>
+							<div class="item__calc-condition-item">
+								<input type="radio" id="physical2" name="physical" value="Инвалид-колясочник">
+								<label for="physical2">Инвалид-колясочник</label>
+							</div>
+							<div class="item__calc-condition-item">
+								<input type="radio" id="physical3" name="physical" value="Лежачий больной">
+								<label for="physical3">Лежачий больной</label>
+							</div>
+							<div class="item__calc-condition-item">
+								<input type="radio" id="physical4" name="physical" value="Другое">
+								<label for="physical4">Другое</label>
+							</div>
+						</div>
+					</div>
+					<div class="item__calc-condition">
+						<div class="item__calc-condition-title">
+							Психическое состояние
+						</div>
+						<div class="item__calc-condition-list">
+							<div class="item__calc-condition-item">
+								<input type="radio" id="mental1" name="mental" value="Адекватное состояние">
+								<label for="mental1">Адекватное состояние</label>
+							</div>
+							<div class="item__calc-condition-item">
+								<input type="radio" id="mental2" name="mental" value="Альцгеймер, деменция">
+								<label for="mental2">Альцгеймер, деменция</label>
+							</div>
+							<div class="item__calc-condition-item">
+								<input type="radio" id="mental3" name="mental" value="Проблемы с памятью">
+								<label for="mental3">Проблемы с памятью</label>
+							</div>
+							<div class="item__calc-condition-item">
+								<input type="radio" id="mental4" name="mental" value="Другое">
+								<label for="mental4">Другое</label>
+							</div>
+						</div>
+					</div>
+					<div class="item__calc-condition">
+						<div class="item__calc-condition-title">
+							Количество мест в номере
+						</div>
+						<div class="item__calc-condition-list">
+							<div class="item__calc-condition-item">
+								<input type="radio" id="capacity1" name="capacity" value="Неважно">
+								<label for="capacity1">Неважно</label>
+							</div>
+							<div class="item__calc-condition-item">
+								<input type="radio" id="capacity2" name="capacity" value="до 2 человек">
+								<label for="capacity2">до 2 человек</label>
+							</div>
+							<div class="item__calc-condition-item">
+								<input type="radio" id="capacity3" name="capacity" value="До 4 человек">
+								<label for="capacity3">До 4 человек</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="item__calc-bot">
+				<div class="item__calc-bot-inputs">
+					<div class="form__input-wrap">
+						<input type="text" name="name" data-required placeholder="Ваше имя">
+					</div>
+					<div class="form__input-wrap">
+						<input type="text" name="phone" data-required placeholder="Номер телефона">
+					</div>
+					<button class="form__submit-btn _btn" type="submit">
+						Отправить
+					</button>
+				</div>
+				<div class="form_policy checkbox_item _active" data-action="form_checkbox"
+					data-form-privacy="">
+					<input type="checkbox" name="policy" class="personalData" checked="" data-required="">
+					<p class="checkbox_pseudo">Согласен с&nbsp;</p>
+					<a class="form_policy_link" href="/privacy-policy/" target="_blank">
+						политикой обработки персональных данных
+					</a>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="form__success">
+		<p class="form__title">Заявка успешно отправлена</p>
+		<p class="form__subtitle">
+			Спасибо за проявленный интерес. Мы свяжемся с Вами в течение рабочего дня.
+		</p>
+		<div class="form__btn-succes _btn" data-form-choose-success data-form-close>
+			Понятно, спасибо
+		</div>
+	</div>
+</div>

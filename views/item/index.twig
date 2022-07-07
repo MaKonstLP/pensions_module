@@ -1,204 +1,635 @@
-<div class="item_page_wrapper" data-page-type="item">
+<div data-page-type="item">
+	<div class="container">
+		<div class="breadcrumbs">
+			<div class="breadcrumbs_item">
+				<a href="/index.html">
+					<span><img src="/image/icons/breadcrump_home.svg" alt=""></span>
+				</a>
+			</div>
+			<div class="breadcrumbs_item">
+				<a href="#">
+					<span>Пансионаты</span>
+				</a>
+			</div>
+		</div>
 
-    <div class="content_block" data-listing-title>
-        {{ this.render('//components/generic/item_title.twig', {'seo':seo}) | raw }}
-    </div>
+		<div class="item">
+			<div class="item__container">
 
-    <div class="top_slider_wrapper">
-        <div class="top_slider">
-            <div class="swiper-container swiper_top">
+				<div class="item__gallery">
+					<div class="item__gallery-img item__gallery-img_main" data-index="1">
+						<img src="{{item.pansion_images[0].path}}" />
+					</div>
+					{% if item.pansion_images|length == 2 %}
+						<div class="item__gallery-images">
+							<div class="item__gallery-img" data-index="2">
+								<img src="{{item.pansion_images[1].path}}" />
+							</div>
+						</div>
+					{% elseif item.pansion_images|length > 2 %}
+						<div class="item__gallery-images">
+							<div class="item__gallery-img" data-index="2">
+								<img src="{{item.pansion_images[1].path}}" />
+							</div>
+							<div class="item__gallery-img" data-index="3">
+								<img src="{{item.pansion_images[2].path}}" />
+							</div>
+						</div>
+					{% endif %}
+					{% if item.pansion_images|length > 3 %}
+						<div class="item__slider-count">
+							<img src="/image/icons/camera.svg" alt="">
+							<span>{{item.pansion_images|length}} фото</span>
+						</div>
+					{% endif %}
+				</div>
 
-                <div class="swiper-wrapper">
+				<div class="item__slider-wrap">
+					<div class="item__slider-innerwrap">
+						<div class="swiper item__slider">
+							<div class="swiper-wrapper">
+							{% for image in item.pansion_images %}
+								<div class="swiper-slide item__slider-slide" data-index="{{loop.index0}}">
+									<img src="{{image.path}}" />
+								</div>
+							{% endfor %}
+							</div>
+							<div class="item__slider-next">
+								<img src="/image/icons/slider_arrow.svg" alt="">
+							</div>
+							<div class="item__slider-prev">
+								<img src="/image/icons/slider_arrow.svg" alt="">
+							</div>
+						</div>
+						<div class="item__slider-pagination swiper-pagination"></div>
 
-                    {% for image in item.restaurant_images %}
-                        <div class="swiper-slide">
-                            <img src="{{image.subpath}}=w710-h472-n-l95" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/>
-                        </div>
-                    {% endfor %}
+						<div class="swiper item__slider-thumb">
+							<div class="swiper-wrapper">
+								{% for image in item.pansion_images %}
+									<div class="swiper-slide item__slider-thumb-slide">
+										<img src="{{image.path}}" />
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
 
-                </div>
+				<div class="item__menu">
+					<div class="item__menu-list">
+						<div class="item__menu-item">
+							<a href="#description">Описание</a>
+						</div>
+						<div class="item__menu-item">
+							<a href="#conditions">Удобства</a>
+						</div>
+						<div class="item__menu-item">
+							<a href="#schedule">Распорядок дня</a>
+						</div>
+						<div class="item__menu-item">
+							<a href="#docs">Необходимые документы</a>
+						</div>
+						<div class="item__menu-item">
+							<a href="#faq">Ответы на вопросы</a>
+						</div>
+					</div>
+				</div>
 
-                {{ this.render('//components/generic/restaurant_title.twig', {'seo':seo}) | raw }}
+				<div class="item__description" id="description">
+					<h2 class="item__description-title">Описание</h2>
+					<p class="item__description-text">
+						Располагающийся на западе Рузский район, помимо различных социальных объектов инфраструктуры,
+						служит территорией для большого числа пансионатов для пожилых людей. Пансионаты для пожилых
+						Рузского района привлекательны для жителей западных областей Москвы и области, а также для
+						других частей мегаполиса. Транспортная доступность, чистота и экология Рузского района служат
+						причинами для размещения пожилых людей в местных пансионатах. Основной достопримечательностью
+						Рузского района является река Руза с ее немногочисленными притоками.
+					</p>
+					<p class="item__description-text">
+						Пансионаты для пожилых, расположенные в Рузском районе, оказывают пациентам полный комплекс
+						услуг по оздоровлению, проживанию, реабилитации и общей терапии. Дома престарелых Рузского
+						района приспособлены и имеют всю необходимую оснастку для размещения лежачих пациентов и пожилых
+						людей со сложными формами патологий, в том числе с психическими отклонениями. Персонал таких
+						учреждений имеет высокую квалификацию и богатый опыт в уходе за пожилыми людьми. Спектр
+						предоставляемых услуг включает в себя:
+					</p>
+					<div class="item__description-video-wrap">
+						<div class="item__description-video">
+							<img src="/image/video/01.jpg" alt="">
+							<div class="item__description-video-btn"></div>
+						</div>
+						<p class="item__description-video-title">
+							Как выбрать лучший пансионат?
+						</p>
+					</div>
+				</div>
 
-                <div class="top-swiper-button-prev"></div>
-                <div class="top-swiper-button-next"></div>
-                <div class="top-swiper-pagination swiper-pagination"></div>
+				<div class="item__licence">
+					<h3 class="item__licence-title">Лицензии</h3>
+					<div class="swiper item__licence-slider">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide item__licence-slider-slide">
+								<img src="/image/licence/01.jpg" />
+							</div>
+							<div class="swiper-slide item__licence-slider-slide">
+								<img src="/image/licence/02.jpg" />
+							</div>
+							<div class="swiper-slide item__licence-slider-slide">
+								<img src="/image/licence/03.jpg" />
+							</div>
+							<div class="swiper-slide item__licence-slider-slide">
+								<img src="/image/licence/04.jpg" />
+							</div>
+							<div class="swiper-slide item__licence-slider-slide">
+								<img src="/image/licence/02.jpg" />
+							</div>
+						</div>
+					</div>
+					<div class="item__licence-slider-next">
+						<img src="/image/icons/slider_arrow_blue.svg" alt="">
+					</div>
+					<div class="item__licence-slider-prev">
+						<img src="/image/icons/slider_arrow_blue.svg" alt="">
+					</div>
+					<div class="item__licence-slider-pagination swiper-pagination"></div>
+				</div>
+
+				<div class="item__conditions" id="conditions">
+					<h2 class="item__conditions-title">Удобства</h2>
+					<div class="item__conditions-list">
+
+						{% if item.pansion_rooms or item.pansion_meal %}
+							<div class="item__conditions-col">
+								<div class="item__conditions-icon">
+									<img src="/image/icons/conditions/room.svg" alt="">
+								</div>
+								<div class="item__conditions-info">
+									<p class="item__conditions-subtitle">Условия проживания</p>
+									<ul>
+										{% if item.pansion_rooms %}
+											<li>Мест в номере 
+											{% for room in item.pansion_rooms %}
+												{% if loop.length > 1 %}
+													{% if loop.first %}{{room.size}} -{% elseif loop.last %}{{room.size}}{% endif %}
+												{% else %}
+													{{room.size}}
+												{% endif %}
+											{% endfor %}</li>
+										{% endif %}
+										{% if item.pansion_meal %}
+											<li>{{item.pansion_meal[0].name}} разовое питание</li>
+										{% endif %}
+									</ul>
+								</div>
+							</div>
+						{% endif %}
 
 
-            </div>
+						{% set convenience1 = "" %}
+						{% set convenience2 = "" %}
+						{% set convenience3 = "" %}
+						{% set convenience4 = "" %}
+						{% set convenience5 = "" %}
+						{% set convenience6 = "" %}
+						{% set convenience7 = "" %}
+						{% set convenience8 = "" %}
+						{% set convenience9 = "" %}
+						{% set convenience10 = "" %}
+						{% set convenience11 = "" %}
+						{% set convenience12 = "" %}
+						{% set convenience13 = "" %}
+						{% set convenience14 = "" %}
+						{% set convenience15 = "" %}
+						{% if item.pansion_conveniencies %}
+							{% for convenience in item.pansion_conveniencies %}
+								{% if convenience.name == "Отдельная прогулочная зона" %}
+									{% set convenience1 = convenience.name %}
+								{% elseif convenience.name == "Круглосуточное видеонаблюдение за территорией, работой персонала и постояльцами" %}
+									{% set convenience2 = convenience.name %}
+								{% elseif convenience.name == "Библиотека" %}
+									{% set convenience3 = convenience.name %}
+								{% elseif convenience.name == "Все необходимое для досуга: настольные игры, телевизор, журналы, рисование" %}
+									{% set convenience4 = convenience.name %}
+								{% elseif convenience.name == "Общение с родными по Skype. Предусмотрен WI-FI для общения по электронной почте, Viber и других мессенджерах" %}
+									{% set convenience5 = convenience.name %}
+								{% elseif convenience.name == "Развивающие программы (пение, лепка, рисование, празднование мероприятий  и т.д.)" %}
+									{% set convenience6 = convenience.name %}
+								{% elseif convenience.name == "Ежедневное отслеживание состояния здоровья: измерение давления, пульса, температуры, уровня сахара в крови" %}
+									{% set convenience7 = convenience.name %}
+								{% elseif convenience.name == "Контроль приема медикаментов" %}
+									{% set convenience8 = convenience.name %}
+								{% elseif convenience.name == "Круглосуточное курирование постояльцев. За каждым пожилым закрепляется ночная и дневная сиделка." %}
+									{% set convenience9 = convenience.name %}
+								{% elseif convenience.name == "Регулярный косметический уход: стрижка волос, обработка ногтей и т.д." %}
+									{% set convenience10 = convenience.name %}
+								{% elseif convenience.name == "Регулярный медицинский осмотр" %}
+									{% set convenience11 = convenience.name %}
+								{% elseif convenience.name == "Стирка и глажка одежды и белья" %}
+									{% set convenience12 = convenience.name %}
+								{% elseif convenience.name == "Специальный уход за лежачими больными" %}
+									{% set convenience13 = convenience.name %}
+								{% elseif convenience.name == "Штатный врач-терапевт" %}
+									{% set convenience14 = convenience.name %}
+								{% elseif convenience.name == "ЛФК и массаж" %}
+									{% set convenience15 = convenience.name %}
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+						{% if convenience1 or convenience2 %}
+							<div class="item__conditions-col">
+								<div class="item__conditions-icon">
+									<img src="/image/icons/conditions/territory.svg" alt="">
+								</div>
+								<div class="item__conditions-info">
+									<p class="item__conditions-subtitle">Территория проживания</p>
+									<ul>
+										{% if convenience1 %}
+											<li>{{convenience1}}</li>
+										{% elseif convenience2 %}
+											<li>{{convenience2}}</li>
+										{% endif %}
+									</ul>
+								</div>
+							</div>
+						{% endif %}
 
-        </div>
-    </div>
+						{% if item.pansion_entertainments or convenience3 or convenience4 or convenience5 or convenience6 %}
+							<div class="item__conditions-col">
+								<div class="item__conditions-icon">
+									<img src="/image/icons/conditions/leisure.svg" alt="">
+								</div>
+								<div class="item__conditions-info">
+									<p class="item__conditions-subtitle">Досуг</p>
+									<ul>
+										{% for entertainment in item.pansion_entertainments %}
+											<li>{{entertainment.name}}</li>
+										{% endfor %}
+										{% if convenience3 %}
+											<li>{{convenience3}}</li>
+										{% elseif convenience4 %}
+											<li>{{convenience4}}</li>
+										{% elseif convenience5 %}
+											<li>{{convenience5}}</li>
+										{% elseif convenience6 %}
+											<li>{{convenience6}}</li>
+										{% endif %}
+									</ul>
+								</div>
+							</div>
+						{% endif %}
 
-    <div class="content_block1 white" data-page-type="item">
-        <div class="object_head1 flex">
+						{% if convenience7 or convenience8 or convenience9 or convenience10 or convenience11 or convenience12 or convenience13 or convenience14 %}
+							<div class="item__conditions-col">
+								<div class="item__conditions-icon">
+									<img src="/image/icons/conditions/nurse.svg" alt="">
+								</div>
+								<div class="item__conditions-info">
+									<p class="item__conditions-subtitle">Обслуживающий персонал</p>
+									<ul>
+										{% if convenience7 %}
+											<li>{{convenience7}}</li>
+										{% elseif convenience8 %}
+											<li>{{convenience8}}</li>
+										{% elseif convenience9 %}
+											<li>{{convenience9}}</li>
+										{% elseif convenience10 %}
+											<li>{{convenience10}}</li>
+										{% elseif convenience11 %}
+											<li>{{convenience11}}</li>
+										{% elseif convenience12 %}
+											<li>{{convenience12}}</li>
+										{% elseif convenience13 %}
+											<li>{{convenience13}}</li>
+										{% elseif convenience14 %}
+											<li>{{convenience14}}</li>
+										{% endif %}
+									</ul>
+								</div>
+							</div>
+						{% endif %}
 
-            <div class="object_parameters">
+						{% if item.pansion_conditions %}
+							<div class="item__conditions-col">
+								<div class="item__conditions-icon">
+									<img src="/image/icons/conditions/patient.svg" alt="">
+								</div>
+								<div class="item__conditions-info">
+									<p class="item__conditions-subtitle">Состояние пациентов</p>
+									<ul>
+										{% for condition in item.pansion_conditions %}
+											<li>{{condition.name}}</li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+						{% endif %}
 
-                {{ this.render('//components/generic/item_parameter_list.twig', {'item':item}) | raw }}
-                
-            </div>
+						{% if convenience15 %}
+							<div class="item__conditions-col">
+								<div class="item__conditions-icon">
+									<img src="/image/icons/conditions/add_service.svg" alt="">
+								</div>
+								<div class="item__conditions-info">
+									<p class="item__conditions-subtitle">Дополнительные удобства</p>
+									<ul>
+										<li>{{convenience15}}</li>
+									</ul>
+								</div>
+							</div>
+						{% endif %}
 
-            <div class="column_2"></div>
+					</div>
+				</div>
 
-            <div class="column_3">
+				<div class="item__location">
+					<h2 class="item__location-title">Расположение</h2>
+					{% if item.pansion_address %}
+						<div class="item__location-subtitle">Адрес</div>
+						<div class="item__location-address">
+							{{item.pansion_address}}
+						</div>
+					{% endif %}
+					{# <div class="item__location-map">
+						<img src="/image/map.jpg" alt="">
+					</div> #}
+					<div class="map item__location-map">
+						<div id="map" data-pansion-id="{{item.id}}" data-mapDotX="{{item.pansion_latitude}}" data-mapDotY="{{item.pansion_longitude}}" data-name="{{item.pansion_name}}" data-address="{{item.pansion_address}}" data-balloon="" data-hint="">
+						</div>
+					</div>
+					{# <div class="item__location-subtitle">Как добраться</div>
+					<div class="item__location-label">На автомобиле</div>
+					<div class="item__location-text">От МКАД 7,1 км по Ярославскому шоссе</div>
+					<div class="item__location-label">На метро</div>
+					<div class="item__location-text">
+						От Ярославского вокзала до ж/д станции «Мытищи», далее 10 минут пешком
+					</div>
+					<div class="item__location-label">На автобусе</div>
+					<div class="item__location-text">
+						От м. «Медведково» пройти до автобусной остановки «Метро Медведково», автобус № 419 до остановки
+						«Театр Огниво», далее 15 минут пешком
+					</div> #}
+					{% if item.pansion_cities %}
+						<div class="item__location-near-cities">
+							<div class="item__location-subtitle">Пансионат расположен рядом с городами:</div>
+							<div class="item__location-near-cities-list">
+								{% for city in item.pansion_cities %}
+									<div class="item__location-near-cities-item">{{city.name}}</div>
+								{% endfor %}
+							</div>
+						</div>
+					{% endif %}
+				</div>
 
-                {# <div class="object_benefit">
-                    <div class="object_benefit_img"></div>
-                    <div class="object_benefit_text">Получи подарок за бронь!</div>
+				<div class="item__review">
+					{% if reviews %}
+						<div class="item__review-our">
+							<h2 class="item__review-title">
+								Отзывы наших<br> посетителей
+							</h2>
 
-                </div> #}
+							<div class="item__review-slider swiper">
+								<div class="swiper-wrapper">
+									{% for review in reviews %}
+										<div class="item__review-slide swiper-slide">
+											<div class="item__review-rate">
+												<div class="stars">
+													<div class="stars__empty"></div>
+													<div class="stars__fill" style="width:calc({{review.rating}} * 20%)"></div>
+												</div>
+											</div>
+											<div class="reviews__slider-text">
+												<p>{{review.text}}</p>
+												<div class="reviews__slider-text-more" data-review-text-more>
+													Читать полностью
+												</div>
+											</div>
+											<p class="reviews__slider-author">{{review.author}}</p>
+											<p class="reviews__slider-date">{{review.date}}</p>
+										</div>
+									{% endfor %}
+								</div>
+							</div>
+							{% if reviews|length > 1 %}
+								<div class="item__review-slider-next"><img src="/image/icons/slider_arrow_blue.svg" alt=""></div>
+								<div class="item__review-slider-prev"><img src="/image/icons/slider_arrow_blue.svg" alt=""></div>
+							{% endif %}
+							<div class="item__review-slider-pagination swiper-pagination"></div>
 
-                {% if item.id > 50 %}
-                    <div class="object_benefit">
-                        <div class="object_benefit_img"></div>
-                        <div class="object_benefit_text">Получи подарок за бронь!</div>
-                    </div>
-                {% else %}
-                    <div class="object_reservation">
-                        <div class="object_reservation_img"></div>
-                        <div class="object_reservation_text">Успей забронировать!</div>
-                    </div>
-                {% endif %}
-                
-                <div class="object_book1">
+						</div>
+					{% endif %}
+					{% if item.pansion_rev_ya.id and item.pansion_rev_ya.active %}
+						<div class="item__review-yandex">
+							<h2 class="item__review-title">
+								Отзывы<br> с Яндекс.Карт
+							</h2>
+							<div style="width:auto;height:500px;overflow:hidden;position:relative;">
+								<iframe style="width:100%;height:100%;border:1px solid #e6e6e6;border-radius:8px;box-sizing:border-box" src="https://yandex.ru/maps-reviews-widget/{{item.pansion_rev_ya.id}}?comments"></iframe>
+								<a href="https://yandex.ru/maps/org/pansionat_sm_pension/{{item.pansion_rev_ya.id}}" target="_blank" style="box-sizing:border-box;text-decoration:none;color:#b3b3b3;font-size:10px;font-family:YS Text,sans-serif;padding:0 20px;position:absolute;bottom:8px;width:100%;text-align:center;left:0;overflow:hidden;text-overflow:ellipsis;display:block;max-height:14px;white-space:nowrap;padding:0 16px;box-sizing:border-box">{{item.pansion_name}} — Яндекс Карты</a>
+							</div>
+						</div>
+					{% endif %}
+				</div>
 
-                        <p class="object_book_text">Телефон</p>
-                        <div class="object_book_hidden">
+				{{ this.render('//components/generic/form_item_opinion.twig', {'item': item}) | raw }}
 
-                            <p class="object_book_phone">
+				<div class="item__docs" id="docs">
+					<h2 class="item__docs-title">Необходимые документы</h2>
+					<ol class="item__docs-list">
+						<li>Паспорт</li>
+						<li>Полис</li>
+						<li>СНИЛС</li>
+						<li>Выписка (при наличии)</li>
+					</ol>
+				</div>
 
-                                <span class="object_fake_phone">+7 <span class="object_fake_phone_snowflakes">(xxx) xxx-xx-xx</span></span>
-                                <a href="tel:{{item.restaurant_phone}}" class="object_real_phone">{{item.restaurant_phone}}</a>
+				<div class="item__schedule" id="schedule">
+					<h2 class="item__schedule-title">Распорядок дня</h2>
+					<div class="item__schedule-list">
+						<div class="item__schedule-item">
+							<div class="item__schedule-time">8:00</div>
+							<div class="item__schedule-text">Подъем</div>
+						</div>
+						<div class="item__schedule-item">
+							<div class="item__schedule-time">8:00–8:30</div>
+							<div class="item__schedule-text">Утренний туалет</div>
+						</div>
+						<div class="item__schedule-item">
+							<div class="item__schedule-time">8:30–9:00</div>
+							<div class="item__schedule-text">
+								Измерение температуры тела, давления, пульса и другие сестринские манипуляции
+							</div>
+						</div>
+						<div class="item__schedule-item">
+							<div class="item__schedule-time">9:00–9:30</div>
+							<div class="item__schedule-text">Завтрак</div>
+						</div>
+						<div class="item__schedule-item">
+							<div class="item__schedule-time">9:30–10:00</div>
+							<div class="item__schedule-text">Замер температуры, давления</div>
+						</div>
+						<div class="item__schedule-item">
+							<div class="item__schedule-time">10:00–11:00</div>
+							<div class="item__schedule-text">Занятия по интересам</div>
+						</div>
+						<div class="item__schedule-item">
+							<div class="item__schedule-time">11:00–11:30</div>
+							<div class="item__schedule-text">Второй завтрак (фрукты по сезону)</div>
+						</div>
+						<div class="item__schedule-item">
+							<div class="item__schedule-time">11:30–13:00</div>
+							<div class="item__schedule-text">
+								Выполнение врачебных назначений, гимнастика. Культурно-массовые мероприятия,
+								организованный досуг
+							</div>
+						</div>
+						<div class="item__schedule-item">
+							<div class="item__schedule-time">13:00–13:30</div>
+							<div class="item__schedule-text">Обед</div>
+						</div>
+						<div class="item__schedule-item">
+							<div class="item__schedule-time">13:30–14:00</div>
+							<div class="item__schedule-text">
+								Раздача лекарственных средств, контроль приема и другие сестринские манипуляции
+							</div>
+						</div>
+						<div class="item__schedule-item">
+							<div class="item__schedule-time">14:00–16:00</div>
+							<div class="item__schedule-text">Послеобеденный сон</div>
+						</div>
+						<div class="item__schedule-item">
+							<div class="item__schedule-time">16:30–19:00</div>
+							<div class="item__schedule-text">Свободное время, прогулка, занятия по интересам</div>
+						</div>
+						<div class="item__schedule-item">
+							<div class="item__schedule-time">19:00–19:30</div>
+							<div class="item__schedule-text">Ужин</div>
+						</div>
+						<div class="item__schedule-item">
+							<div class="item__schedule-time">19:30–20:00</div>
+							<div class="item__schedule-text">
+								Раздача лекарственных средств, контроль их приема. Выполнение врачебных назначений.
+								Измерение давления/температуры
+							</div>
+						</div>
+						<div class="item__schedule-item">
+							<div class="item__schedule-time">20:00–20:45</div>
+							<div class="item__schedule-text">Организованный досуг</div>
+						</div>
+						<div class="item__schedule-item">
+							<div class="item__schedule-time">20:45–21:30</div>
+							<div class="item__schedule-text">Вечерний туалет, подготовка ко сну, сон</div>
+						</div>
+						<div class="item__schedule-item">
+							<div class="item__schedule-time">21:30</div>
+							<div class="item__schedule-text">Сон</div>
+						</div>
+					</div>
+				</div>
 
-                            </p>
+				{% if item.pansion_conditions %}
+					<div class="item__special">
+						<h2 class="item__special-title">Особенности места</h2>
+						<div class="item__special-list">
+							{% for condition in item.pansion_conditions %}
+								<div class="item__special-item">
+									{{condition.name}}
+								</div>
+							{% endfor %}
+							{% if item.pansion_price > 999 %}
+								<div class="item__special-item">Дорогие (от 1000 ₽)</div>
+							{% else %}
+								<div class="item__special-item">Недорогие (до 1000 ₽)</div>
+							{% endif %}
+							{% if item.pansion_type %}
+								<div class="item__special-item">{{ item.pansion_type[0].name }}</div>
+							{% endif %}
+						</div>
+					</div>
+				{% endif %}
 
-                            <div class="object_book_hidden_button _link_blue" data-action="show_phone">Показать телефон</div>
-                                                    
-                        </div>
+				{{ this.render('//components/generic/form_item_calc.twig') | raw }}
 
-                </div>
+				<div class="item__other-items">
+					<h2 class="item__other-items-title">Также выбирают</h2>
 
-                <div class="object_reserve">
-                    <div class="object_reserve_img"></div>
-                    <div class="object_reserve_text">Забронировать</div>
+					<div class="listing">
+						{{ this.render('//components/generic/listing.twig', {'items':other_pansions, 'other_pensions':true}) | raw }}
+					</div>
 
-                </div>
+				</div>
 
-            </div>
+				<div class="item__faq seo" id="faq">
+					<h2 class="item__faq-title">Частые вопросы</h2>
 
-        </div>
-    </div>
+					<div class="faq__accordion">
+						{% for question in faq %}
+							<div class="faq__accordion-item">
+								<div class="faq__accordion-item-title">
+									{{question.title}}
+								</div>
+								<div class="faq__accordion-item-text">
+									{{question.text|raw}}
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
 
-    <div class="content_wrapper">
+			</div>
 
-        <div class="content_block1" data-page-type="item">
+			<div class="item__info" data-da="item__container,2,1024">
+				<div class="item__info-wrap">
+					<div class="item__info-title">{{item.pansion_name}}</div>
+					{% if item.pansion_address %}
+						<div class="item__info-address" data-address>
+							<span>{{item.pansion_address}}</span>
+						</div>
+					{% endif %}
+					{% if item.pansion_rev_ya.id %}
+						<div class="item__info-review">
+							<div class="rate">
+								<div class="stars">
+									<div class="stars__empty"></div>
+									<div class="stars__fill" style="width:calc({{item.pansion_rev_ya.rate}} * 20%)"></div>
+								</div>
+								<p class="rate__count">{{item.pansion_rev_ya.rate}}</p>
+								<p class="rate__reviews">(<a href="https://yandex.ru/maps/org/{{item.pansion_rev_ya.id}}/" target="_blank">{{item.pansion_rev_ya.count}}</a>)</p>
+							</div>
+						</div>
+					{% endif %}
+					{% if item.pansion_network %}
+						<div class="item__info-net">Сеть: <span>{{item.pansion_network[0].name}}</span></div>
+					{% endif %}
+					<a href="tel:84953002200" class="item__info-phone">8 (495) 300 22 00</a>
+					<div class="item__info-phone-text">Бесплатная круглосуточная консультация</div>
+				</div>
 
-            <h2 class="object_header">Залы</h2>
+				<div class="item__info-bot">
+					<div class="item__info-bot-price">
+						от <span>{{item.pansion_price}} ₽</span> за сутки
+						<div class="item__info-bot-tooltip">
+							<span>?</span>
+							<div class="item__info-bot-tooltip-text">
+								<p>
+									Минимальная стоимость указана для людей, не требующих помощи в гигиеническом уходе.
+								</p>
+								<p>Нажмите <a href="#" data-calc>здесь</a>, чтобы получить точный расчет</p>
+							</div>
+						</div>
+					</div>
+					<div class="item__info-bot-btns">
+						<div class="item__info-bot-order _btn" data-book>Забронировать</div>
+						<div class="item__info-bot-callback _btn-transparent" data-callback-item>Заказать звонок</div>
+					</div>
+				</div>
 
-            {% for room in item.rooms %}
-            <div class="object_head1 room">
+				{{ this.render('//components/generic/form_item_booking.twig') | raw }}
 
-                <div class="object_column">
+				{{ this.render('//components/generic/form_item_callback.twig', {'title':'Бесплатная консультация', 'data_type':'item-callback'}) | raw }}
 
-                    <div class="object_column_header">
-                        {{ this.render('//components/generic/room_title.twig', {'room':room}) | raw }}
-                    </div>
+			</div>
 
-                    {# <div class="object_benefit">
-                        <div class="object_benefit_img"></div>
-                        <div class="object_benefit_text">Получи подарок за бронь!</div>
-                    </div> #}
+		</div>
 
-                    {% if room.id > 50 %}
-                        <div class="object_benefit">
-                            <div class="object_benefit_img"></div>
-                            <div class="object_benefit_text">Получи подарок за бронь!</div>
-                        </div>
-                    {% else %}
-                        <div class="object_reservation">
-                            <div class="object_reservation_img"></div>
-                            <div class="object_reservation_text">Успей забронировать!</div>
-                        </div>
-                    {% endif %}
-
-                    <div class="object_parameters">
-
-                        {{ this.render('//components/generic/room_parameter_list.twig', {'room':room}) | raw }}
-                        
-                    </div>
-
-                    <div class="object_reserve">
-                        <div class="object_reserve_img"></div>
-                        <div class="object_reserve_text">Забронировать</div>
-
-                    </div>
-
-                </div>
-
-                <div class="object_gallery1" data-gallery data-id="{{room.restaurant_id}}">
-
-                    <div class="swiper-container gallery-top">
-
-                        <div class="swiper-wrapper">
-
-                            {% for image in room.images %}
-                                <div class="swiper-slide">
-                                    <a href="{{image.waterpath}}=s0" data-lightbox="top_slider"><img src="{{image.subpath}}=w710-h472-n-l95" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/></a>
-                                </div>
-                            {% endfor %}
-
-                        </div>
-
-                        <div class="swiper-button-prev"></div>
-                        <div class="swiper-button-next"></div>
-                        <div class="middle-swiper-pagination swiper-pagination"></div>
-                        
-
-                    </div>
-
-                    <div class="swiper-container gallery-thumbs">
-
-                        <div class="first_slide_gradient _hide"></div>
-                        <div class="swiper-wrapper">
-                            {% for image in room.images %}
-                                <div class="swiper-slide object_thumb">
-                                    <img src="{{image.subpath}}=w138-h92-n-l95" alt="Фото №{{loop.index}} зала {{item.restaurant_name}}"/>
-                                </div>
-                            {% endfor %}
-                        </div>
-                        <div class="last_slide_gradient"></div>
-
-                    </div>
-
-                </div>
-
-            </div>
-            {% endfor %}
-        </div>
-
-    </div>
-    
-    <div class="map">
-        <div id="map" data-mapDotX="{{item.restaurant_latitude}}" data-mapDotY="{{item.restaurant_longitude}}" data-name="{{item.restaurant_name}}" data-address="{{item.restaurant_address}}" data-image="{{item.restaurant_cover_url}}" data-capacity="{{item.restaurant_max_capacity}}" data-lowest-price="{% set lowestPrice = item.restaurant_price %}{% for room in item.rooms %}{% if room.price < lowestPrice %}{% set lowestPrice = room.price %}{% endif %}{% endfor %}{{lowestPrice}}" data-balloon="" data-hint="">
-        </div>
-    </div>
-
-    <div class="content_block form_booking_wrapper">
-
-        {{ this.render('//components/generic/form_booking1.twig', {'items':other_rooms}) | raw }}
-
-    </div>
-
-    <div class="another_restaurants">
-        <div class="another_restaurants_header">Похожие площадки</div>
-        <div class="another_restaurants_container">
-            {% for i in 1..2 %}
-                <div class="another_restaurants_column">
-                    {{ this.render('//components/generic/another_restaurants.twig', {'item':item}) | raw }}
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-
+	</div>
 </div>

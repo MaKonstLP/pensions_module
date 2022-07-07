@@ -1,0 +1,37 @@
+{{ use('yii/widgets/Pjax') }}
+{{ use('yii/widgets/ListView') }}
+
+<div class="blog" data-page-type="blog">
+	<div class="container">
+		<div class="comments" style="display: none;"></div>
+
+		{# <div class="content_block" data-listing-title>
+			{{ this.render('//components/generic/item_title.twig', {'seo':seo}) | raw }}
+		</div> #}
+
+		<div class="title">
+			<h1>Услуги</h1>
+		</div>
+
+		<div class="content_block items_list_blog" data-blog-wrapper>
+
+			<div class="items_list" data-blog-list>
+				{{ pjax_begin({'id' : 'blog-listing','enablePushState':false}) }}
+				{{ list_view_widget(listConfig) }}
+				{{ pjax_end()  }}
+			</div>
+
+		</div>
+
+		{# <div class="short_listing_button_wrapper">
+			<a href="#" class="short_listing_button">
+				<span>Показать еще</span>
+			</a>
+		</div>
+
+
+		{{pagination | raw }} #}
+
+	</div>
+</div>
+

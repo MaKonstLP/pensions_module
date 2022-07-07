@@ -1,0 +1,20 @@
+{% if slices_bot %}
+	<div class="fast-filters fast-filters_bottom">
+	{% for slice_bot in slices_bot %}
+		<div class="fast-filters__item"><a href="/{{slice_bot}}/">{{slice_bot}}</a></div>
+	{% endfor %}
+	</div>
+{% else %}
+	<div class="fast-filters fast-filters_bottom">
+		<div class="fast-filters__item"><a href="/Москва/">Москва</a></div>
+		<div class="fast-filters__item"><a href="/Химки/">Химки</a></div>
+		<div class="fast-filters__item"><a href="/Люберцы/">Люберцы</a></div>
+		<div class="fast-filters__item"><a href="/Зеленоград/">Зеленоград</a></div>
+		<div class="fast-filters__item"><a href="/Королев/">Королев</a></div>
+		<div class="fast-filters__item"><a href="/Мытищи/">Мытищи</a></div>
+		<div class="fast-filters__item"><a href="/Балашиха/">Балашиха</a></div>
+		<div class="fast-filters__item"><a href="/Подольск/">Подольск</a></div>
+		<div class="fast-filters__item"><a href="/Бутово/">Бутово</a></div>
+		<div class="fast-filters__item"><a href="/Троицк/">Троицк</a></div>
+	</div>
+{% endif %}

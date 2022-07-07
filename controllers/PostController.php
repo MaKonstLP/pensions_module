@@ -1,5 +1,5 @@
 <?php
-namespace app\modules\graduation\controllers;
+namespace app\modules\pensions\controllers;
 
 use Yii;
 use yii\web\Controller;

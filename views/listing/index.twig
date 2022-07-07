@@ -1,57 +1,161 @@
 <div data-page-type="listing">
-
-	<div class="content_block" data-listing-title>
-        {{ this.render('//components/generic/item_title.twig', {'seo':seo}) | raw }}
-    </div>
-
-	<div class="content_block listing_paragraph">
-
-		{{ this.render('//components/generic/listing_title.twig', {'count':count, 'seo':seo}) | raw }}
-		
-	</div>
-
-	<div class="show_filter_button">
-		<p>Фильтр заведений</p>
-	</div>
-
-	<div class="listing_and_filter_wrapper">
-
-		<div class="filter_wrapper">
-			{{filter | raw }}
+	<div class="container">
+		<div class="title _index">
+			<div class="title__header">
+				<h1>
+					{{seo.h1}}&nbsp;{% if seo_type != 'listing' %}<span class="title__count">{{total}}{% if seo.text_1 %}<span class="title__tooltip">?</span>{% endif %}</span>{% endif %}
+				</h1>
+				{% if seo.text_1 %}
+				<div class="title__tooltip-text">
+					{{seo.text_1|raw}}
+				</div>
+				{% endif %}
+				
+			</div>
+			<div class="title__show-filter" data-show-filter>
+				<img src="/image/icons/filter.svg" alt="">
+				Фильтр заведений
+			</div>
+			<div class="title__show-map" data-show-map>
+				<div class="title__show-map-btn"></div>
+				<div class="title__show-map-text">Показать на карте</div>
+			</div>
 		</div>
 
-		<div class="items_list_listing" data-listing-wrapper>
-			<div class="items_list" data-listing-list>
+		<div class="fast-filters fast-filters_top">
+			{{ this.render('//components/generic/slices_top.twig', {'slices_top':slices_top, 'custom_slice':custom_slice, 'slices_text':slices_text}) | raw }}
+		</div>
 
-				{{ this.render('//components/generic/listing.twig', {'items':items, 'img_alt':seo.img_alt}) | raw }}
+		<div class="listing-filter">
+			<div class="filter_wrapper">
+			
+				{{filter | raw }}
 
+				<div class="manager">
+					<div class="manager__img">
+						<img src="/image/manager_image.webp" alt="">
+					</div>
+					<div class="manager__name">Ольга Сидорова</div>
+					<div class="manager__position">Менеджер</div>
+					<div class="manager__title">Бесплатная помощь менеджера&nbsp;24/7</div>
+					<a href="tel:84953002200" class="manager__phone">8 (495) 300 22 00</a>
+					<a href="mailto:supoport@hospis-msk.ru" class="manager__mail">supoport@hospis-msk.ru</a>
+				</div>
+			</div>
+			<div class="main-content">
+				<div class="main-content__container">
+
+					<div class="map map_listing" data-map-api-subid="{{ subid }}">
+					</div>
+
+					<div class="listing" data-listing-list>
+						{{ this.render('//components/generic/listing.twig', {'items':items, 'page':'listing', 'cities':cities, 'diseasies':diseasies}) | raw }}
+					</div>
+					
+					<div data-pagination-wrapper>
+						{{pagination | raw }}
+					</div>
+
+					<div class="fast-filters-wrap">
+						{{ this.render('//components/generic/slices_bot.twig', {'slices_bot':slices_bot}) | raw }}
+					</div>
+
+					{{ this.render('//components/generic/form_consult.twig') | raw }}
+
+					<div class="listing-description seo">
+						{{seo.text_2|raw}}
+
+						<div class="reviews">
+							<h2>Отзывы</h2>
+
+							<div class="reviews__slider swiper">
+								<div class="swiper-wrapper">
+									{% for review in reviews %}
+										<div class="reviews__slide swiper-slide">
+											<div class="reviews__title">{{review.title}}</div>
+											<div class="reviews__rate">
+												<div class="stars">
+													<div class="stars__empty"></div>
+													<div class="stars__fill" style="width:calc({{review.rating}} * 20%)"></div>
+												</div>
+											</div>
+											<div class="reviews__slider-text">
+												<p>{{review.text}}</p>
+												<div class="reviews__slider-text-more" data-review-text-more>
+													Читать полностью
+												</div>
+											</div>
+											<p class="reviews__slider-author">{{review.author}}</p>
+											<p class="reviews__slider-date">{{review.date}}</p>
+										</div>
+									{% endfor %}
+								</div>
+							</div>
+							<div class="reviews__slider-btn-next"><img src="/image/icons/slider_arrow_blue.svg" alt="">
+							</div>
+							<div class="reviews__slider-btn-prev"><img src="/image/icons/slider_arrow_blue.svg" alt="">
+							</div>
+							<div class="reviews__slider-pagination swiper-pagination"></div>
+						</div>
+
+						<div class="faq">
+							<h2>Часто задаваемые вопросы</h2>
+							<div class="faq__accordion">
+								{% for question in faq %}
+									<div class="faq__accordion-item">
+										<div class="faq__accordion-item-title">
+											{{question.title}}
+										</div>
+										<div class="faq__accordion-item-text">
+											{{question.text|raw}}
+										</div>
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+
+						<div class="video-reviews">
+							<h2>Видеоотзывы</h2>
+
+							<div class="video-reviews__slider swiper">
+								<div class="swiper-wrapper">
+
+									<div class="video-reviews__slide swiper-slide">
+										<div class="video-reviews__video">
+											<img src="/image/video/01.webp" alt="">
+											<div class="video-reviews__play-btn"></div>
+										</div>
+										<div class="video-reviews__title">Как выбрать лучший пансионат?</div>
+									</div>
+									<div class="video-reviews__slide swiper-slide">
+										<div class="video-reviews__video">
+											<img src="/image/video/02.webp" alt="">
+											<div class="video-reviews__play-btn"></div>
+										</div>
+										<div class="video-reviews__title">Дом престарелых или сиделка – что лучше?</div>
+									</div>
+									<div class="video-reviews__slide swiper-slide">
+										<div class="video-reviews__video">
+											<img src="/image/video/01.webp" alt="">
+											<div class="video-reviews__play-btn"></div>
+										</div>
+										<div class="video-reviews__title">Как выбрать лучший пансионат?</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="video-reviews__slider-btn-next">
+								<img src="/image/icons/slider_arrow_blue.svg" alt="">
+							</div>
+							<div class="video-reviews__slider-btn-prev">
+								<img src="/image/icons/slider_arrow_blue.svg" alt="">
+							</div>
+							<div class="video-reviews__slider-pagination swiper-pagination"></div>
+						</div>
+
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-
-	<div class="content_block"> 
-		<div data-pagination-wrapper>
-			{{pagination | raw }}
-		</div>
-	</div>
-
-	<div class="content_block map listing" data-map-api-subid="{{ subid }}"></div>
-
-
-	<div class="content_block listing_paragraph" data-listing-text-bottom>
-		<div class="seo_text" data-seo-text>
-			{{seo.text_bottom | raw }}
-			<div class="seo_text_control" data-seo-control>
-				<p class="_link">Показать полностью</p>
-			</div>
-		</div>
-	</div>
-
-	<div class="content_block form_booking_wrapper">
-
-        {{ this.render('//components/generic/form_booking1.twig', {'items':other_rooms}) | raw }}
-
-    </div>
-
-	<div class="content_loading"></div>
 </div>

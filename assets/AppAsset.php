@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\modules\graduation\assets;
+namespace frontend\modules\pensions\assets;
 
 use yii\web\AssetBundle;
 
@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle
 {
-    public $sourcePath = '@frontend/modules/graduation/web/dist/';
+    public $sourcePath = '@frontend/modules/pensions/web/dist/';
     //public $baseUrl = '@web';
     //public $baseUrl = '@frontend/modules/svadbanaprirode/web';
     public $css = [

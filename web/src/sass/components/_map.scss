@@ -1,121 +1,70 @@
+.map {
+	width: 100%;
+	height: 480px;
+	margin: 0 0 32px 0;
+
+	@include for-lowlap {
+		height: 360px;
+	}
+
+	@include for-mobile {
+		height: 320px;
+	}
+
+	&.map_listing {
+		display: none;
+
+		&._active {
+			display: block;
+		}
+	}
+}
 .balloon_layout {
 	display: block;
 	position: absolute;
-	width: 398px;
+	width: 315px;
 	max-width: 412px;
 	height: 194px;
 	background: white;
-
-	.close {
-		position: absolute;
-		right: 7px;
-		top: 7px;
-		// width: 30px;
-		// height: 30px;
-		// background: url("/img/close_icon.svg");
-		width: 17px;
-		height: 17px;
-		transform: rotate(45deg);
-		cursor: pointer;
-
-		@include for-mobile {
-			// top: 8px;
-			// right: 8px;
-
-			top: 11px;
-			right: 11px;
-		}
-
-		&:hover {
-			// background: url("/img/close_icon_hover.svg");
-			filter: brightness(0.6);
-		}
-
-		div:first-child {
-			width: 17px;
-			height: 1.31px;
-			background-color: #293c60;
-			transform: translate(-50%, -50%);
-			position: absolute;
-			top: 50%;
-			left: 50%;
-		}
-
-		div:last-child {
-			width: 1.3px;
-			height: 17px;
-			background-color: #293c60;
-			transform: translate(-50%, -50%);
-			position: absolute;
-			top: 50%;
-			left: 50%;
-		}
-	}
-
-	.arrow {
-		position: absolute;
-		top: -8px;
-		right: 40px;
-		width: 16px;
-		height: 16px;
-		background: white;
-		transform: rotate(45deg);
-		z-index: -1;
-	}
 }
 
 .balloon_layout._single_object,
 .balloon_layout {
 	display: block;
 	position: absolute;
-	// width: 400px;
-	left: 124px;
+	bottom: 46px;
+	left: -22px;
 	max-width: unset;
 	height: auto;
 	background: white;
-	box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-	border-radius: 5px;
+	border: 1px solid #e2e6eb;
+	border-radius: 4px;
 
-	@include for-mobile {
-		left: 0;
-		// top: -148px;
-		width: auto;
-
-		top: -178px;
-	}
-
-	.arrow {
+	&::before {
+		content: "";
 		position: absolute;
-		top: -8px;
-		right: auto;
-		left: 18px;
-
-		@include for-mobile {
-			display: none;
-		}
+		bottom: -6px;
+		left: 16px;
+		width: 10px;
+		height: 10px;
+		transform: rotate(45deg);
+		background: #fff;
+		border-right: 1px solid #e2e6eb;
+		border-bottom: 1px solid #e2e6eb;
 	}
 
 	.balloon_inner {
 		display: flex;
-		// padding: 10px 15px 10px;
-		padding: 16px 38px 16px 16px;
 		border-radius: 4px;
-
-		@include for-mobile {
-			flex-flow: column nowrap;
-			align-items: center;
-
-			padding: 40px 12px 16px;
-		}
+		padding: 16px;
 
 		.balloon_inner_header {
-			margin-right: 16px;
-
 			font-style: normal;
 			font-weight: bold;
 			font-size: 16px;
 			line-height: 142.56%;
 			text-align: center;
+			margin-right: 16px;
 
 			@include for-mobile {
 				width: 272px;
@@ -144,7 +93,6 @@
 		.balloon_inner_body {
 			display: flex;
 			flex-flow: row wrap;
-
 			font-style: normal;
 			font-weight: 500;
 			font-size: 12px;
@@ -193,86 +141,67 @@
 				}
 			}
 		}
-
-		// @include for-mobile {
-		//   padding: 40px 12px 16px 12px;
-		// }
-	}
-}
-
-[data-page-type="listing"] {
-	.balloon_layout {
-		left: 333px;
 	}
 }
 
 .balloon_wrapper {
-	// height: 194px;
-	// width: 370px;
 	display: flex;
-	// flex-flow: column nowrap;
-	// padding: 20px 0 0 20px;
+}
+.balloon_header {
+	font-size: 16px;
+	font-weight: 600;
+	margin-bottom: 4px;
+}
 
-	.balloon_content {
-		width: 100%;
-		display: flex;
-		justify-content: flex-start;
+.balloon_address {
+	position: relative;
+	display: inline-block;
+	transition: all 0.5s ease;
+	margin-left: 21px;
+	margin-bottom: 16px;
 
-		img {
-			width: 126px;
-			height: 96px;
-			object-fit: cover;
-		}
-
-		.balloon_text {
-			display: flex;
-			flex-flow: column nowrap;
-			padding-left: 16px;
-			// padding-right: 35px;
-
-			.balloon_header {
-				font-family: "GothamPro";
-				font-weight: 700;
-				font-size: 14px;
-				line-height: 20px;
-				letter-spacing: 0.01em;
-				color: #363c4a;
-			}
-
-			.balloon_address {
-				font-family: "Lato", sans-serif;
-				font-weight: 400;
-				font-size: 12px;
-				line-height: 18px;
-				letter-spacing: 0.02em;
-				color: #797c88;
-				margin-bottom: 6px;
-			}
-
-			.balloon_inner_body_options {
-				font-family: "GothamPro";
-				font-size: 12px;
-				font-weight: 400;
-				line-height: 20px;
-				letter-spacing: 0.02em;
-				color: #363c4a;
-			}
-		}
+	&::before {
+		content: "";
+		position: absolute;
+		top: 4px;
+		left: -21px;
+		width: 16px;
+		height: 16px;
+		background: url("/image/icons/pin_icon.svg") center no-repeat;
 	}
 
-	.balloon_link {
-		margin: auto;
+	span {
+		font-weight: 400;
+		font-size: 14px;
+		line-height: 18px;
+		color: $clrSecondary;
+		border-bottom: 1px dashed #d3d5da;
+	}
+}
 
-		.balloon_link_button {
-			padding: 6px 20px;
+.balloon_inner_body_options {
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 20px;
+	letter-spacing: 0.02em;
+	color: #363c4a;
+}
 
-			a {
-				font-family: "Montserrat";
-				font-style: normal;
-				font-weight: 500;
-				font-size: 14px;
-				line-height: 22px;
-			}
+.balloon_btn {
+}
+
+.contacts__map {
+	.balloon_address {
+		margin: 0;
+
+		&::before {
+			display: none;
+		}
+
+		span {
+			border: none;
+			font-size: 16px;
+			color: $clrBlack;
 		}
 	}
 }

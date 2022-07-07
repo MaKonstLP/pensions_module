@@ -1,0 +1,700 @@
+.filter {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 272px;
+	padding: 24px 16px 32px;
+	align-items: flex-start;
+	margin: 0 auto;
+	border-radius: 4px;
+
+	@include for-lowlap {
+		width: 282px;
+		padding: 16px 12px;
+	}
+
+	@include for-mobile {
+		width: 288px;
+		padding: 16px 0 0;
+		margin: 0 auto;
+		height: 100vh;
+	}
+
+	.filter_select-checkbox-wrapper {
+		display: flex;
+		flex-flow: row wrap;
+		align-items: flex-end;
+
+		@include for-pad {
+			justify-content: flex-start;
+
+			.filter_select:nth-child(3) {
+				margin-right: 0px;
+			}
+		}
+
+		@include for-mobile {
+			width: 100%;
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.filter_select {
+			cursor: pointer;
+			width: 240px;
+
+			@include for-lowlap {
+				// width: 208px;
+				// margin-top: 20px;
+				width: 100%;
+			}
+
+			// @include for-pad {
+			//   width: 208px;
+			//   margin-top: 20px;
+			// }
+
+			@include for-mobile {
+				// width: 100%;
+				// margin-top: 10px;
+			}
+		}
+
+		.filter_select.middle_chek {
+			width: 144px;
+		}
+
+		.filter_select:not(:last-child) {
+			margin-bottom: 16px;
+		}
+
+		.filter_label {
+			cursor: initial;
+			font-size: 16px;
+			font-weight: 700;
+			line-height: 24px;
+			letter-spacing: 0.01em;
+			margin-bottom: 4px;
+		}
+
+		.filter_select_block {
+			position: relative;
+
+			&._active {
+				z-index: 5;
+
+				.filter_select_list {
+					display: block;
+				}
+
+				.filter_select_current:after {
+					transform: rotate(-135deg);
+					// top: 17px;
+				}
+			}
+		}
+
+		.filter_select_block[data-type="chelovek"] {
+			.filter_select_current {
+				width: 144px;
+			}
+
+			.filter_select_list {
+				width: 144px;
+				min-width: unset;
+
+				.filter_select_item {
+					width: 144px;
+				}
+			}
+		}
+
+		.filter_input_block {
+			position: relative;
+
+			input {
+				height: 39px;
+				line-height: 39px;
+				white-space: nowrap;
+				box-shadow: inset 0 1px 2px rgba(140, 140, 140, 0.5);
+				border-radius: 2px;
+				padding: 0 16px 0 16px;
+				background: #fff;
+				position: relative;
+				overflow: hidden;
+				width: 100%;
+			}
+		}
+
+		.filter_select_current {
+			box-shadow: inset 0px 2px 2px 0px rgba(118, 125, 134, 0.1);
+			border-radius: 4px;
+			padding: 14px 8px;
+			height: 48px;
+			border: 1px solid #dadee1;
+			white-space: nowrap;
+			background: white;
+			position: relative;
+			overflow: hidden;
+
+			&:after {
+				content: "";
+				position: absolute;
+				width: 8px;
+				height: 8px;
+				border-right: 2px solid $clrLightGrey;
+				border-bottom: 2px solid $clrLightGrey;
+				border-radius: 2px;
+				top: 50%;
+				transform: translateY(-50%) rotate(45deg);
+				right: 12px;
+				z-index: 2;
+			}
+
+			p {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				left: 8px;
+				font-size: 14px;
+				line-height: 20px;
+				font-weight: 400;
+				letter-spacing: 0.01em;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				width: calc(100% - 16px);
+			}
+		}
+
+		.filter_select_list {
+			display: none;
+			position: absolute;
+			min-width: 100%;
+			top: calc(100% - 2px);
+			padding: 12px 0 12px;
+			background-color: white;
+			border: 1px solid #dadee1;
+			border-radius: 4px;
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+			cursor: initial;
+			z-index: 5;
+		}
+
+		.filter_select_item {
+			padding: 0 15px 0 15px;
+			white-space: nowrap;
+			cursor: pointer;
+
+			&:hover {
+				background: #ff5214;
+
+				p {
+					color: white;
+				}
+			}
+
+			&._active {
+				background: #fff8eb;
+
+				&:hover p {
+					color: $clrBlack;
+				}
+			}
+
+			p {
+				font-weight: 500;
+				line-height: 36px;
+			}
+		}
+
+		.filter_check {
+			height: 26px;
+			padding-left: 22px;
+			position: relative;
+			cursor: pointer;
+			white-space: nowrap;
+			margin: 15px 15px 0 0;
+
+			@include for-pad {
+				width: calc((100% / 3) - 10px);
+			}
+
+			@include for-mobile {
+				// width: 100%;
+				margin: 20px 15px 0 0;
+			}
+
+			&:before {
+				background: transparent;
+				content: "";
+				position: absolute;
+				width: 16px;
+				height: 16px;
+				border: 1px solid #b3b6be;
+				border-radius: 2px;
+				left: 0;
+				top: 0;
+			}
+
+			&:after {
+				display: none;
+				content: "";
+				position: absolute;
+				width: 10px;
+				height: 10px;
+				left: 3px;
+				top: 7px;
+				border-radius: 50%;
+				background-color: #ff5214;
+			}
+
+			&._checked:after {
+				display: block;
+			}
+
+			// &:after {
+			// 	content: "";
+			// 	position: absolute;
+			// 	width: 5px;
+			// 	height: 9px;
+			// 	left: 6px;
+			// 	transform: rotate(45deg);
+			// 	top: 5px;
+			// 	will-change: transform;
+			// }
+
+			// &._checked:after {
+			// 	border-bottom: 2px solid #d83603;
+			// 	border-right: 2px solid #d83603;
+			// }
+
+			p {
+				font-size: 16px;
+				font-weight: 400;
+				line-height: 24px;
+				letter-spacing: 0.01em;
+			}
+		}
+
+		.input_wrapper {
+			input {
+				width: 135px;
+				padding: 0 20px 0 16px;
+				line-height: 40px;
+				background-color: white;
+				box-shadow: inset 0px 1px 2px rgba(140, 140, 140, 0.5);
+				border-radius: 2px;
+				font-size: 16px;
+				font-weight: 500;
+			}
+
+			.calendar_wrapper {
+				position: relative;
+			}
+
+			.open_calendar_button {
+				position: absolute;
+				top: -40px;
+				left: 0;
+				width: 135px;
+				height: 40px;
+
+				&:before {
+					content: "";
+					cursor: pointer;
+					position: absolute;
+					top: 9px;
+					right: 10px;
+					width: 20px;
+					height: 20px;
+					background: url("/img/calendar_icon.svg");
+				}
+
+				&:hover:before {
+					background: url("/img/calendar_icon_active.svg");
+				}
+			}
+
+			.open_calendar_button._active {
+				&:before {
+					background: url("/img/calendar_icon_active.svg");
+				}
+			}
+
+			.calendar_container {
+				top: -2px;
+				left: 77px;
+
+				@include for-pad {
+					left: 0px;
+
+					.calendar:before {
+						left: 106px;
+					}
+				}
+
+				@include for-mobile {
+					left: -20px;
+
+					.calendar:before {
+						left: 127px;
+					}
+				}
+			}
+		}
+
+		.filter_checkbox {
+			display: flex;
+			flex-flow: row wrap;
+			margin-bottom: 14px;
+
+			@include for-lowlap {
+				margin-bottom: 16px;
+			}
+
+			> .filter_label {
+				width: 100%;
+			}
+
+			.filter_check {
+				margin-top: 0;
+				padding-left: 20px;
+				display: flex;
+
+				&::before {
+					border-radius: 50%;
+					top: 4px;
+				}
+			}
+		}
+	}
+
+	.filter_calendar {
+		margin-bottom: 16px;
+		.input_wrapper {
+			.input_label {
+				font-size: 16px;
+				line-height: 24px;
+				font-weight: 700;
+				letter-spacing: 0.01em;
+				margin-bottom: 4px;
+			}
+
+			input {
+				width: 144px;
+				box-shadow: inset 0 2px 2px 0 rgba(118, 125, 134, 0.1);
+				border-radius: 4px;
+				padding: 14px 8px;
+				height: 48px;
+				border: 1px solid #dadee1;
+				white-space: nowrap;
+				background: #fff;
+				position: relative;
+				overflow: hidden;
+				font-size: 14px;
+				line-height: 20px;
+				font-weight: 400;
+				letter-spacing: 0.01em;
+			}
+
+			.calendar_wrapper {
+				.open_calendar_button {
+					top: -48px;
+					width: 144px;
+					height: 48px;
+
+					&:before {
+						top: 14px;
+						background: url("/image/calendar_icon.svg");
+					}
+				}
+
+				.calendar_container {
+					left: 0;
+					top: 12px;
+
+					@include for-lowlap {
+						left: unset;
+						right: 0;
+					}
+
+					@include for-mobile {
+						left: 0;
+						right: unset;
+						top: 12px;
+					}
+
+					.calendar {
+						&:before {
+							right: unset;
+							left: 12px;
+							box-shadow: -8px -10px 20px rgba(47, 61, 2, 0.1);
+
+							@include for-lowlap {
+								left: unset;
+								right: 12px;
+							}
+
+							@include for-mobile {
+								right: unset;
+								left: 12px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.filter_submit {
+		@include for-pad {
+			margin: 20px auto 0;
+		}
+	}
+
+	.filter_submit {
+		margin: 32px 0 16px;
+
+		@include for-notdesc {
+			&.filter_submit_fixed {
+				position: fixed;
+				top: calc(100vh - 150px);
+				transform: translateX(-16px);
+				z-index: 2;
+				width: 272px;
+				// right: 0;
+				padding: 16px 16px 54px;
+				border-top: 1px solid #dadee1;
+				box-shadow: 0px -5px 20px 0px rgba(15, 4, 61, 0.1);
+				background-color: #fff;
+
+				// .filter_submit_button {
+				// 	margin-left: 12px;
+				// }
+			}
+
+			&.filter_submit_static {
+				position: static;
+				// padding: 32px calc((100% - 288px) / 2) 16px;
+				border-top: none;
+				box-shadow: none;
+				background-color: unset;
+				width: auto;
+
+				.filter_submit_button {
+					margin: 0 auto;
+				}
+			}
+
+			&._static {
+				position: static !important;
+				transform: translateX(0) !important;
+				width: auto;
+				border-top: none;
+				box-shadow: none;
+				background-color: unset;
+				padding: 0;
+
+				.filter_submit_button {
+					margin: 0 auto;
+				}
+			}
+		}
+
+		@include for-lowlap {
+			display: flex;
+			justify-content: center;
+			margin: 0 auto;
+			box-sizing: border-box;
+			z-index: 2;
+
+			&.filter_submit_fixed {
+				position: fixed;
+				top: calc(100vh - 119px);
+				transform: translateX(0);
+				right: 0;
+				width: 282px;
+				padding: 16px 16px 54px;
+				border-top: 1px solid #dadee1;
+				box-shadow: 0px -5px 20px 0px rgba(15, 4, 61, 0.1);
+				background-color: #fff;
+			}
+
+			&.filter_submit_static {
+				position: static;
+				// padding: 32px calc((100% - 288px) / 2) 16px;
+				padding: 32px 0px 16px;
+				border-top: none;
+				box-shadow: none;
+				background-color: unset;
+				width: 250px;
+			}
+		}
+
+		@include for-mobile {
+			// display: flex;
+			// justify-content: center;
+			// width: 100%;
+			// margin: 0 auto;
+			// box-sizing: border-box;
+			// z-index: 2;
+
+			&.filter_submit_fixed {
+				// position: fixed;
+				// top: calc(100vh - 119px);
+				width: 100%;
+				left: 0px;
+				padding: 16px calc((100% - 288px) / 2) 54px;
+				// border-top: 1px solid #dadee1;
+				// box-shadow: 0px -5px 20px 0px rgba(15, 4, 61, 0.1);
+				// background-color: #fff;
+			}
+
+			&.filter_submit_static {
+				// position: static;
+				// padding: 32px calc((100% - 288px) / 2) 16px;
+				// border-top: none;
+				// box-shadow: none;
+				// background-color: unset;
+				width: 100%;
+			}
+		}
+
+		.filter_submit_button {
+			width: 240px;
+			text-align: center;
+			padding: 14px 0;
+			font-size: 14px;
+			line-height: 20px;
+			letter-spacing: 00.01em;
+			font-weight: 700;
+			color: #fff;
+			background: radial-gradient(ellipse at center, #df4200 70%, transparent calc(70% + 3px)),
+				radial-gradient(ellipse at center, #ec4900 70%, transparent calc(70% + 3px)), #fe5200;
+			background-size: 340px 130px;
+			background-position: 50% -113px, 50% -87px;
+			background-repeat: no-repeat;
+
+			&:hover {
+				background: radial-gradient(ellipse at center, #f2470a 70%, transparent calc(70% + 3px)),
+					radial-gradient(ellipse at center, #f84c0e 70%, transparent calc(70% + 3px)), #ff5214;
+				background-size: 340px 130px;
+				background-position: 50% -113px, 50% -87px;
+				background-repeat: no-repeat;
+			}
+
+			&:active {
+				background: radial-gradient(ellipse at center, #a52f07 70%, transparent calc(70% + 3px)),
+					radial-gradient(ellipse at center, #a52f07 70%, transparent calc(70% + 3px)), #ba1904;
+				background-size: 340px 130px;
+				background-position: 50% -113px, 50% -87px;
+				background-repeat: no-repeat;
+			}
+
+			@include for-notdesc {
+				margin: 0 auto;
+			}
+
+			@include for-laptop {
+				width: 254px;
+			}
+
+			// @include for-pad {
+			// 	margin: 0;
+			// }
+
+			@include for-mobile {
+				margin: 0;
+				width: 100%;
+				text-align: center;
+			}
+		}
+
+		._button {
+			border-radius: 4px;
+		}
+	}
+
+	.filter_cancel {
+		margin: auto;
+
+		@include for-notdesc {
+			&.fiter_cancel_fixed {
+				position: fixed;
+				top: calc(100vh - 37px);
+				transform: translateX(-16px);
+				display: flex;
+				justify-content: center;
+				width: 272px;
+				z-index: 3;
+				// right: 0;
+			}
+
+			&.fiter_cancel_static {
+				position: static;
+				width: auto;
+			}
+
+			&._static {
+				position: static !important;
+				transform: translateX(0) !important;
+				width: auto;
+			}
+		}
+
+		@include for-lowlap {
+			display: flex;
+			justify-content: center;
+			background-color: #fff;
+			margin: 0 auto;
+			box-sizing: border-box;
+			z-index: 2;
+
+			&.fiter_cancel_fixed {
+				position: fixed;
+				top: calc(100vh - 37px);
+				transform: translateX(0);
+				right: 0;
+				width: 282px;
+			}
+
+			&.fiter_cancel_static {
+				position: static;
+				// width: 258px;
+			}
+		}
+
+		@include for-mobile {
+			display: flex;
+			justify-content: center;
+			background-color: #fff;
+			width: 100%;
+			margin: 0 auto;
+			box-sizing: border-box;
+			z-index: 2;
+
+			&.fiter_cancel_fixed {
+				position: fixed;
+				top: calc(100vh - 37px);
+				left: 0px;
+			}
+
+			&.fiter_cancel_static {
+				position: static;
+			}
+		}
+
+		.filter_cancel_button {
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 20px;
+			letter-spacing: 0.01em;
+
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+}

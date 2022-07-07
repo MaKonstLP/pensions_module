@@ -1,0 +1,38 @@
+{# {% if slices_top %}
+	{% for slice_top in slices_top %}
+		<div class="fast-filters__item"><a href="/{{slice_top}}/">{{slice_top}}</a></div>
+	{% endfor %}
+{% else %}
+	<div class="fast-filters__item"><a href="/Дорогие/">Дорогие</a></div>
+	<div class="fast-filters__item"><a href="/Недорогие/">Недорогие</a></div>
+	<div class="fast-filters__item"><a href="/Частные/">Частные</a></div>
+	<div class="fast-filters__item"><a href="/Государственные/">Государственные</a></div>
+{% endif %} #}
+
+{% if slices_top == 'index' %}
+	<div class="fast-filters__item"><a href="/Дорогие/">Дорогие</a></div>
+	<div class="fast-filters__item"><a href="/Недорогие/">Недорогие</a></div>
+	<div class="fast-filters__item"><a href="/Частные/">Частные</a></div>
+	<div class="fast-filters__item"><a href="/Государственные/">Государственные</a></div>
+	
+{% elseif custom_slice == true and slices_top != '' %}
+	{% for slice_top in slices_top %}
+		<div class="fast-filters__item"><a href="/{{slice_top}}/">{{slice_top}}</a></div>
+	{% endfor %}
+{% else %}
+	{% for key, values in slices_top %}
+		{% for param in values %}
+			<div class="fast-filters__item filter-active">
+				<a href="/?{{key}}={{param}}">
+					{% if slices_text %}
+						{{slices_text[param]}}
+					{% else %}
+						{{param}}
+					{% endif %}
+				</a>
+				<span data-fast-filter-remove></span>
+			</div>
+		{% endfor %}
+	{% endfor %}
+	<div class="fast-filters__cancel" data-fast-filter-cancel><span  class="fast-filters__cancel-text">Очистить всё</span><span  class="fast-filters__cancel-icon" ></span></div>
+{% endif %}

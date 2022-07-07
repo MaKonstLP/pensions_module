@@ -1,5 +1,6 @@
 <?php
-namespace app\modules\graduation\controllers;
+
+namespace app\modules\pensions\controllers;
 
 use Yii;
 use yii\base\InvalidParamException;
@@ -20,10 +21,28 @@ class StaticController extends Controller
 			->one();
 
 		$seo = new Seo('privacy', 1);
-        $this->setSeo($seo->seo);
+		$this->setSeo($seo->seo);
 
 		return $this->render('privacy.twig', [
 			'page' => $page,
+			'seo' => $seo->seo,
+		]);
+	}
+	
+	public function actionAgreement()
+	{
+		$page = Pages::find()
+			->where([
+				'type' => 'agreement',
+			])
+			->one();
+
+		$seo = new Seo('agreement', 1);
+		$this->setSeo($seo->seo);
+
+		return $this->render('agreement.twig', [
+			'page' => $page,
+			'seo' => $seo->seo,
 		]);
 	}
 
@@ -33,9 +52,10 @@ class StaticController extends Controller
 Sitemap:  https://svadbanaprirode.com/sitemap/  ';
 	}
 
-	private function setSeo($seo){
-        $this->view->title = $seo['title'];
-        $this->view->params['desc'] = $seo['description'];
-        $this->view->params['kw'] = $seo['keywords'];
-    }
+	private function setSeo($seo)
+	{
+		$this->view->title = $seo['title'];
+		$this->view->params['desc'] = $seo['description'];
+		$this->view->params['kw'] = $seo['keywords'];
+	}
 }

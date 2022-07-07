@@ -1,44 +1,41 @@
 <div class="filter" data-filter-wrapper>
+{# <div class="filter" > #}
 
 	<div class="filter_select-checkbox-wrapper">
-
-		{# <div class="filter_calendar">
-			<div class="input_wrapper _big">
-				<div class="input_label">Когда выпускной</div>
-				<input type="text" name="date"/>
-				<div class="calendar_wrapper">
-					<div class="open_calendar_button"></div>
-					<div class="calendar_container _hide">
-					<div class="calendar"></div>
-					</div>
-				</div>
-			</div>
-			</div> #}
-
-		<div class="filter_checkbox">
-			{# <p class="filter_label">Какой класс</p> #}
-			<p class="filter_label">У какого класса выпускной</p>
-			<!-- <div class="filter_check {{filter_item.active[key] is defined ? '_checked':''}}" data-type="{{label}}" data-filter-checkbox-item>
-				<div class="filter_check_item" data-value="{{key}}"><p>{{value}}</p></div>
-			</div>
-			<div class="filter_check {{filter_item.active[key] is defined ? '_checked':''}}" data-type="{{label}}" data-filter-checkbox-item>
-				<div class="filter_check_item" data-value="{{key}}"><p>{{value}}</p></div>
-			</div> -->
-			<div class="filter_check" data-type="" data-filter-checkbox-item>
-				<div class="filter_check_item" data-value=""><p>9 класс</p></div>
-			</div>
-			<div class="filter_check" data-type="" data-filter-checkbox-item>
-				<div class="filter_check_item" data-value=""><p>11 класс</p></div>
+		<div class="filter__title">
+			<p>Фильтр заведений</p>
+			<div class="filter__close _close-btn" data-filter-close>
+				<span></span>
+				<span></span>
 			</div>
 		</div>
 
 		{% for label,filter_item in filters %}
 			{% if filter_item.type == 'select' %}
-				{{ this.render('filter_select.twig', {
-					'filter_item':filter_item,
-					'label':label,
-					'filter_active': filter_active
-				}) | raw }}
+				{# {% if label == 'grade' %}
+					{{ this.render('filter_checkbox.twig', {
+						'filter_item':filter_item,
+						'label':label,
+						'filter_active': filter_active,
+					}) | raw }}
+				{% else %} #}
+					{% if label == 'pansion_types' %}
+						{{ this.render('filter_select_type.twig', {
+							'filter_item':filter_item,
+							'label':label,
+							'filter_active': filter_active,
+							'subdomen_filter_active': subdomen_filter_active[label]
+						}) | raw }}
+					{% else %}
+						{{ this.render('filter_select.twig', {
+							'filter_item':filter_item,
+							'label':label,
+							'filter_active': filter_active,
+							'subdomen_filter_active': subdomen_filter_active[label]
+						}) | raw }}
+					{% endif %}
+					
+				{# {% endif %} #}
 			{% elseif filter_item.type == 'input' %}
 				{{ this.render('filter_input.twig', {
 					'filter_item':filter_item,
@@ -54,79 +51,18 @@
 			{% endif %}
 		{% endfor %}
 
-		<div class="filter_select middle_chek">
-			<p class="filter_label">{{filter_item.name}}Чек на человека</p>
-			<div class="filter_select_block" data-type="{{label}}" data-filter-select-block>
-				<div class="filter_select_current" data-filter-select-current>
-					{# {% if filter_item.active is not null %}
-						{% if filter_item.active|length > 1 %}
-							<p>Выбрано ({{filter_item.active|length}})</p>
-						{% else %}
-							<p>{{filter_item.items[filter_item.active|keys|first]}}</p>
-						{% endif %}
-					{% else %} #}
-						<p>-</p>
-					{# {% endif %} #}
-				</div>
-				<div class="filter_select_list">
-					{# {% for key,value in filter_item.items %} #}
-						<div class="filter_select_item {{filter_item.active[key] is defined ? '_active':''}}" data-value="{{key}}" data-filter-select-item><p>{{value}}</p></div>
-					{# {% endfor %} #}
-				</div>
-			</div>
-		</div>
-
-		<div class="filter_select">
-			<p class="filter_label">{{filter_item.name}}Район *city*</p>
-			<div class="filter_select_block" data-type="{{label}}" data-filter-select-block>
-				<div class="filter_select_current" data-filter-select-current>
-					{# {% if filter_item.active is not null %}
-						{% if filter_item.active|length > 1 %}
-							<p>Выбрано ({{filter_item.active|length}})</p>
-						{% else %}
-							<p>{{filter_item.items[filter_item.active|keys|first]}}</p>
-						{% endif %}
-					{% else %} #}
-						<p>-</p>
-					{# {% endif %} #}
-				</div>
-				<div class="filter_select_list">
-					{# {% for key,value in filter_item.items %} #}
-						<div class="filter_select_item {{filter_item.active[key] is defined ? '_active':''}}" data-value="{{key}}" data-filter-select-item><p>{{value}}</p></div>
-					{# {% endfor %} #}
-				</div>
-			</div>
-		</div>
-
-		<div class="filter_select">
-			<p class="filter_label">{{filter_item.name}}Фишки</p>
-			<div class="filter_select_block" data-type="{{label}}" data-filter-select-block>
-				<div class="filter_select_current" data-filter-select-current>
-					{# {% if filter_item.active is not null %}
-						{% if filter_item.active|length > 1 %}
-							<p>Выбрано ({{filter_item.active|length}})</p>
-						{% else %}
-							<p>{{filter_item.items[filter_item.active|keys|first]}}</p>
-						{% endif %}
-					{% else %} #}
-						<p>-</p>
-					{# {% endif %} #}
-				</div>
-				<div class="filter_select_list">
-					{# {% for key,value in filter_item.items %} #}
-						<div class="filter_select_item {{filter_item.active[key] is defined ? '_active':''}}" data-value="{{key}}" data-filter-select-item><p>{{value}}</p></div>
-					{# {% endfor %} #}
-				</div>
-			</div>
-		</div>
-
 	</div>
 
-	<div class="filter_submit">
-		<div class="filter_submit_button _button" data-filter-button>Посмотреть ___ площадок</div>
+	{# <div class="filter_submit">
+		<div class="filter_submit_button _button" data-filter-button>Показать {{total}} {{Declension.get(total, 'площ')}}</div>
 	</div>
 	<div class="filter_cancel">
-		<div class="filter_cancel_button _link_blue" data-filter-button>Сбросить фильтр</div>
+		<div class="filter_cancel_button _link_blue" data-filter-cancel>Сбросить фильтр</div>
+	</div> #}
+
+	<div class="filter__btn">
+		<div class="filter_submit_btn _btn {% if total == 0 %}_disabled{% endif %}" data-filter-button>Показать&nbsp;<span>({{total}})</span></div>
+		<div class="filter_cancel_btn _btn-transparent" data-filter-cancel>Сбросить</div>
 	</div>
 
 </div>

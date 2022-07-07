@@ -1,0 +1,223 @@
+.faq {
+}
+.faq__form-wrapper {
+}
+.faq__form {
+	display: flex;
+	align-items: flex-start;
+	gap: 24px;
+	background-color: $clrExtraLightGrey;
+	border-radius: 4px;
+	padding: 32px 40px 40px;
+	margin-bottom: 48px;
+
+	@include for-laptop {
+		flex-direction: column;
+		padding: 16px 24px 24px;
+		margin-bottom: 32px;
+	}
+
+	@include for-mobile {
+		padding: 16px 16px 32px;
+	}
+}
+.faq__form-info {
+	width: 410px;
+
+	@include for-laptop {
+		width: 100%;
+	}
+}
+.faq__form-title {
+	font-size: 34px;
+	font-weight: 500;
+	line-height: 1.2em;
+	margin-bottom: 8px;
+
+	@include for-mobile {
+		font-size: 26px;
+	}
+}
+.faq__form-text {
+	margin-bottom: 16px;
+}
+.faq__form-wrap {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+
+	@include for-laptop {
+		flex-direction: row;
+	}
+
+	@include for-mobile {
+		flex-direction: column;
+	}
+}
+.faq__form-item {
+}
+.faq__form-label {
+	font-size: 12px;
+	margin-bottom: 4px;
+}
+.faq__form-phone {
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 1.2em;
+
+	@include for-laptop {
+		font-size: 16px;
+	}
+}
+.faq__form-email {
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 1.2em;
+	color: $clrLink;
+	white-space: nowrap;
+	border-bottom: 1px solid #b9bde7;
+
+	@include for-laptop {
+		font-size: 16px;
+	}
+
+	&:hover {
+		color: $clrLinkHover;
+		border-bottom: 1px solid $clrLinkHover;
+	}
+}
+.faq__form-form {
+	width: 502px;
+
+	@include for-laptop {
+		width: 100%;
+	}
+
+	.form__inputs {
+		flex-direction: column;
+
+		@include for-laptop {
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+
+		@include for-mobile {
+			flex-direction: column;
+		}
+	}
+
+	.form__input-wrap {
+		width: 100%;
+
+		@include for-laptop {
+			width: 240px;
+		}
+
+		@include for-mobile {
+			width: 100%;
+		}
+
+		&._comment {
+			height: 128px;
+
+			@include for-laptop {
+				width: 496px;
+				height: 104px;
+			}
+
+			@include for-mobile {
+				width: 100%;
+			}
+		}
+
+		input {
+			border: 1px solid $clrMiddleGrey;
+		}
+	}
+
+	.form__submit {
+		gap: 16px;
+
+		@include for-mobile {
+			align-items: flex-start;
+		}
+	}
+	.form__submit-btn {
+		padding: 5px 32px;
+
+		@include for-mobile {
+			width: 100%;
+		}
+	}
+	.checkbox_item {
+		margin-right: 0;
+
+		@include for-laptop {
+			max-width: 100%;
+		}
+	}
+	.checkbox_pseudo {
+		color: $clrBlack;
+
+		&::before {
+			border: 1px solid $clrMiddleGrey;
+		}
+	}
+	.form_policy_link {
+		color: $clrBlack;
+	}
+}
+
+.faq__form-success {
+	display: none;
+	background-color: $clrExtraLightGrey;
+	border-radius: 4px;
+	text-align: center;
+	padding: 40px;
+	margin-bottom: 48px;
+
+	@include for-mobile {
+		margin-bottom: 32px;
+	}
+}
+.faq__form-success-title {
+	font-size: 34px;
+	font-weight: 500;
+	line-height: 1.2em;
+	margin-bottom: 5px;
+
+	@include for-mobile {
+		font-size: 26px;
+	}
+}
+.faq__form-success-text {
+	margin-bottom: 16px;
+}
+.faq__form-success-btn {
+	font-size: 16px;
+	font-weight: 600;
+	padding: 5px 32px;
+	margin: 0 auto;
+}
+
+.faq__question {
+	margin-bottom: 64px;
+
+	@include for-laptop {
+		margin-bottom: 40px;
+	}
+
+	@include for-mobile {
+		margin-bottom: 32px;
+	}
+}
+.faq__question-title {
+	font-size: 34px;
+	font-weight: 500;
+	line-height: 1.2em;
+	margin-bottom: 16px;
+
+	@include for-mobile {
+		font-size: 26px;
+	}
+}

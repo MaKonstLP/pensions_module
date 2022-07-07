@@ -1,0 +1,15 @@
+<div class="filter_select">
+	<p class="filter_label">{{filter_item.name}}</p>
+	<div class="filter_select_block" data-type="{{label}}" data-filter-select-block>
+		
+		<div class="filter_select_list">
+			{% for key,item in filter_item.items %}
+				<div class="filter_select_item {{filter_item.active[key] is defined ? '_active':''}}" data-id="{{item.id}}" data-value="{{key}}" data-filter-select-item>
+					<p>{{item.name}}</p>
+					<span></span>
+				</div>
+			{% endfor %}
+		</div>
+
+	</div>
+</div>

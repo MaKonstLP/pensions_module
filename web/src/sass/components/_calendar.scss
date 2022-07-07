@@ -3,8 +3,8 @@
 	flex-flow: column nowrap;
 	align-items: flex-start;
 	position: absolute;
-	top: 30px;
-	right: 0px;
+	top: 54px;
+	right: -15px;
 	height: auto;
 	background: white;
 	box-shadow: 0px 5px 20px rgba(47, 61, 2, 0.1);
@@ -12,14 +12,27 @@
 	z-index: 10;
 	color: #333333;
 
+	@include for-mobile {
+		top: 61px;
+		right: unset;
+		left: -16px;
+	}
+
 	&._room {
 		align-items: center;
 	}
 
 	.calendar {
-		width: 373px;
+		width: 368px;
 		height: auto;
-		padding: 20px 30px 24px 15px;
+		border: 1px solid #e2e6eb;
+		border-radius: 4px;
+		padding: 24px 30px 28px 24px;
+
+		@include for-mobile {
+			width: 288px;
+			padding: 35px 12px 20px;
+		}
 
 		&:before {
 			content: "";
@@ -29,7 +42,14 @@
 			width: 16px;
 			height: 16px;
 			transform: rotate(45deg);
-			background: white;
+			background: $clrWhite;
+			border-left: 1px solid #e2e6eb;
+			border-top: 1px solid #e2e6eb;
+
+			@include for-mobile {
+				right: unset;
+				left: 30px;
+			}
 		}
 
 		.fc-toolbar.fc-header-toolbar {
@@ -48,9 +68,13 @@
 		.fc-left {
 			h2 {
 				padding: 0 0 0 14px;
-				font-weight: 500;
-				font-size: 16px;
-				line-height: 26px;
+				font-weight: 600;
+				font-size: 18px;
+				line-height: 21px;
+
+				@include for-mobile {
+					font-size: 16px;
+				}
 			}
 		}
 
@@ -59,8 +83,11 @@
 		}
 
 		.fc-day-header {
-			font-size: 11px;
-			font-weight: 500;
+			font-size: 14px;
+			font-weight: 400;
+			text-transform: uppercase;
+			color: $clrSecondary;
+			border-width: 0;
 		}
 
 		.fc-button-group {
@@ -88,13 +115,13 @@
 				left: 2px;
 				width: 22px;
 				height: 16px;
-				background: url(/image/arrow-right.svg);
+				background: url("/image/icons/arrow-right.svg");
 				background-size: contain;
 			}
 
 			&:hover {
 				&::before {
-					background: url(/image/arrow-right-active.svg);
+					background: url("/image/icons/arrow-right-active.svg");
 				}
 			}
 		}
@@ -123,7 +150,7 @@
 				width: 32px;
 				height: 32px;
 				border-radius: 50%;
-				border: 1px solid #f79122;
+				border: 1px solid $clrLink;
 			}
 
 			:hover::before {
@@ -187,7 +214,7 @@
 					width: 32px;
 					height: 32px;
 					border-radius: 50%;
-					background: #ff5214;
+					background: $clrLink;
 					z-index: -1;
 				}
 			}
@@ -241,26 +268,26 @@
 		display: none;
 	}
 
-	@include for-mobile {
-		// left: -74px;
+	// @include for-mobile {
+	// 	// left: -74px;
 
-		.calendar {
-			width: 290px;
-			padding: 20px 15px 20px;
+	// 	.calendar {
+	// 		width: 290px;
+	// 		padding: 20px 15px 20px;
 
-			&:before {
-				left: 45px;
-			}
+	// 		&:before {
+	// 			left: 45px;
+	// 		}
 
-			.fc-content-skeleton {
-				.fc-selected-date:before {
-					left: 3px;
-				}
-			}
-		}
+	// 		.fc-content-skeleton {
+	// 			.fc-selected-date:before {
+	// 				left: 3px;
+	// 			}
+	// 		}
+	// 	}
 
-		.checkbox_item {
-			padding: 0 0 20px 25px;
-		}
-	}
+	// 	.checkbox_item {
+	// 		padding: 0 0 20px 25px;
+	// 	}
+	// }
 }

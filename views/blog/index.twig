@@ -1,48 +1,116 @@
 {{ use('yii/widgets/Pjax') }}
 {{ use('yii/widgets/ListView') }}
 
-<div data-page-type="blog">
+<div class="blog" data-page-type="blog">
+	<div class="container">
+		<div class="comments" style="display: none;"></div>
 
-	<div class="comments" style="display: none;">
-		{# <div class="content_block" data-blog-title>
-
-			<h1>{{seo.h1}}</h1>
-				
+		{# <div class="content_block" data-listing-title>
+			{{ this.render('//components/generic/item_title.twig', {'seo':seo}) | raw }}
 		</div> #}
-	</div>
 
-	<div class="content_block" data-listing-title>
-        {{ this.render('//components/generic/item_title.twig', {'seo':seo}) | raw }}
-    </div>
+		<div class="title">
+			<h1>Блог</h1>
+		</div>
 
-	<h1>Статьи о выпускном</h1>
+		<div class="content_block items_list_blog" data-blog-wrapper>
 
-  	<div class="content_block items_list_blog" data-blog-wrapper>
-
-		<div class="items_list" data-blog-list>
-
-			{{  pjax_begin({'id' : 'blog-listing','enablePushState':false}) }}
-			{{  list_view_widget(listConfig) }}
-			{{  pjax_end()  }}
+			<div class="items_list" data-blog-list>
+				{{ pjax_begin({'id' : 'blog-listing','enablePushState':false}) }}
+				{{ list_view_widget(listConfig) }}
+				{{ pjax_end()  }}
+			</div>
 
 		</div>
 
-	</div>
-
-	<div class="short_listing_button_wrapper">
-		<a href="#" class="short_listing_button">
-			<span>Показать еще</span>
-		</a>
-	</div>
-
-	<!-- <div class="content_block pagination"> 
-
-		<div data-pagination-wrapper>
-
-			{{pagination | raw }}
-
+		{# <div class="short_listing_button_wrapper">
+			<a href="#" class="short_listing_button">
+				<span>Показать еще</span>
+			</a>
 		</div>
-    
-	</div> -->
 
+
+		{{pagination | raw }} #}
+
+	</div>
 </div>
+
+
+
+
+{# <div class="blog">
+	<div class="container">
+		<div class="title">
+			<h1>Блог</h1>
+		</div>
+
+		<div class="blog__list">
+			<a href="/ideas/test" class="blog__item">
+				<div class="blog__item-image">
+					<img src="/image/blog/01.jpg" alt="">
+				</div>
+				<div class="blog__item-name">ОРВИ и грипп у пожилых людей</div>
+				<div class="blog__item-date">12 января 2022</div>
+			</a>
+			<a href="/article.html" class="blog__item">
+				<div class="blog__item-image">
+					<img src="/image/blog/02.jpg" alt="">
+				</div>
+				<div class="blog__item-name">Особенности ухода за онкобольными</div>
+				<div class="blog__item-date">12 января 2022</div>
+			</a>
+			<a href="/article.html" class="blog__item">
+				<div class="blog__item-image">
+					<img src="/image/blog/03.jpg" alt="">
+				</div>
+				<div class="blog__item-name">Симптомы сахарного диабета у пожилых людей</div>
+				<div class="blog__item-date">12 января 2022</div>
+			</a>
+			<a href="/article.html" class="blog__item">
+				<div class="blog__item-image">
+					<img src="/image/blog/04.jpg" alt="">
+				</div>
+				<div class="blog__item-name">Болезнь Альцгеймера: первые симптомы, признаки, причины</div>
+				<div class="blog__item-date">12 января 2022</div>
+			</a>
+			<a href="/article.html" class="blog__item">
+				<div class="blog__item-image">
+					<img src="/image/blog/05.jpg" alt="">
+				</div>
+				<div class="blog__item-name">Скачет давление у пожилого человека — что делать?</div>
+				<div class="blog__item-date">12 января 2022</div>
+			</a>
+			<a href="/article.html" class="blog__item">
+				<div class="blog__item-image">
+					<img src="/image/blog/06.jpg" alt="">
+				</div>
+				<div class="blog__item-name">
+					Как улучшить память в пожилом возрасте: эффективные методики и упражнения
+				</div>
+				<div class="blog__item-date">12 января 2022</div>
+			</a>
+			<a href="/article.html" class="blog__item">
+				<div class="blog__item-image">
+					<img src="/image/blog/07.jpg" alt="">
+				</div>
+				<div class="blog__item-name">Как защитить пожилого человека от коронавируса?</div>
+				<div class="blog__item-date">12 января 2022</div>
+			</a>
+			<a href="/article.html" class="blog__item">
+				<div class="blog__item-image">
+					<img src="/image/blog/08.jpg" alt="">
+				</div>
+				<div class="blog__item-name">Особенности ухода за онкобольными</div>
+				<div class="blog__item-date">12 января 2022</div>
+			</a>
+			<a href="/article.html" class="blog__item">
+				<div class="blog__item-image">
+					<img src="/image/blog/09.jpg" alt="">
+				</div>
+				<div class="blog__item-name">Симптомы сахарного диабета у пожилых людей</div>
+				<div class="blog__item-date">12 января 2022</div>
+			</a>
+		</div>
+
+	</div>
+</div> #}

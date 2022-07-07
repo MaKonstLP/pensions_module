@@ -1,0 +1,78 @@
+<div class="service" data-page-type="service">
+
+	{# <div class="content_block" data-listing-title>
+		{{ this.render('//components/generic/title.twig', {'seo':seo, 'breadcrumbs':breadcrumbs}) | raw }}
+	</div> #}
+
+
+	<div class="service__head seo">
+		<div class="container">
+			<div class="service__head-info">
+				<div class="breadcrumbs">
+					<div class="breadcrumbs_item">
+						<a href="/">
+							<span><img src="/image/icons/breadcrump_home.svg" alt=""></span>
+						</a>
+					</div>
+					<div class="breadcrumbs_item">
+						<a href="/Услуги/">
+							<span>Услуги</span>
+						</a>
+					</div>
+				</div>
+				<div class="title">
+					{% if seo.heading %}
+						<h1>{{ seo.heading }}</h1>
+					{% else %}
+						<h1>{{ post.name }}</h1>
+					{% endif %}
+				</div>
+
+				{{seo.text1|raw}}
+
+				<div class="service__head-btns">
+					<div class="service__head-btns-btn _btn" data-callback-service>Оставить заявку</div>
+					<div class="service__head-btns-btn _btn-transparent">Посмотреть предложения</div>
+				</div>
+			</div>
+			<div class="service__head-image">
+				<img src="{{ post.getFilesData('image')[0].src }}" alt="">
+			</div>
+		</div>
+	</div>
+
+	<div class="service__article">
+		<div class="container">
+			<div class="article__wrap seo">
+				<div class="article__container">
+					{{ preview ? post.getBodyHtml()|raw : post.getHtml([1])|raw }}
+				</div>
+
+				<div class="article__side-block" data-da="article__container,5,1024">
+					<img src="{{ post.getFilesData('image')[1].src }}" alt="">
+					<div class="article__side-block-text">
+						{{seo.text2|raw}}
+					</div>
+					<div class="article__side-block-btn _btn">{{seo.text3|raw}}</div>
+				</div>
+			</div>
+
+			<div class="article__similar seo">
+				<h2>Похожие услуги</h2>
+				<div class="blog__list">
+					{% for similarPost in similarPosts %}
+						<a href="/Услуги/{{ similarPost.alias }}" class="blog__item">
+							<div class="blog__item-image">
+								<img src="{{ similarPost.getFileData('image').src }}">
+							</div>
+							<div class="blog__item-name">{{ similarPost.name }}</div>
+							<div class="blog__item-date">{{ similarPost.rusDate }}</div>
+						</a>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{ this.render('//components/generic/form_item_callback.twig', {'title':'Оставить заявку'}) | raw }}
+{{ this.render('//components/generic/form_booking.twig') | raw }}

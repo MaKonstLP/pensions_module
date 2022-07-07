@@ -1,8 +1,20 @@
-<div data-page-type="error">
-	<div class="main_top">
-        <h1>Страница не найдена</h1>
-        <div class="main_top_desc">
-            <a class="_grey_link" href="/">Вернуться на главную</a>
-        </div>  
-    </div>
+<div class="error" data-page-type="error">
+	<div class="container">
+		<div class="error__wrap">
+			<div class="title">
+				<h1>Ошибка 404. Такой страницы не существует.</h1>
+			</div>
+			
+			<div class="error__listing">
+				<h4>Возможно вы искали это:</h4>
+				<div class="listing">
+					{{ this.render('//components/generic/listing.twig', {'items':items}) | raw }}
+				</div>
+			</div>
+			
+			{{ this.render('//components/generic/form_consult.twig') | raw }}
+			
+		</div>
+	</div>
+
 </div>

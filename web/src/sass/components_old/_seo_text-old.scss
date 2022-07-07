@@ -1,0 +1,146 @@
+.seo_text {
+  // font-weight: 500;
+  font-weight: 400;
+  font-size: 16px;
+  // line-height: 26px;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  // margin: 40px 0px;
+
+  ul {
+    list-style: none;
+    // margin-top: 15px;
+    margin-top: 8px;
+    padding-left: 20px;
+
+    li {
+      line-height: 26px;
+      margin-top: 10px;
+      position: relative;
+
+      &:before {
+        content: "";
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background-color: #d83603;
+        border-radius: 50%;
+        top: 10px;
+        left: -20px;
+      }
+    }
+  }
+
+  ol {
+    padding-left: 20px;
+
+    li {
+      line-height: 26px;
+      margin-top: 10px;
+    }
+  }
+
+  p {
+    // margin-top: 15px;
+    // line-height: 26px;
+    line-height: 24px;
+  }
+
+  h2 {
+    // font-weight: 600;
+    // font-size: 36px;
+    // line-height: 44px;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    text-align: left;
+    // margin: 30px 0px 20px;
+    margin: 16px 0 8px;
+
+    @include for-mobile {
+      font-size: 30px;
+    }
+  }
+
+  h3 {
+    font-weight: normal;
+    font-size: 26px;
+    line-height: 32px;
+    text-align: left;
+    margin: 25px 0px 15px;
+  }
+
+  h4 {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    margin: 20px 0px 15px;
+  }
+
+  @include for-laptop {
+    font-size: 14px;
+    line-height: 22px;
+    margin: 20px 0px;
+    // max-height: 200px;
+    max-height: 324px;
+    overflow: hidden;
+    position: relative;
+
+    &._nowrap {
+      max-height: initial;
+    }
+
+    &._active {
+      max-height: initial;
+
+      .seo_text_control {
+        display: none;
+      }
+    }
+  }
+
+  .seo_text_control {
+    display: none;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: absolute;
+    color: #225db7;
+    background: #f6f6f6;
+    top: 296px;
+    width: 100%;
+    text-align: left;
+    padding-bottom: 3px;
+
+    @include for-laptop {
+      display: flex;
+    }
+
+    // @include for-mobile {
+    //   display: flex;
+    // }
+
+    p {
+      @include for-laptop {
+        color: #225db7;
+        border-bottom: 1px dashed #225db7;
+      }
+    }
+
+    // p {
+    //   @include for-mobile {
+    //     color: #225db7;
+    //     border-bottom: 1px dashed #225db7;
+    //   }
+    // }
+  }
+}
+
+[data-page-type="index"] .seo_text {
+  .seo_text_control {
+    background: #f6f6f6;
+
+    @include for-mobile {
+      background: #fff;
+    }
+  }
+}

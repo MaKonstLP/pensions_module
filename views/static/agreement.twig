@@ -1,0 +1,14 @@
+<div class="static seo">
+	<div class="container">
+		<div class="title">
+			{% if seo.h1 %}
+				<h1>{{seo.h1|raw}}</h1>
+			{% else %}
+				<h1>{{page.name|raw}}</h1>
+			{% endif %}
+		</div>
+		{{seo.text_top|raw}}
+		<br/>
+		<br/>
+	</div>
+</div>
