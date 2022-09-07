@@ -319,8 +319,17 @@ export default class Form {
 		formData.append('type', formType);
 		var formUrl = window.location.href;
 		formData.append('url', formUrl);
+		var formTitle = this.$form.data('title');
+		formData.append('title', formTitle);
 		// var cityID = $('[data-city-id]').data('city-id');
 		// formData.append('cityID', cityID);
+
+		if (this.$form.data('type') == 'listing-book') {
+			var formPansionName = this.$form.data('pansion-name');
+			formData.append('pansion-name', formPansionName);
+			var formPansionUrl = this.$form.data('pansion-url');
+			formData.append('pansion-url', formPansionUrl);
+		}
 
 		for (var pair of formData.entries()) {
 			console.log(pair[0] + ', ' + pair[1]);

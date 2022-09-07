@@ -16,6 +16,8 @@ use common\widgets\ProgressWidget;
 use common\models\elastic\ItemsFilterElastic;
 use common\models\FilterItems;
 use common\models\PansionTypeVia;
+use backend\models\Review;
+use frontend\components\Declension;
 
 class ElasticItems extends \yii\elasticsearch\ActiveRecord
 {
@@ -50,10 +52,17 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			'pansion_specials',
 			'pansion_slug',
 			'pansion_types',
+			'pansion_main_type',
 			'pansion_rev_ya',
-			// 'pansion_rev_ya_id',
-			// 'pansion_rev_ya_rate',
-			// 'pansion_rev_ya_count'
+			'pansion_description',
+			'pansion_video',
+			'pansion_licenses',
+			'pansion_documents',
+			'pansion_schedule',
+			'pansion_reviews_local',
+			'pansion_alias',
+			'pansion_checked',
+			'pansion_main_type_id',
 		];
 	}
 
@@ -78,7 +87,8 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 					'id'                           => ['type' => 'integer'],
 					'pansion_id'                   => ['type' => 'integer'],
 					'pansion_name'                 => ['type' => 'text'],
-					'pansion_slug'                 => ['type' => 'text'],
+					'pansion_alias'                => ['type' => 'text'],
+					'pansion_slug'                 => ['type' => 'keyword'],
 					'pansion_url'                  => ['type' => 'text'],
 					'pansion_price'                => ['type' => 'integer'],
 					'pansion_price_old'            => ['type' => 'integer'],
@@ -99,6 +109,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 					'pansion_network'              => ['type' => 'nested', 'properties' => [
 						'id'                        => ['type' => 'integer'],
 						'name'                      => ['type' => 'text'],
+						'alias'                     => ['type' => 'text'],
 					]],
 					'pansion_type'                 => ['type' => 'nested', 'properties' => [
 						'id'                        => ['type' => 'integer'],
@@ -111,10 +122,12 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 					'pansion_cities'               => ['type' => 'nested', 'properties' => [
 						'id'                        => ['type' => 'integer'],
 						'name'                      => ['type' => 'text'],
+						'alias'                     => ['type' => 'text'],
 					]],
 					'pansion_conditions'           => ['type' => 'nested', 'properties' => [
 						'id'                        => ['type' => 'integer'],
 						'name'                      => ['type' => 'text'],
+						'alias'                     => ['type' => 'text'],
 					]],
 					'pansion_conveniencies'        => ['type' => 'nested', 'properties' => [
 						'id'                        => ['type' => 'integer'],
@@ -133,22 +146,29 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 						'name'                      => ['type' => 'text'],
 					]],
 					'pansion_images'               => ['type' => 'nested', 'properties' => [
-						'path'               		=> ['type' => 'text'],
-						'path_thumb'				=> ['type' => 'text'],
-						'path_catalog'				=> ['type' => 'text'],
-						'path_swiper'				=> ['type' => 'text'],
+						'path'               		 => ['type' => 'text'],
+						'path_thumb'					 => ['type' => 'text'],
+						'path_catalog'					 => ['type' => 'text'],
+						'path_swiper'					 => ['type' => 'text'],
 					]],
 					'pansion_rooms'                => ['type' => 'nested', 'properties' => [
 						'id'                        => ['type' => 'integer'],
 						'name'                      => ['type' => 'text'],
 					]],
-					'pansion_specials'        	   => ['type' => 'nested', 'properties' => [
+					'pansion_specials'         => ['type' => 'nested', 'properties' => [
 						'id'                        => ['type' => 'integer'],
 						'name'                      => ['type' => 'text'],
+					]],
+					// 'pansion_main_type'            => ['type' => 'text'],
+					'pansion_main_type'        => ['type' => 'nested', 'properties' => [
+						'id'                        => ['type' => 'integer'],
+						'name'                      => ['type' => 'text'],
+						'alias'                     => ['type' => 'text'],
 					]],
 					'pansion_types'        	   => ['type' => 'nested', 'properties' => [
 						'id'                        => ['type' => 'integer'],
 						'name'                      => ['type' => 'text'],
+						'alias'                     => ['type' => 'text'],
 					]],
 					'pansion_rev_ya'  	      => ['type' => 'nested', 'properties' => [
 						'id'                        => ['type' => 'long'],
@@ -156,9 +176,20 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 						'count'                     => ['type' => 'text'],
 						'active'                    => ['type' => 'integer'],
 					]],
-					// 'pansion_rev_ya_id'       		 => ['type' => 'integer'],
-					// 'pansion_rev_ya_rate'       	 => ['type' => 'text'],
-					// 'pansion_rev_ya_count'         => ['type' => 'text'],
+					'pansion_description'          => ['type' => 'text'],
+					'pansion_video'  	     	   => ['type' => 'nested', 'properties' => [
+						'link'                      => ['type' => 'text'],
+						'title'                     => ['type' => 'text'],
+					]],
+					'pansion_licenses'             => ['type' => 'text'],
+					'pansion_documents'            => ['type' => 'text'],
+					'pansion_schedule'             => ['type' => 'text'],
+					'pansion_reviews_local'    => ['type' => 'nested', 'properties' => [
+						'rate'                      => ['type' => 'text'],
+						'count'                     => ['type' => 'text'],
+					]],
+					'pansion_checked'              => ['type' => 'integer'],
+					'pansion_main_type_id'			=> ['type' => 'integer'],
 				]
 			],
 		];
@@ -224,6 +255,8 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			->with('images')
 			->with('rooms')
 			->with('entertainments')
+			->with('maintype')
+			->with('licenses')
 			->limit(100000)
 			->all();
 
@@ -263,6 +296,21 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			echo $items->total . '
 ';
 		}
+	}
+
+	public static function getTransliterate($textcyr = null, $textlat = null)
+	{
+		$cyr = array(
+			'ж',  'ч',  'щ',    'ш',  'ю',  'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ъ', 'ь', 'я',  'э', 'ы',
+			'Ж',  'Ч',  'Щ',    'Ш',  'Ю',  'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ъ', 'Ь', 'Я',  'Э', 'Ы'
+		);
+		$lat = array(
+			'zh', 'ch', 'shch', 'sh', 'yu', 'a', 'b', 'v', 'g', 'd', 'e', 'e', 'z', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'f', 'h', 'c', '',   '', 'ya', 'e', 'y',
+			'Zh', 'Ch', 'Shch', 'Sh', 'Yu', 'A', 'B', 'V', 'G', 'D', 'E', 'E', 'Z', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', 'H', 'c', '',   '', 'Ya', 'E', 'Y'
+		);
+		if ($textcyr) return str_replace($cyr, $lat, $textcyr);
+		else if ($textlat) return str_replace($lat, $cyr, $textlat);
+		else return null;
 	}
 
 	public static function getTransliterationForUrl($name)
@@ -347,6 +395,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			$network_arr = [];
 			$network_arr['id'] = $network->network_id;
 			$network_arr['name'] = $network->name;
+			$network_arr['alias'] = strtoLower(self::getTransliterate($network->name));
 			array_push($networks, $network_arr);
 		}
 		$record->pansion_network = $networks;
@@ -377,6 +426,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			$city_arr = [];
 			$city_arr['id'] = $city->city_id;
 			$city_arr['name'] = $city->name;
+			$city_arr['alias'] = strtoLower(self::getTransliterate($city->name));
 			array_push($cities, $city_arr);
 		}
 		$record->pansion_cities = $cities;
@@ -387,6 +437,7 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			$condition_arr = [];
 			$condition_arr['id'] = $condition->condition_id;
 			$condition_arr['name'] = $condition->name;
+			$condition_arr['alias'] = str_replace(' ', '_', strtoLower(self::getTransliterate($condition->name)));
 			array_push($conditions, $condition_arr);
 		}
 		$record->pansion_conditions = $conditions;
@@ -500,18 +551,29 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 		}
 		$record->pansion_specials = $specials;
 
-		//Основной тип пансионата
+		//Главный тип пансионата
+		$maintype_arr = [];
+		if (isset($pansion->maintype) && !empty($pansion->maintype)) {
+			$maintype_arr['id'] = $pansion->maintype['id'];
+			$maintype_arr['name'] = $pansion->maintype['name'];
+			$maintype_arr['alias'] = str_replace(' ', '_', strtoLower(self::getTransliterate($pansion->maintype['name'])));
+		}
+		$record->pansion_main_type = $maintype_arr;
+		if(isset($maintype_arr['id'])) $record->pansion_main_type_id = $maintype_arr['id'];
+
+		//Основные типы пансионата
 		$types = [];
 		$main_types = PansionTypeVia::find()
 			->where(['pansion_id' => $pansion->pansion_id])
 			->with('type')
 			->all();
 		foreach ($main_types as $key => $type) {
-			$types_arr = [];
 			$types_arr['id'] = $type->type_id;
 			$types_arr['name'] = $type->type->name;
+			$types_arr['alias'] = str_replace(' ', '_', strtoLower(self::getTransliterate($type->type->name)));
 			array_push($types, $types_arr);
 		}
+
 		$record->pansion_types = $types;
 
 		//Отзывы с Яндекса из общей базы
@@ -519,7 +581,25 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 		$reviews['id'] = $pansion->rev_ya_id;
 		$reviews['rate'] = $pansion->rev_ya_rate;
 		$reviews['count'] = $pansion->rev_ya_count;
-		//$record->pansion_rev_ya = $reviews;
+
+		//Видео с youtube (может измениться в локальной БД)
+		$video = [];
+		$video['link'] = $pansion->video;
+		$video['title'] = $pansion->video_title;
+
+		//Картинки Лицензий
+		$licenses = [];
+		foreach ($pansion->licenses as $license) {
+			$licenses[] = "/image/" . $license['img_path'];
+		}
+		$record->pansion_licenses = $licenses;
+
+		//Необходимые документы (может измениться в локальной БД)
+		$record->pansion_documents = $pansion->documents;
+
+		//Распорядок дня (может измениться в локальной БД)
+		$record->pansion_schedule = $pansion->schedule;
+
 
 		//подключение к локальной БД
 		Yii::$app->set('db', $connection_local);
@@ -531,6 +611,40 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 		//Отзывы с Яндекса "активность" из локальной базы
 		$reviews['active'] = $pansion_local->rev_ya_active;
 		$record->pansion_rev_ya = $reviews;
+
+		//Отзывы оставленные на сайте
+		$reviews_local = Review::find()->where(['pansion_id' => $pansion->pansion_id, 'active' => 1])->all();
+		if (isset($reviews_local) && !empty($reviews_local)) {
+			$rev_arr = [];
+			$reviews_rate_sum = 0;
+			foreach ($reviews_local as $review_local) {
+				$reviews_rate_sum += $review_local['rating'];
+			}
+			$rev_arr['rate'] = round($reviews_rate_sum / count($reviews_local), 1);
+			$rev_arr['count'] = Declension::get(count($reviews_local), 'отзыв', true);
+			$record->pansion_reviews_local = $rev_arr;
+		}
+
+		//Описание на странице учреждения из локальной базы
+		$record->pansion_description = $pansion_local->description;
+
+		//Видео с youtube из локальной базы
+		if (isset($pansion_local->video) && !empty($pansion_local->video)) {
+			$video['link'] = $pansion_local->video;
+			$video['title'] = $pansion_local->video_title;
+		}
+		$record->pansion_video = $video;
+
+		//Необходимые документы из локальной базы
+		if (isset($pansion_local->documents) && !empty($pansion_local->documents)) {
+			$record->pansion_documents = $pansion_local->documents;
+		}
+
+		//Распорядок дня из локальной базы
+		if (isset($pansion_local->schedule) && !empty($pansion_local->schedule)) {
+			$record->pansion_schedule = $pansion_local->schedule;
+		}
+
 
 
 		//Картинки пансионата
@@ -551,6 +665,12 @@ class ElasticItems extends \yii\elasticsearch\ActiveRecord
 			array_push($images, $image_arr);
 		}
 		$record->pansion_images = $images;
+
+		//alias названия учреждения
+		$record->pansion_alias = $pansion_local->alias;
+
+		//плашка "проверено"
+		$record->pansion_checked = $pansion_local->checked;
 
 		// restaurant slug
 		if ($row = (new \yii\db\Query())->select('slug')->from('pansion_slug')->where(['pansion_id' => $pansion->pansion_id])->one()) {

@@ -387,27 +387,27 @@ class TestController extends Controller
 
 		//добавление SEO для страниц Главный тип + Город
 		// 76-355
-		// $typesList = [
-		// 	'Хосписы' => 'хосписов',
-		// 	'Пансионаты' => 'пансионатов',
-		// 	'Дома престарелых' => 'домов престарелых',
-		// 	'Дома интернаты' => 'домов интернатов',
-		// 	'Реабилитационные центры' => 'реабилитационных центров',
-		// 	'Стационары' => 'стационаров',
-		// 	'Паллиативные центры' => 'паллиативных центров',
-		// ];
-		// $pages = Pages::find()->where(['between', 'id', 76, 355])->all();
-		// foreach ($pages as $page) {
-		// 	$names_arr = explode('-в-',$page['type']);
-		// 	$names_arr[0] = str_replace('-', ' ', $names_arr[0]);
-		// 	$site_object = SiteObject::find()->where(['table_name' => 'pages', 'row_id' => $page['id']])->one();
-		// 	$object_seo = SiteObjectSeo::find()->where(['site_object_id' => $site_object['id']])->one();
+		/* 	$typesList = [
+			'Хосписы' => 'хосписов',
+			'Пансионаты' => 'пансионатов',
+			'Дома престарелых' => 'домов престарелых',
+			'Дома интернаты' => 'домов интернатов',
+			'Реабилитационные центры' => 'реабилитационных центров',
+			'Стационары' => 'стационаров',
+			'Паллиативные центры' => 'паллиативных центров',
+		];
+		$pages = Pages::find()->where(['between', 'id', 76, 355])->all();
+		foreach ($pages as $page) {
+			$names_arr = explode('-в-',$page['type']);
+			$names_arr[0] = str_replace('-', ' ', $names_arr[0]);
+			$site_object = SiteObject::find()->where(['table_name' => 'pages', 'row_id' => $page['id']])->one();
+			$object_seo = SiteObjectSeo::find()->where(['site_object_id' => $site_object['id']])->one();
 
-		// 	$object_seo->heading = "$names_arr[0] для пожилых в $names_arr[1]";
-		// 	$object_seo->description = 'Каталог лучших ' . $typesList[$names_arr[0]] .' для пожилых в '.$names_arr[1].' ◾ &#127973;Адреса на карте ◾ Бесплатное бронирование ◾ ⭐Рейтинги учреждений, отзывы и цены';
-		// 	$object_seo->title = "$names_arr[0] для пожилых в $names_arr[1] с ценами";
-		// 	$object_seo->save();
-		// }
+			$object_seo->heading = "$names_arr[0] для пожилых в $names_arr[1]";
+			$object_seo->description = 'Каталог лучших ' . $typesList[$names_arr[0]] .' для пожилых в '.$names_arr[1].' ◾ &#127973;Адреса на карте ◾ Бесплатное бронирование ◾ ⭐Рейтинги учреждений, отзывы и цены';
+			$object_seo->title = "$names_arr[0] для пожилых в $names_arr[1] с ценами";
+			$object_seo->save();
+		} */
 
 		//добавление SEO для страниц Главный тип + Цена
 		// 356-369
@@ -479,7 +479,7 @@ class TestController extends Controller
 		// $pansions = Pansion::find()->all();
 		// foreach ($pansions as $key => $pansion) {
 		// 	$images = PansionImage::find()->where(['pansion_id' => $pansion['pansion_id']])->all();
-			
+
 		// 	foreach ($images as $key => $image) {
 		// 		$image->img_sort = $key;
 		// 		$image->save();
@@ -493,6 +493,112 @@ class TestController extends Controller
 		// 	$pansion->name =  $pansion_main['name'];
 		// 	$pansion->save();
 		// }
+
+		//создание срезов для "Заболеваний"
+		// $filter_items = FilterItems::find()->where(['filter_id' => 5])->all();
+		// foreach ($filter_items as $key => $filter_item) {
+		// 	$filter_item->value = str_replace(' ', '_', strtolower(transliterate($filter_item['text'])));
+		// 	$filter_item->save();
+		// }
+
+		// $diseases = FilterItems::find()->where(['filter_id' => 5])->all();
+		// foreach ($diseases as $disease) {
+		// 	$test = new Slices();
+		// 	$test->type = 'Заболевание';
+		// 	$test->alias = $disease['text'];
+		// 	$test->params = '{"disease":"' . $disease['value'] . '"}';
+		// 	$test->save();
+		// }
+
+		//сохранение страниц Заболевание
+		/* $diseases = Slices::find()
+			->where(['type' => 'Заболевание'])
+			->all();
+
+		foreach ($diseases as $key => $value) {
+			$test = new Pages;
+			$test->type = $value->alias;
+			$test->name = $value->alias;
+			$test->save();
+		} */
+
+		//добавление SEO для страниц Заболевание
+		// 385-395
+		// $pages = Pages::find()->where(['between', 'id', 385, 395])->all();
+		// $slices = Slices::find()->where(['type' => 'Заболевание'])->all();
+
+		// foreach ($pages as $key => $page) {
+		// 	$disease = $slices[$key]['h1'];
+		// 	$site_object = SiteObject::find()->where(['table_name' => 'pages', 'row_id' => $page['id']])->one();
+		// 	$object_seo = SiteObjectSeo::find()->where(['site_object_id' => $site_object['id']])->one();
+
+		// 	$object_seo->heading = "Хосписы для пожилых $disease";
+		// 	$object_seo->description = "Каталог хосписов для пожилых людей $disease в Москве и МО ◾ &#127973;Адреса на карте ◾ Бесплатное бронирование ◾ ⭐Рейтинги учреждений, отзывы и цены";
+		// 	$object_seo->title = "Хосписы для пожилых $disease в Москве и Московской области с ценами";
+		// 	$object_seo->save();
+		// }
+
+		//сохранение срезов Главный тип + Заболевание
+		/* $main_types = Slices::find()
+			->where(['type' => 'Тип заведения'])
+			->all();
+
+		$diseases = Slices::find()
+			->where(['type' => 'Заболевание'])
+			->all();
+
+		foreach ($main_types as $key => $main_type) {
+			$type_params = json_decode($main_type->params, true);
+
+			foreach ($diseases as $key => $disease) {
+				$params = json_decode($disease->params, true);
+				$disease_name = str_replace(' ', '-', $disease->h1);
+
+				$test = new Slices;
+				$test->type = "$main_type->type + $disease->type";
+				$test->alias = "$main_type->alias-для-пожилых-$disease_name";
+				$test->h1 = "$main_type->alias для пожилых $disease->h1";
+				$test->params = '{"pansion_types":"' . $type_params["pansion_types"] . '", "disease":"' . $params["disease"] . '"}';
+				$test->save();
+			}
+		} */
+
+		//сохранение страниц Главный тип + Заболевание
+		/* $main_types_diseases = Slices::find()
+			->where(['type' => 'Тип заведения + Заболевание'])
+			->all();
+
+		foreach ($main_types_diseases as $key => $value) {
+			$test = new Pages;
+			$test->type = $value->alias;
+			$test->name = $value->h1;
+			$test->save();
+		} */
+
+		//добавление SEO для страниц Главный тип + Заболевание
+		// 396-472
+		/* $typesList = [
+			'Хосписы' => 'хосписов',
+			'Пансионаты' => 'пансионатов',
+			'Дома престарелых' => 'домов престарелых',
+			'Дома интернаты' => 'домов интернатов',
+			'Реабилитационные центры' => 'реабилитационных центров',
+			'Стационары' => 'стационаров',
+			'Паллиативные центры' => 'паллиативных центров',
+		];
+		$pages = Pages::find()->where(['between', 'id', 396, 472])->all();
+		foreach ($pages as $page) {
+			$types_arr = explode(' ', $page['name']);
+			$types_arr[0] = str_replace('-', ' ', $types_arr[0]);
+			$disease_arr = explode(' для пожилых ', $page['name']);
+			$site_object = SiteObject::find()->where(['table_name' => 'pages', 'row_id' => $page['id']])->one();
+			$object_seo = SiteObjectSeo::find()->where(['site_object_id' => $site_object['id']])->one();
+
+			$object_seo->heading = str_replace('-', ' ', $page['name']);
+			$object_seo->description = 'Каталог лучших ' . $typesList[$types_arr[0]] .' для пожилых людей '.$disease_arr[1].' в Москве и МО ◾ &#127973;Адреса на карте ◾ Бесплатное бронирование ◾ ⭐Рейтинги учреждений, отзывы и цены';
+			$object_seo->title = str_replace('-', ' ', $page['name']) . " в Москве и Московской области с ценами";
+			$object_seo->save();
+		} */
 
 
 

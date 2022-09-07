@@ -81,8 +81,9 @@ export default class Listing {
 			let pansionMyBalloonHeader = $(this).closest('.listing__item').attr("data-pansion-name");
 			let pansionMyBalloonBody = $(this).closest('.listing__item').attr("data-pansion-address");
 			let pansionId = $(this).closest('.listing__item').attr('data-pansion-id');
+			let pansionSlug = $(this).closest('.listing__item').attr('data-pansion-slug');
 
-			self.yaMap.showRestaurantOnMap(pansionCoordinates, pansionMyBalloonHeader, pansionMyBalloonBody, pansionId);
+			self.yaMap.showRestaurantOnMap(pansionCoordinates, pansionMyBalloonHeader, pansionMyBalloonBody, pansionId, pansionSlug);
 
 			let map_offset_top = $('.map').offset().top;
 			let map_height = $('.map').height();
@@ -141,6 +142,7 @@ export default class Listing {
 				$('.fast-filters_top').html(response.slices_top);
 				$('.fast-filters-wrap').html(response.slices_bot);
 				$('.title__header').html(response.title);
+				$('.listing-description__text').html(response.content_text);
 
 				$('.title__header').find('.title__tooltip').hover(onIn, onOut);
 				function onIn() {

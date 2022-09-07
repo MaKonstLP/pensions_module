@@ -134,7 +134,7 @@ export default class YaMapAll {
 
 
 
-	showRestaurantOnMap(pansionCoordinates, pansionMyBalloonHeader, pansionMyBalloonBody, pansionId) {
+	showRestaurantOnMap(pansionCoordinates, pansionMyBalloonHeader, pansionMyBalloonBody, pansionId, pansionSlug) {
 		let self = this;
 
 		self.objectCoordinates = pansionCoordinates;
@@ -143,7 +143,7 @@ export default class YaMapAll {
 		// self.myBalloonCapacity = restaurantMyBalloonCapacity;
 		// self.myBalloonImage = restaurantMyBalloonImage;
 		// self.myBalloonLowestPrice = restaurantMyBalloonLowestPrice;
-		// self.myBalloonSlug = restaurantSlug;
+		self.myBalloonSlug = pansionSlug;
 		self.myBalloonId = pansionId;
 
 
@@ -169,7 +169,7 @@ export default class YaMapAll {
 									<span>{{properties.balloonContentBody}}</span>
 								</div>
 
-								<a href="/{{properties.balloonContentId}}/" class="balloon_btn _btn-transparent">Подробнее</a>
+								<a href="/Каталог/{{properties.balloonContentSlug}}/" class="balloon_btn _btn-transparent">Подробнее</a>
 
 							</div>
 						</div>
@@ -224,7 +224,7 @@ export default class YaMapAll {
 			// balloonContentCapacity: self.myBalloonCapacity,
 			// balloonContentImage: self.myBalloonImage,
 			// balloonContentLowestPrice: self.myBalloonLowestPrice,
-			// balloonContentSlug: self.myBalloonSlug,
+			balloonContentSlug: self.myBalloonSlug,
 			balloonContentId: self.myBalloonId,
 		}, {
 			// iconColor: "green",
@@ -341,7 +341,7 @@ export default class YaMapAll {
 									<span>{{properties.address}}</span>
 								</div>
 
-								<a href="/{{properties.link}}" class="balloon_btn _btn-transparent">Подробнее</a>
+								<a href="/Каталог/{{properties.pansion_slug}}" class="balloon_btn _btn-transparent">Подробнее</a>
 
 							</div>
 						</div>

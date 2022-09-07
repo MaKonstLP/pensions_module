@@ -83,7 +83,11 @@ class SiteController extends Controller
 	{
 		header('Content-type: text/plain');
 		echo 'User-agent: *
-Disallow: /';
+Disallow: *?*
+Allow: */css/
+Allow: */js/
+Disallow: */%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3/
+Sitemap: https://xn------7cdgoiing2abg2abme9ac9eof2b1fqy2e.xn--p1ai/sitemap.xml';
 		exit;
 	}
 

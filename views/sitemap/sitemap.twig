@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> 
-        <url>
-            <loc>{{host}}</loc>
-        </url>
-        <url>
-            <loc>{{host}}/ploshhadki/</loc>
-        </url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<url>
+		<loc>{{host}}</loc>
+	</url>
+	{# <url>
+			<loc>{{host}}/Каталог/</loc>
+		</url> #}
 
-        {% for slice in slices %}
-        	<url>
-	            <loc>{{host}}/ploshhadki/{{slice.alias}}/</loc>
-	        </url>
-        {% endfor %}
+	{% for slice in slices %}
+		<url>
+			<loc>{{host}}/{{slice.alias}}/</loc>
+		</url>
+	{% endfor %}
 
-        <url>
-            <loc>{{host}}/privacy/</loc>
-        </url>
+	<url>
+		<loc>{{host}}/privacy-policy/</loc>
+	</url>
+	<url>
+		<loc>{{host}}/user-agreement/</loc>
+	</url>
 
-        {% for item in items %}
-        	<url>
-	            <loc>{{host}}/ploshhadki/{{item.id}}/</loc>
-	        </url>
-        {% endfor %}
-        
-    </urlset>
+	{% for item in items %}
+		<url>
+			{# <loc>{{host}}/Каталог/{{item.id}}/</loc> #}
+			<loc>{{host}}/Каталог/{{item.pansion_slug}}/</loc>
+		</url>
+	{% endfor %}
+
+</urlset>

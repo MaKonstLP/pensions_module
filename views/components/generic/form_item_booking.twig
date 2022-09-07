@@ -1,10 +1,8 @@
 <div class="form form-item-book _popup">
 	<div class="form_wrapper">
 		<p class="form__title">Забронировать проживание</p>
-		<p class="form__subtitle">
-			Пансионат для пожилых «Осень жизни» в Балашихе
-		</p>
-		<form class="form__form" action="/ajax/form/" data-type="listing-consult">
+		<p class="form__subtitle">{{subtitle}}</p>
+		<form class="form__form" action="/ajax/form/" data-type="listing-consult" data-title="Забронировать проживание">
 			<div class="form__inputs">
 				<div class="form__input-wrap">
 					<input type="text" name="name" data-required placeholder="Ваше имя">
@@ -12,14 +10,7 @@
 				<div class="form__input-wrap">
 					<input type="text" name="phone" data-required placeholder="Номер телефона">
 				</div>
-				{# <div class="form__input-wrap form__input-wrap_date">
-					<input type="text" name="date-in" placeholder="Дата заезда">
-					<div class="form__input-wrap-notification">
-						Необязательно
-					</div>
-				</div> #}
 				<div class="form__input-wrap _date">
-					{# <input type="text" name="date" placeholder="Дата заезда" data-date-in> #}
 					<input type="text" name="date-in" placeholder="Дата заезда" data-date>
 					<div class="calendar_wrapper">
 						<div class="open_calendar_button"></div>
@@ -30,15 +21,7 @@
 					<div class="form__input-wrap-notification">Необязательно</div>
 				</div>
 
-
-				{# <div class="form__input-wrap form__input-wrap_date">
-					<input type="text" name="date-out" placeholder="Дата выезда">
-					<div class="form__input-wrap-notification">
-						Необязательно
-					</div>
-				</div> #}
 				<div class="form__input-wrap _date">
-					{# <input type="text" name="date" placeholder="Дата заезда" data-date-out> #}
 					<input type="text" name="date-out" placeholder="Дата выезда" data-date>
 					<div class="calendar_wrapper">
 						<div class="open_calendar_button"></div>

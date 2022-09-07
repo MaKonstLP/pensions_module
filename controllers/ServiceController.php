@@ -89,7 +89,8 @@ class ServiceController extends Controller
 
 		$post = BlogPost::findWithMedia()->with('blogPostTags')->where(['published' => true, 'alias' => $alias, 'type' => 2])->one();
 		if (empty($post)) {
-			return new NotFoundHttpException();
+			// return new NotFoundHttpException();
+			throw new NotFoundHttpException();
 		}
 
 		$seo = ArrayHelper::toArray($post->seoObject);

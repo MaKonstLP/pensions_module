@@ -27,13 +27,32 @@ AppAsset::register($this);
 	<?php $this->head() ?>
 	<?php if (!empty($this->params['desc'])) echo "<meta name='description' content='" . $this->params['desc'] . "'>"; ?>
 	<?php if (!empty($this->params['kw'])) echo "<meta name='keywords' content='" . $this->params['kw'] . "'>"; ?>
+	<?php if (!empty($this->params['robots'])) echo "<meta name='robots' content='noindex'/>"; ?>
 	<?= Html::csrfMetaTags() ?>
+	<!-- Google Tag Manager -->
+	<script>
+		(function(w, d, s, l, i) {
+			w[l] = w[l] || [];
+			w[l].push({
+				'gtm.start': new Date().getTime(),
+				event: 'gtm.js'
+			});
+			var f = d.getElementsByTagName(s)[0],
+				j = d.createElement(s),
+				dl = l != 'dataLayer' ? '&l=' + l : '';
+			j.async = true;
+			j.src =
+				'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+			f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-NTGCPCP');
+	</script>
+	<!-- End Google Tag Manager -->
 
 </head>
 
 <body>
 	<!-- Google Tag Manager (noscript) -->
-	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PTTPDSK" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NTGCPCP" height="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<!-- End Google Tag Manager (noscript) -->
 	<?php $this->beginBody() ?>
 
@@ -60,7 +79,7 @@ AppAsset::register($this);
 						</li>
 					</ul>
 					<div class="header__top-phone">
-						<a href="tel:84953002200">8 (495) 300 22 00</a>
+						<a href="tel:+74999386439">+7 (499) 938 64 39</a>
 						<span>Бесплатная консультация 24/7</span>
 					</div>
 					<div class="header__top-callback _btn" data-callback>Заказать звонок</div>
@@ -105,7 +124,7 @@ AppAsset::register($this);
 							</div>
 							<ul class="header__bot-submenu">
 								<?php $services = BlogPost::find()->where(['published' => true, 'type' => 2])->all(); ?>
-								<?php foreach ($services as $service): ?>
+								<?php foreach ($services as $service) : ?>
 									<li class="header__bot-submenu-item">
 										<a href="/Услуги/<?= $service['alias'] ?>"><?= $service['name'] ?></a>
 									</li>
@@ -117,7 +136,7 @@ AppAsset::register($this);
 						</li>
 					</ul>
 					<div class="header__bot-phone">
-						<a href="tel:84953002200">8 (495) 300 22 00</a>
+						<a href="tel:+74999386439">+7 (499) 938 64 39</a>
 						<span>Бесплатная консультация 24/7</span>
 					</div>
 					<div class="header__bot-callback _btn" data-callback>Заказать звонок</div>
@@ -140,11 +159,11 @@ AppAsset::register($this);
 					</a>
 					<div class="footer__top-phone">
 						<p class="footer__top-phone-label">Телефон горячей линии:</p>
-						<a href="tel:84953002200">8 (495) 300 22 00</a>
+						<a href="tel:+74999386439">+7 (499) 938 64 39</a>
 					</div>
 					<div class="footer__top-mail">
 						<p class="footer__top-mail-label">Техническая поддержка:</p>
-						<a href="mailto:support@hospis-msk.ru">support@hospis-msk.ru</a>
+						<a href="mailto:hospices@yandex.ru">hospices@yandex.ru</a>
 					</div>
 					<div class="footer__top-callback _btn" data-callback>Заказать звонок</div>
 				</div>

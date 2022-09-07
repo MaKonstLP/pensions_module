@@ -6,7 +6,7 @@
 	{% endif %}
 	
 	
-	<div class="listing__item" data-pansion-id="{{item.id}}" data-pansion-name="{{item.pansion_name}}" data-pansion-address="{{item.pansion_address}}" data-pansion-mapDotX="{{item.pansion_latitude}}" data-pansion-mapDotY="{{item.pansion_longitude}}">
+	<div class="listing__item" data-pansion-slug="{{item.pansion_slug}}" data-pansion-id="{{item.id}}" data-pansion-name="{{item.pansion_name}}" data-pansion-address="{{item.pansion_address}}" data-pansion-mapDotX="{{item.pansion_latitude}}" data-pansion-mapDotY="{{item.pansion_longitude}}">
 	{# {% if other_pensions %}<a href="/Каталог/{{item.pansion_slug}}/">{% endif %} #}
 		<div class="listing__item-images">
 			<div class="swiper listing__images-slider">
@@ -56,19 +56,32 @@
 					</div>
 				{% endif %}
 			{% endif %}
-			<div class="listing__item-info-review">
-				<img src="/image/icons/verified.svg" alt="" class="listing__item-info-verified">
-				{% if item.pansion_rev_ya.id %}
-					<div class="rate">
-						<div class="stars">
-							<div class="stars__empty"></div>
-							<div class="stars__fill" style="width:calc({{item.pansion_rev_ya.rate}} * 20%)"></div>
+			{% if item.pansion_checked or item.pansion_rev_ya.id or item.pansion_reviews_local.rate %}
+				<div class="listing__item-info-review">
+					{% if item.pansion_checked %}
+						<img src="/image/icons/verified.svg" alt="" class="listing__item-info-verified">
+					{% endif %}
+					{% if item.pansion_rev_ya.id %}
+						<div class="rate">
+							<div class="stars">
+								<div class="stars__empty"></div>
+								<div class="stars__fill" style="width:calc({{item.pansion_rev_ya.rate}} * 20%)"></div>
+							</div>
+							<p class="rate__count">{{item.pansion_rev_ya.rate}}</p>
+							<p class="rate__reviews">(<a href="/Каталог/{{item.pansion_slug}}#reviews">{{item.pansion_rev_ya.count}}</a>)</p>
 						</div>
-						<p class="rate__count">{{item.pansion_rev_ya.rate}}</p>
-						<p class="rate__reviews">(<a href="https://yandex.ru/maps/org/{{item.pansion_rev_ya.id}}/" target="_blank">{{item.pansion_rev_ya.count}}</a>)</p>
-					</div>
-				{% endif %}
-			</div>
+					{% elseif item.pansion_reviews_local.rate and item.pansion_rev_ya.id == '' %}
+						<div class="rate">
+							<div class="stars">
+								<div class="stars__empty"></div>
+								<div class="stars__fill" style="width:calc({{item.pansion_reviews_local.rate}} * 20%)"></div>
+							</div>
+							<p class="rate__count">{{item.pansion_reviews_local.rate}}</p>
+							<p class="rate__reviews">(<a href="/Каталог/{{item.pansion_slug}}#reviews">{{item.pansion_reviews_local.count}}</a>)</p>
+						</div>
+					{% endif %}
+				</div>
+			{% endif %}
 			<div class="listing__item-info-price">от <span>{{item.pansion_price}} ₽</span> за сутки</div>
 			<div class="listing__item-info-btns">
 				<a href="/Каталог/{{item.pansion_slug}}/" class="listing__item-info-btn-more _btn-transparent">Подробнее</a>
@@ -140,4 +153,4 @@
 	{{ this.render('//components/generic/form_choose.twig', {'cities':cities, 'diseasies':diseasies}) | raw }}
 {% endif %}
 
-{{ this.render('//components/generic/form_booking.twig') | raw }}
+{# {{ this.render('//components/generic/form_booking.twig') | raw }} #}

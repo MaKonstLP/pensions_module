@@ -415,9 +415,15 @@ export default class Main {
 			$(this).closest('.form').removeClass('_success');
 		})
 
-		$('[data-check]').on('click', function () {
-			// let form = $(this).closest('.listing').find('.form');
+		$('[data-listing-list]').on('click', '[data-check]', function () {
 			let form = $('.form-listing');
+			let pansionName = $(this).closest('.listing__item-info').find('.listing__item-info-title').text();
+			let hostName = document.location.hostname;
+			let pansionUrl = $(this).closest('.listing__item-info').find('.listing__item-info-title').attr('href');
+
+			form.find('form').attr('data-pansion-name', $.trim(pansionName));
+			form.find('form').attr('data-pansion-url', 'https://'+hostName + pansionUrl);
+
 			openPopupForm(form);
 		})
 

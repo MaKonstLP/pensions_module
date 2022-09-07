@@ -38,8 +38,9 @@
 					<div class="manager__name">Ольга Сидорова</div>
 					<div class="manager__position">Менеджер</div>
 					<div class="manager__title">Бесплатная помощь менеджера&nbsp;24/7</div>
-					<a href="tel:84953002200" class="manager__phone">8 (495) 300 22 00</a>
-					<a href="mailto:supoport@hospis-msk.ru" class="manager__mail">supoport@hospis-msk.ru</a>
+					{# <a href="tel:84953002200" class="manager__phone">8 (495) 300 22 00</a> #}
+					<a href="tel:+74999386439" class="manager__phone">+7 (499) 938 64 39</a>
+					<a href="mailto:hospices@yandex.ru" class="manager__mail">hospices@yandex.ru</a>
 				</div>
 			</div>
 			<div class="main-content">
@@ -49,8 +50,9 @@
 					</div>
 
 					<div class="listing" data-listing-list>
-						{{ this.render('//components/generic/listing.twig', {'items':items, 'page':'listing', 'cities':cities, 'diseasies':diseasies}) | raw }}
+						{{ this.render('//components/generic/listing.twig', {'items':items, 'page':'listing', 'cities':cities, 'diseasies':diseasies, 'reviews':reviews}) | raw }}
 					</div>
+					{{ this.render('//components/generic/form_booking.twig') | raw }}
 					
 					<div data-pagination-wrapper>
 						{{pagination | raw }}
@@ -63,7 +65,11 @@
 					{{ this.render('//components/generic/form_consult.twig') | raw }}
 
 					<div class="listing-description seo">
-						{{seo.text_2|raw}}
+						<div class="listing-description__text">
+							{# {{ preview ? content_text.getBodyHtml()|raw : content_text.getHtml([1])|raw }} #}
+							{{ this.render('//components/generic/listing_content.twig', {'content_text':content_text}) | raw }}
+							{# {{seo.text_2|raw}} #}
+						</div>
 
 						<div class="reviews">
 							<h2>Отзывы</h2>

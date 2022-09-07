@@ -1,20 +1,20 @@
 {% if slices_bot %}
 	<div class="fast-filters fast-filters_bottom">
 	{% for slice_bot in slices_bot %}
-		<div class="fast-filters__item"><a href="/{{slice_bot}}/">{{slice_bot}}</a></div>
+		<div class="fast-filters__item"><a href="/{{slice_bot}}/">{{slice_bot|replace({'-':' '})}}</a></div>
 	{% endfor %}
 	</div>
 {% else %}
 	<div class="fast-filters fast-filters_bottom">
-		<div class="fast-filters__item"><a href="/Москва/">Москва</a></div>
-		<div class="fast-filters__item"><a href="/Химки/">Химки</a></div>
-		<div class="fast-filters__item"><a href="/Люберцы/">Люберцы</a></div>
-		<div class="fast-filters__item"><a href="/Зеленоград/">Зеленоград</a></div>
-		<div class="fast-filters__item"><a href="/Королев/">Королев</a></div>
-		<div class="fast-filters__item"><a href="/Мытищи/">Мытищи</a></div>
-		<div class="fast-filters__item"><a href="/Балашиха/">Балашиха</a></div>
-		<div class="fast-filters__item"><a href="/Подольск/">Подольск</a></div>
-		<div class="fast-filters__item"><a href="/Бутово/">Бутово</a></div>
-		<div class="fast-filters__item"><a href="/Троицк/">Троицк</a></div>
+		<div class="fast-filters__item"><a href="/Хосписы-в-Москве/">Хосписы в Москве</a></div>
+		<div class="fast-filters__item"><a href="/Хосписы-в-Химках/">Хосписы в Химках</a></div>
+		<div class="fast-filters__item"><a href="/Хосписы-в-Люберцах/">Хосписы в Люберцах</a></div>
+		<div class="fast-filters__item"><a href="/Хосписы-в-Зеленограде/">Хосписы в Зеленограде</a></div>
+		<div class="fast-filters__item"><a href="/Хосписы-в-Королеве/">Хосписы в Королеве</a></div>
+		<div class="fast-filters__item"><a href="/Хосписы-в-Мытищах/">Хосписы в Мытищах</a></div>
+		<div class="fast-filters__item"><a href="/Хосписы-в-Балашихе/">Хосписы в Балашихе</a></div>
+		<div class="fast-filters__item"><a href="/Хосписы-в-Подольске/">Хосписы в Подольске</a></div>
+		{# <div class="fast-filters__item"><a href="/Бутово/">Бутово</a></div> #}
+		<div class="fast-filters__item"><a href="/Хосписы-в-Троицке/">Хосписы в Троицке</a></div>
 	</div>
 {% endif %}

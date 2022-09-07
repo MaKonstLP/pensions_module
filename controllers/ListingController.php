@@ -28,6 +28,8 @@ use frontend\modules\pensions\models\ElasticItems;
 use common\models\Seo;
 use backend\models\Faq;
 use backend\models\Review;
+use frontend\components\Declension;
+use common\models\blog\BlogPost;
 
 use common\models\PansionMain;
 use common\models\Pansion;
@@ -52,6 +54,7 @@ class ListingController extends Controller
 	public function actionSlice($slice)
 	{
 		$slice_obj = new QueryFromSlice($slice);
+
 		if ($slice_obj->flag) {
 			$this->view->params['menu'] = $slice;
 			$params = $this->parseGetQuery($slice_obj->params, Filter::find()->with('items')->orderBy(['sort' => SORT_ASC])->all(), $this->slices_model);
@@ -70,6 +73,34 @@ class ListingController extends Controller
 				$slices_top = $params['params_filter'];
 			}
 
+			$slices_bot = $slice_obj->slices_bot;
+			// if ($slice_obj->type == 'Тип заведения + Город' || $slice_obj->type == 'Тип заведения') {
+			if (isset($slice_obj->params['pansion_types']) && !empty($slice_obj->params['pansion_types'])) {
+				$slices_bot = [];
+				$cities_bot = ['moskva', 'himki', 'lyubercy', 'zelenograd', 'korolev', 'mytishchi', 'balashiha', 'podolsk', 'troick'];
+
+				foreach ($cities_bot as $city) {
+					$temp_params = [
+						'pansion_types' => $slice_obj->params['pansion_types'],
+						'city' => $city,
+						'page' => 1
+					];
+					$slice_url_temp = ParamsFromQuery::isSlice($temp_params);
+					$slices_bot[] = $slice_url_temp;
+				}
+			}
+
+			$noindex = '';
+			$page_noindex = Pages::find()->where(['type' => str_replace('/', '', $params['listing_url']), 'noindex' => 1])->one();
+			if ($page_noindex) {
+				$noindex = true;
+			}
+
+			$content_text = BlogPost::findWithMedia()->with('blogPostTags')->where(['published' => true, 'alias' => str_replace('/', '', $params['listing_url']), 'type' => 3])->one();
+			if (empty($content_text)) {
+				$content_text = '';
+			}
+
 			return $this->actionListing(
 				$page 			=	$params['page'],
 				$per_page		=	$this->per_page,
@@ -79,10 +110,13 @@ class ListingController extends Controller
 				$type 			=	$slice,
 				// $slices_top		=	$slice_obj->slices_top,
 				$slices_top,
-				$slices_bot		=	$slice_obj->slices_bot,
+				// $slices_bot		=	$slice_obj->slices_bot,
+				$slices_bot,
 				$slice_type	 	=  $slice_obj->type,
 				$slices_text	=	$params['params_text'],
 				$custom_slice,
+				$noindex,
+				$content_text,
 			);
 		} else {
 			return $this->goHome();
@@ -100,6 +134,26 @@ class ListingController extends Controller
 				$canonical .= $params['canonical'];
 			}
 
+			$slices_bot = [];
+			if (isset($params['params_filter']['pansion_types']) && !empty($params['params_filter']['pansion_types'])) {
+				$cities_bot = ['moskva', 'himki', 'lyubercy', 'zelenograd', 'korolev', 'mytishchi', 'balashiha', 'podolsk', 'troick'];
+
+				foreach ($cities_bot as $city) {
+					$temp_params = [
+						'pansion_types' => $params['params_filter']['pansion_types'][0],
+						'city' => $city,
+						'page' => 1
+					];
+					$slice_url_temp = ParamsFromQuery::isSlice($temp_params);
+					$slices_bot[] = $slice_url_temp;
+				}
+			}
+
+			$content_text = BlogPost::findWithMedia()->with('blogPostTags')->where(['published' => true, 'alias' => 'listing', 'type' => 3])->one();
+			if (empty($content_text)) {
+				$content_text = '';
+			}
+
 			return $this->actionListing(
 				$page 			=	$params['page'],
 				$per_page		=	$this->per_page,
@@ -108,12 +162,20 @@ class ListingController extends Controller
 				$canonical 		=	$canonical,
 				$type				=	'listing',
 				$slices_top		=	$params['params_filter'],
-				false,
+				$slices_bot,
 				false,
 				$slices_text	=	$params['params_text'],
+				false,
+				false,
+				$content_text,
 			);
 		} else {
 			$canonical = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . explode('?', $_SERVER['REQUEST_URI'], 2)[0];
+
+			$content_text = BlogPost::findWithMedia()->with('blogPostTags')->where(['published' => true, 'alias' => 'index', 'type' => 3])->one();
+			if (empty($content_text)) {
+				$content_text = '';
+			}
 
 			return $this->actionListing(
 				$page 			=	1,
@@ -122,15 +184,20 @@ class ListingController extends Controller
 				$breadcrumbs 	= 	Breadcrumbs::get_breadcrumbs(1),
 				$canonical 		= 	$canonical,
 				$type = false,
-				$slices_top		=	'index'
+				$slices_top		=	'index',
+				false,
+				false,
+				false,
+				false,
+				false,
+				$content_text,
 			);
 		}
 	}
 
-	public function actionListing($page, $per_page, $params_filter, $breadcrumbs, $canonical, $type = false, $slices_top = false, $slices_bot = false, $slice_type = false, $slices_text = false, $custom_slice = false)
+	public function actionListing($page, $per_page, $params_filter, $breadcrumbs, $canonical, $type = false, $slices_top = false, $slices_bot = false, $slice_type = false, $slices_text = false, $custom_slice = false, $noindex = false, $content_text = false)
 	{
-
-		/* $connection = new \yii\db\Connection([
+		/* 	$connection = new \yii\db\Connection([
 			'username' => 'root',
 			'password' => 'GxU25UseYmeVcsn5Xhzy',
 			'charset'  => 'utf8mb4',
@@ -152,8 +219,10 @@ class ListingController extends Controller
 			->with('images')
 			->with('rooms')
 			->with('entertainments')
-			// ->where(['id' => 9])
+			->with('maintype')
+			->where(['id' => 1])
 			->all();
+		}
 
 		// $pansions = Pansion::find()->with('images')->all();
 		echo ('<pre>');
@@ -161,6 +230,8 @@ class ListingController extends Controller
 		echo ('<br>');
 		print_r($pansions);
 		exit; */
+
+
 
 		$elastic_model = new ElasticItems;
 		$items = new ItemsFilterElastic($params_filter, $per_page, $page, false, 'restaurants', $elastic_model);
@@ -191,6 +262,11 @@ class ListingController extends Controller
 		$seo['breadcrumbs'] = $breadcrumbs;
 		$this->setSeo($seo, $page, $canonical);
 
+		// echo ('<pre>');
+		// print_r($seo_type);
+		// print_r($seo);
+		// exit;
+
 		if ($seo_type == 'listing' and count($params_filter) > 0) {
 			$seo['text_top'] = '';
 			$seo['text_bottom'] = '';
@@ -207,8 +283,12 @@ class ListingController extends Controller
 		$filter_items_cities = FilterItems::find()->where(['active' => 1, 'filter_id' => 2])->all();
 		$filter_items_diseasies = FilterItems::find()->where(['active' => 1, 'filter_id' => 5])->all();
 
+		if ($noindex) {
+			$this->view->params['robots'] = 'noindex';
+		}
+
 		// echo ('<pre>');
-		// print_r($slices_top);
+		// print_r($items->items);
 		// exit;
 
 		return $this->render('index.twig', array(
@@ -228,6 +308,7 @@ class ListingController extends Controller
 			'cities' => $filter_items_cities,
 			'diseasies' => $filter_items_diseasies,
 			'seo_type' => $seo_type,
+			'content_text' => $content_text,
 		));
 	}
 
@@ -258,7 +339,24 @@ class ListingController extends Controller
 		if ($slice_url) {
 			$slice_obj = new QueryFromSlice($slice_url);
 
-			$slices_bot = $this->renderPartial('//components/generic/slices_bot.twig', array('slices_bot' => $slice_obj->slices_bot));
+			$slices_bot_arr = $slice_obj->slices_bot;
+			if (isset($slice_obj->params['pansion_types']) && !empty($slice_obj->params['pansion_types'])) {
+				$slices_bot_arr = [];
+				$cities_bot = ['moskva', 'himki', 'lyubercy', 'zelenograd', 'korolev', 'mytishchi', 'balashiha', 'podolsk', 'troick'];
+
+				foreach ($cities_bot as $city) {
+					$temp_params = [
+						'pansion_types' => $slice_obj->params['pansion_types'],
+						'city' => $city,
+						'page' => 1
+					];
+					$slice_url_temp = ParamsFromQuery::isSlice($temp_params);
+					$slices_bot_arr[] = $slice_url_temp;
+				}
+			}
+
+			// $slices_bot = $this->renderPartial('//components/generic/slices_bot.twig', array('slices_bot' => $slice_obj->slices_bot));
+			$slices_bot = $this->renderPartial('//components/generic/slices_bot.twig', array('slices_bot' => $slices_bot_arr));
 
 			if (!empty($slice_obj->slices_top)) {
 				$slices_top = $this->renderPartial('//components/generic/slices_top.twig', array('slices_top' => $slice_obj->slices_top, 'custom_slice' => true));
@@ -273,8 +371,27 @@ class ListingController extends Controller
 			$slices_bot = $this->renderPartial('//components/generic/slices_bot.twig', array('slices_bot' => ''));
 		} else {
 			$slices_top = $this->renderPartial('//components/generic/slices_top.twig', array('slices_top' => $params['params_filter'], 'slices_text' => $params['params_text']));
-			$slices_bot = $this->renderPartial('//components/generic/slices_bot.twig', array('slices_bot' => ''));
+
+			$slices_bot_arr = [];
+			if (isset($params['params_filter']['pansion_types']) && !empty($params['params_filter']['pansion_types'])) {
+				$cities_bot = ['moskva', 'himki', 'lyubercy', 'zelenograd', 'korolev', 'mytishchi', 'balashiha', 'podolsk', 'troick'];
+
+				foreach ($cities_bot as $city) {
+					$temp_params = [
+						'pansion_types' => $params['params_filter']['pansion_types'][0],
+						'city' => $city,
+						'page' => 1
+					];
+					$slice_url_temp = ParamsFromQuery::isSlice($temp_params);
+					$slices_bot_arr[] = $slice_url_temp;
+				}
+			}
+
+			$slices_bot = $this->renderPartial('//components/generic/slices_bot.twig', array('slices_bot' => $slices_bot_arr));
 		}
+
+
+
 
 		$seo_type = $slice_url ? $slice_url : 'listing';
 		if (count($params['params_filter']) == 0) {
@@ -282,6 +399,10 @@ class ListingController extends Controller
 		}
 		$seo = $this->getSeo($seo_type, $params['page'], $items->total);
 		$seo['breadcrumbs'] = $breadcrumbs;
+
+		// echo ('<pre>');
+		// print_r($seo_type);
+		// exit;
 
 		$title = $this->renderPartial('//components/generic/title.twig', array(
 			'seo' => $seo,
@@ -305,6 +426,11 @@ class ListingController extends Controller
 		$filter_items_cities = FilterItems::find()->where(['active' => 1, 'filter_id' => 2])->all();
 		$filter_items_diseasies = FilterItems::find()->where(['active' => 1, 'filter_id' => 5])->all();
 
+		$content_text = BlogPost::findWithMedia()->with('blogPostTags')->where(['published' => true, 'alias' => $seo_type, 'type' => 3])->one();
+		if (empty($content_text)) {
+			$content_text = '';
+		}
+
 		return  json_encode([
 			'listing' => $this->renderPartial('//components/generic/listing.twig', array(
 				'items' => $items->items,
@@ -322,7 +448,8 @@ class ListingController extends Controller
 			'total' => $items->total,
 			'slices_top' => $slices_top,
 			'slices_bot' => $slices_bot,
-			'seo' => $seo
+			'seo' => $seo,
+			'content_text' => $this->renderPartial('//components/generic/listing_content.twig', array('content_text' => $content_text))
 		]);
 	}
 

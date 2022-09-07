@@ -295,7 +295,7 @@
 	font-weight: 500;
 	margin-bottom: 24px;
 
-	span {
+	a {
 		font-weight: 400;
 		border-bottom: 1px solid #c2c2c4;
 	}
@@ -524,10 +524,15 @@
 .item__description-video {
 	position: relative;
 	width: 100%;
-	height: auto;
+	// height: auto;
+	height: 460px;
 	border-radius: 4px;
 	overflow: hidden;
 	margin-bottom: 8px;
+
+	@include for-mobile {
+		height: 320px;
+	}
 
 	img {
 		width: 100%;
@@ -764,6 +769,7 @@
 	display: flex;
 	align-items: center;
 	gap: 12px;
+	flex-wrap: wrap;
 	padding-bottom: 10px;
 
 	@include for-mobile {

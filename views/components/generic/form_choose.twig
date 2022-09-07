@@ -4,7 +4,7 @@
 		<p class="form__subtitle">
 			Ответьте на 3 вопроса и мы подберем для вас оптимальный вариант!
 		</p>
-		<form class="form__form" action="/ajax/form/" data-type="listing-choose">
+		<form class="form__form" action="/ajax/form/" data-type="listing-choose" data-title="Устали выбирать?">
 			<div class="form-choose__first-step _active">
 				<div class="form-choose__selects">
 
@@ -16,46 +16,6 @@
 							{% for city in cities %}
 								<div class="new-select__item"><span>{{city.text}}</span></div>
 							{% endfor %}
-							{# <div class="new-select__item"><span>Андреевка</span></div>
-							<div class="new-select__item"><span>Балашиха</span></div>
-							<div class="new-select__item"><span>Барвиха</span></div>
-							<div class="new-select__item"><span>Бронницы</span></div>
-							<div class="new-select__item"><span>Видное</span></div>
-							<div class="new-select__item"><span>Дедовск</span></div>
-							<div class="new-select__item"><span>Дмитров</span></div>
-							<div class="new-select__item"><span>Егорьевск</span></div>
-							<div class="new-select__item"><span>Домодедово</span></div>
-							<div class="new-select__item"><span>Жуковский</span></div>
-							<div class="new-select__item"><span>Железнодорожный</span></div>
-							<div class="new-select__item"><span>Звенигород</span></div>
-							<div class="new-select__item"><span>Зеленоград</span></div>
-							<div class="new-select__item"><span>Истра</span></div>
-							<div class="new-select__item"><span>Климовск</span></div>
-							<div class="new-select__item"><span>Клин</span></div>
-							<div class="new-select__item"><span>Коломна</span></div>
-							<div class="new-select__item"><span>Королев</span></div>
-							<div class="new-select__item"><span>Красногорск</span></div>
-							<div class="new-select__item"><span>Лобня</span></div>
-							<div class="new-select__item"><span>Люберцы</span></div>
-							<div class="new-select__item"><span>Митино</span></div>
-							<div class="new-select__item"><span>Москва</span></div>
-							<div class="new-select__item"><span>Мытищи</span></div>
-							<div class="new-select__item"><span>Ногинск</span></div>
-							<div class="new-select__item"><span>Одинцово</span></div>
-							<div class="new-select__item"><span>Орехово-Зуево</span></div>
-							<div class="new-select__item"><span>Подольск</span></div>
-							<div class="new-select__item"><span>Пушкино</span></div>
-							<div class="new-select__item"><span>Раменское</span></div>
-							<div class="new-select__item"><span>Реутов</span></div>
-							<div class="new-select__item"><span>Сергиев-Посад</span></div>
-							<div class="new-select__item"><span>Серпухов</span></div>
-							<div class="new-select__item"><span>Солнечногорск</span></div>
-							<div class="new-select__item"><span>Ступино</span></div>
-							<div class="new-select__item"><span>Троицк</span></div>
-							<div class="new-select__item"><span>Химки</span></div>
-							<div class="new-select__item"><span>Чехов</span></div>
-							<div class="new-select__item"><span>Щелково</span></div>
-							<div class="new-select__item"><span>Электросталь</span></div> #}
 						</div>
 					</div>
 					<div class="select">
@@ -66,11 +26,6 @@
 							{% for disease in diseasies %}
 								<div class="new-select__item"><span>{{disease.text}}</span></div>
 							{% endfor %}
-							{# <div class="new-select__item"><span>Болезнь Паркинсона</span></div>
-							<div class="new-select__item"><span>Деменция</span></div>
-							<div class="new-select__item"><span>Болезнь Альцгеймера</span></div>
-							<div class="new-select__item"><span>Склероз у пожилых</span></div>
-							<div class="new-select__item"><span>Уход за инвалидами</span></div> #}
 						</div>
 					</div>
 					<div class="select">

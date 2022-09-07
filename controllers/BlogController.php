@@ -83,13 +83,11 @@ class BlogController extends Controller
 
 		$post = BlogPost::findWithMedia()->with('blogPostTags')->where(['published' => true, 'alias' => $alias])->one();
 		if (empty($post)) {
-			return new NotFoundHttpException();
+			// return new NotFoundHttpException();
+			throw new NotFoundHttpException();
 		}
 
 
-		// echo '<pre>';
-		// print_r($post);
-		// exit;
 		$seo = ArrayHelper::toArray($post->seoObject);
 		$this->setSeo($seo);
 
@@ -99,23 +97,6 @@ class BlogController extends Controller
 			->orderBy(['published_at' => SORT_DESC])
 			->limit(3)
 			->all();
-
-
-		// function rusDateFormat($number = null, $monthName = null)
-		// {
-		// 	$num = array('-01-', '-02-', '-03-', '-04-', '-05-', '-06-', '-07-', '-08-', '-09-', '-10-', '-11-', '-12-');
-		// 	$month = array(' января ', ' февраля ', ' марта ', ' апреля ', ' мая ', ' июня ', ' июля ', ' августа ', ' сентября ', ' октября ', ' ноября ', ' декабря ');
-		// 	if ($number) return str_replace($num, $month, $number);
-		// 	else if ($monthName) return str_replace($month, $num, $monthName);
-		// 	else return null;
-		// }
-
-		//foreach ($similarPosts as $similarPost) {
-		//	$date = date_create($similarPost['published_at']);
-		//	$dateFormat =  date_format($date, 'd-m-Y');
-		//	$rusDate =  rusDateFormat($dateFormat);
-		//	$similarPost['published_at'] = $rusDate;
-		//}
 
 
 		// echo ('<pre>');
@@ -137,7 +118,8 @@ class BlogController extends Controller
 		}
 		$post = BlogPost::findWithMedia()->with('blogPostTags')->where(['published' => true, 'id' => $id])->one();
 		if (empty($post)) {
-			return new NotFoundHttpException();
+			// return new NotFoundHttpException();
+			throw new NotFoundHttpException();
 		}
 		$seo = ArrayHelper::toArray($post->seoObject);
 		$this->setSeo($seo);

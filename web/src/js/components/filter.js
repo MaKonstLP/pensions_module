@@ -117,7 +117,6 @@ export default class Filter {
 			// $('[data-filter-checkbox-item] .filter_check_item').not(this).removeClass('_checked'); // Снимаем чекбокс со всех остальных чекбоксов, кроме выбранного
 			$('[data-filter-checkbox-item]').not(this).removeClass('_checked'); // Снимаем чекбокс со всех остальных чекбоксов, кроме выбранного
 
-
 			$(this).toggleClass('_checked');
 			self.checkboxStateRefresh($(this));
 			self.reloadTotalCount();

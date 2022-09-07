@@ -2,15 +2,17 @@
 	<div class="container">
 		<div class="breadcrumbs">
 			<div class="breadcrumbs_item">
-				<a href="/index.html">
+				<a href="/">
 					<span><img src="/image/icons/breadcrump_home.svg" alt=""></span>
 				</a>
 			</div>
-			<div class="breadcrumbs_item">
-				<a href="#">
-					<span>Пансионаты</span>
-				</a>
-			</div>
+			{% if slice_main_type %}
+				<div class="breadcrumbs_item">
+					<a href="/{{slice_main_type.url}}/">
+						<span>{{slice_main_type.name}}</span>
+					</a>
+				</div>
+			{% endif %}
 		</div>
 
 		<div class="item">
@@ -95,64 +97,77 @@
 					</div>
 				</div>
 
-				<div class="item__description" id="description">
-					<h2 class="item__description-title">Описание</h2>
-					<p class="item__description-text">
-						Располагающийся на западе Рузский район, помимо различных социальных объектов инфраструктуры,
-						служит территорией для большого числа пансионатов для пожилых людей. Пансионаты для пожилых
-						Рузского района привлекательны для жителей западных областей Москвы и области, а также для
-						других частей мегаполиса. Транспортная доступность, чистота и экология Рузского района служат
-						причинами для размещения пожилых людей в местных пансионатах. Основной достопримечательностью
-						Рузского района является река Руза с ее немногочисленными притоками.
-					</p>
-					<p class="item__description-text">
-						Пансионаты для пожилых, расположенные в Рузском районе, оказывают пациентам полный комплекс
-						услуг по оздоровлению, проживанию, реабилитации и общей терапии. Дома престарелых Рузского
-						района приспособлены и имеют всю необходимую оснастку для размещения лежачих пациентов и пожилых
-						людей со сложными формами патологий, в том числе с психическими отклонениями. Персонал таких
-						учреждений имеет высокую квалификацию и богатый опыт в уходе за пожилыми людьми. Спектр
-						предоставляемых услуг включает в себя:
-					</p>
-					<div class="item__description-video-wrap">
-						<div class="item__description-video">
-							<img src="/image/video/01.jpg" alt="">
-							<div class="item__description-video-btn"></div>
-						</div>
-						<p class="item__description-video-title">
-							Как выбрать лучший пансионат?
+				{% if item.pansion_description or item.pansion_video.link is not empty %}
+					<div class="item__description" id="description">
+						{{item.pansion_description|raw}}
+						{# <h2 class="item__description-title">Описание</h2>
+						<p class="item__description-text">
+							Располагающийся на западе Рузский район, помимо различных социальных объектов инфраструктуры,
+							служит территорией для большого числа пансионатов для пожилых людей. Пансионаты для пожилых
+							Рузского района привлекательны для жителей западных областей Москвы и области, а также для
+							других частей мегаполиса. Транспортная доступность, чистота и экология Рузского района служат
+							причинами для размещения пожилых людей в местных пансионатах. Основной достопримечательностью
+							Рузского района является река Руза с ее немногочисленными притоками.
 						</p>
+						<p class="item__description-text">
+							Пансионаты для пожилых, расположенные в Рузском районе, оказывают пациентам полный комплекс
+							услуг по оздоровлению, проживанию, реабилитации и общей терапии. Дома престарелых Рузского
+							района приспособлены и имеют всю необходимую оснастку для размещения лежачих пациентов и пожилых
+							людей со сложными формами патологий, в том числе с психическими отклонениями. Персонал таких
+							учреждений имеет высокую квалификацию и богатый опыт в уходе за пожилыми людьми. Спектр
+							предоставляемых услуг включает в себя:
+						</p> #}
+						{% if item.pansion_video.link is not empty %}
+							<div class="item__description-video-wrap">
+								<div class="item__description-video video__wrap">
+									{# <img src="/image/video/01.jpg" alt=""> #}
+									<div id="{{item.pansion_video.link}}" class="video__player"></div>
+									<div class="item__description-video-btn video__btn"></div>
+								</div>
+								{# <p class="item__description-video-title">
+									Как выбрать лучший пансионат?
+								</p> #}
+								<p class="item__description-video-title">
+									{{item.pansion_video.title}}
+								</p>
+							</div>
+						{% endif %}
 					</div>
-				</div>
+				{% endif %}
 
-				<div class="item__licence">
-					<h3 class="item__licence-title">Лицензии</h3>
-					<div class="swiper item__licence-slider">
-						<div class="swiper-wrapper">
-							<div class="swiper-slide item__licence-slider-slide">
-								<img src="/image/licence/01.jpg" />
-							</div>
-							<div class="swiper-slide item__licence-slider-slide">
-								<img src="/image/licence/02.jpg" />
-							</div>
-							<div class="swiper-slide item__licence-slider-slide">
-								<img src="/image/licence/03.jpg" />
-							</div>
-							<div class="swiper-slide item__licence-slider-slide">
-								<img src="/image/licence/04.jpg" />
-							</div>
-							<div class="swiper-slide item__licence-slider-slide">
-								<img src="/image/licence/02.jpg" />
+				{% if item.pansion_licenses is not empty %}
+					<div class="item__licence">
+						<h3 class="item__licence-title">Лицензии</h3>
+						<div class="swiper item__licence-slider">
+							<div class="swiper-wrapper">
+							{% for license in item.pansion_licenses %}
+								<div class="swiper-slide item__licence-slider-slide">
+									<img src="{{license}}" />
+								</div>
+							{% endfor %}
+								{# <div class="swiper-slide item__licence-slider-slide">
+									<img src="/image/licence/02.jpg" />
+								</div>
+								<div class="swiper-slide item__licence-slider-slide">
+									<img src="/image/licence/03.jpg" />
+								</div>
+								<div class="swiper-slide item__licence-slider-slide">
+									<img src="/image/licence/04.jpg" />
+								</div>
+								<div class="swiper-slide item__licence-slider-slide">
+									<img src="/image/licence/02.jpg" />
+								</div> #}
 							</div>
 						</div>
+						<div class="item__licence-slider-next">
+							<img src="/image/icons/slider_arrow_blue.svg" alt="">
+						</div>
+						<div class="item__licence-slider-prev">
+							<img src="/image/icons/slider_arrow_blue.svg" alt="">
+						</div>
+						<div class="item__licence-slider-pagination swiper-pagination"></div>
 					</div>
-					<div class="item__licence-slider-next">
-						<img src="/image/icons/slider_arrow_blue.svg" alt="">
-					</div>
-					<div class="item__licence-slider-prev">
-						<img src="/image/icons/slider_arrow_blue.svg" alt="">
-					</div>
-					<div class="item__licence-slider-pagination swiper-pagination"></div>
-				</div>
+				{% endif %}
 
 				<div class="item__conditions" id="conditions">
 					<h2 class="item__conditions-title">Удобства</h2>
@@ -184,58 +199,7 @@
 							</div>
 						{% endif %}
 
-
-						{% set convenience1 = "" %}
-						{% set convenience2 = "" %}
-						{% set convenience3 = "" %}
-						{% set convenience4 = "" %}
-						{% set convenience5 = "" %}
-						{% set convenience6 = "" %}
-						{% set convenience7 = "" %}
-						{% set convenience8 = "" %}
-						{% set convenience9 = "" %}
-						{% set convenience10 = "" %}
-						{% set convenience11 = "" %}
-						{% set convenience12 = "" %}
-						{% set convenience13 = "" %}
-						{% set convenience14 = "" %}
-						{% set convenience15 = "" %}
-						{% if item.pansion_conveniencies %}
-							{% for convenience in item.pansion_conveniencies %}
-								{% if convenience.name == "Отдельная прогулочная зона" %}
-									{% set convenience1 = convenience.name %}
-								{% elseif convenience.name == "Круглосуточное видеонаблюдение за территорией, работой персонала и постояльцами" %}
-									{% set convenience2 = convenience.name %}
-								{% elseif convenience.name == "Библиотека" %}
-									{% set convenience3 = convenience.name %}
-								{% elseif convenience.name == "Все необходимое для досуга: настольные игры, телевизор, журналы, рисование" %}
-									{% set convenience4 = convenience.name %}
-								{% elseif convenience.name == "Общение с родными по Skype. Предусмотрен WI-FI для общения по электронной почте, Viber и других мессенджерах" %}
-									{% set convenience5 = convenience.name %}
-								{% elseif convenience.name == "Развивающие программы (пение, лепка, рисование, празднование мероприятий  и т.д.)" %}
-									{% set convenience6 = convenience.name %}
-								{% elseif convenience.name == "Ежедневное отслеживание состояния здоровья: измерение давления, пульса, температуры, уровня сахара в крови" %}
-									{% set convenience7 = convenience.name %}
-								{% elseif convenience.name == "Контроль приема медикаментов" %}
-									{% set convenience8 = convenience.name %}
-								{% elseif convenience.name == "Круглосуточное курирование постояльцев. За каждым пожилым закрепляется ночная и дневная сиделка." %}
-									{% set convenience9 = convenience.name %}
-								{% elseif convenience.name == "Регулярный косметический уход: стрижка волос, обработка ногтей и т.д." %}
-									{% set convenience10 = convenience.name %}
-								{% elseif convenience.name == "Регулярный медицинский осмотр" %}
-									{% set convenience11 = convenience.name %}
-								{% elseif convenience.name == "Стирка и глажка одежды и белья" %}
-									{% set convenience12 = convenience.name %}
-								{% elseif convenience.name == "Специальный уход за лежачими больными" %}
-									{% set convenience13 = convenience.name %}
-								{% elseif convenience.name == "Штатный врач-терапевт" %}
-									{% set convenience14 = convenience.name %}
-								{% elseif convenience.name == "ЛФК и массаж" %}
-									{% set convenience15 = convenience.name %}
-								{% endif %}
-							{% endfor %}
-						{% endif %}
-						{% if convenience1 or convenience2 %}
+						{% if territory %}
 							<div class="item__conditions-col">
 								<div class="item__conditions-icon">
 									<img src="/image/icons/conditions/territory.svg" alt="">
@@ -243,17 +207,15 @@
 								<div class="item__conditions-info">
 									<p class="item__conditions-subtitle">Территория проживания</p>
 									<ul>
-										{% if convenience1 %}
-											<li>{{convenience1}}</li>
-										{% elseif convenience2 %}
-											<li>{{convenience2}}</li>
-										{% endif %}
+										{% for value in territory %}
+											<li>{{value}}</li>
+										{% endfor %}
 									</ul>
 								</div>
 							</div>
 						{% endif %}
 
-						{% if item.pansion_entertainments or convenience3 or convenience4 or convenience5 or convenience6 %}
+						{% if item.pansion_entertainments or leisure %}
 							<div class="item__conditions-col">
 								<div class="item__conditions-icon">
 									<img src="/image/icons/conditions/leisure.svg" alt="">
@@ -261,24 +223,22 @@
 								<div class="item__conditions-info">
 									<p class="item__conditions-subtitle">Досуг</p>
 									<ul>
-										{% for entertainment in item.pansion_entertainments %}
-											<li>{{entertainment.name}}</li>
-										{% endfor %}
-										{% if convenience3 %}
-											<li>{{convenience3}}</li>
-										{% elseif convenience4 %}
-											<li>{{convenience4}}</li>
-										{% elseif convenience5 %}
-											<li>{{convenience5}}</li>
-										{% elseif convenience6 %}
-											<li>{{convenience6}}</li>
+										{% if item.pansion_entertainments %}
+											{% for entertainment in item.pansion_entertainments %}
+												<li>{{entertainment.name}}</li>
+											{% endfor %}
+										{% endif %}
+										{% if leisure %}
+											{% for value in leisure %}
+												<li>{{value}}</li>
+											{% endfor %}
 										{% endif %}
 									</ul>
 								</div>
 							</div>
 						{% endif %}
 
-						{% if convenience7 or convenience8 or convenience9 or convenience10 or convenience11 or convenience12 or convenience13 or convenience14 %}
+						{% if service_staff %}
 							<div class="item__conditions-col">
 								<div class="item__conditions-icon">
 									<img src="/image/icons/conditions/nurse.svg" alt="">
@@ -286,23 +246,9 @@
 								<div class="item__conditions-info">
 									<p class="item__conditions-subtitle">Обслуживающий персонал</p>
 									<ul>
-										{% if convenience7 %}
-											<li>{{convenience7}}</li>
-										{% elseif convenience8 %}
-											<li>{{convenience8}}</li>
-										{% elseif convenience9 %}
-											<li>{{convenience9}}</li>
-										{% elseif convenience10 %}
-											<li>{{convenience10}}</li>
-										{% elseif convenience11 %}
-											<li>{{convenience11}}</li>
-										{% elseif convenience12 %}
-											<li>{{convenience12}}</li>
-										{% elseif convenience13 %}
-											<li>{{convenience13}}</li>
-										{% elseif convenience14 %}
-											<li>{{convenience14}}</li>
-										{% endif %}
+										{% for value in service_staff %}
+											<li>{{value}}</li>
+										{% endfor %}
 									</ul>
 								</div>
 							</div>
@@ -324,7 +270,7 @@
 							</div>
 						{% endif %}
 
-						{% if convenience15 %}
+						{% if extra_facilities %}
 							<div class="item__conditions-col">
 								<div class="item__conditions-icon">
 									<img src="/image/icons/conditions/add_service.svg" alt="">
@@ -332,7 +278,9 @@
 								<div class="item__conditions-info">
 									<p class="item__conditions-subtitle">Дополнительные удобства</p>
 									<ul>
-										<li>{{convenience15}}</li>
+										{% for value in extra_facilities %}
+											<li>{{value}}</li>
+										{% endfor %}
 									</ul>
 								</div>
 							</div>
@@ -349,9 +297,6 @@
 							{{item.pansion_address}}
 						</div>
 					{% endif %}
-					{# <div class="item__location-map">
-						<img src="/image/map.jpg" alt="">
-					</div> #}
 					<div class="map item__location-map">
 						<div id="map" data-pansion-id="{{item.id}}" data-mapDotX="{{item.pansion_latitude}}" data-mapDotY="{{item.pansion_longitude}}" data-name="{{item.pansion_name}}" data-address="{{item.pansion_address}}" data-balloon="" data-hint="">
 						</div>
@@ -372,15 +317,18 @@
 						<div class="item__location-near-cities">
 							<div class="item__location-subtitle">Пансионат расположен рядом с городами:</div>
 							<div class="item__location-near-cities-list">
-								{% for city in item.pansion_cities %}
-									<div class="item__location-near-cities-item">{{city.name}}</div>
+								{% for city in slice_cities %}
+									<a href="/{{city.url}}/" class="item__location-near-cities-item">{{city.name}}</a>
 								{% endfor %}
+								{# {% for city in item.pansion_cities %}
+									<div class="item__location-near-cities-item">{{city.name}}</div>
+								{% endfor %} #}
 							</div>
 						</div>
 					{% endif %}
 				</div>
 
-				<div class="item__review">
+				<div id="reviews" class="item__review">
 					{% if reviews %}
 						<div class="item__review-our">
 							<h2 class="item__review-title">
@@ -432,105 +380,116 @@
 
 				{{ this.render('//components/generic/form_item_opinion.twig', {'item': item}) | raw }}
 
-				<div class="item__docs" id="docs">
-					<h2 class="item__docs-title">Необходимые документы</h2>
-					<ol class="item__docs-list">
-						<li>Паспорт</li>
-						<li>Полис</li>
-						<li>СНИЛС</li>
-						<li>Выписка (при наличии)</li>
-					</ol>
-				</div>
-
-				<div class="item__schedule" id="schedule">
-					<h2 class="item__schedule-title">Распорядок дня</h2>
-					<div class="item__schedule-list">
-						<div class="item__schedule-item">
-							<div class="item__schedule-time">8:00</div>
-							<div class="item__schedule-text">Подъем</div>
-						</div>
-						<div class="item__schedule-item">
-							<div class="item__schedule-time">8:00–8:30</div>
-							<div class="item__schedule-text">Утренний туалет</div>
-						</div>
-						<div class="item__schedule-item">
-							<div class="item__schedule-time">8:30–9:00</div>
-							<div class="item__schedule-text">
-								Измерение температуры тела, давления, пульса и другие сестринские манипуляции
-							</div>
-						</div>
-						<div class="item__schedule-item">
-							<div class="item__schedule-time">9:00–9:30</div>
-							<div class="item__schedule-text">Завтрак</div>
-						</div>
-						<div class="item__schedule-item">
-							<div class="item__schedule-time">9:30–10:00</div>
-							<div class="item__schedule-text">Замер температуры, давления</div>
-						</div>
-						<div class="item__schedule-item">
-							<div class="item__schedule-time">10:00–11:00</div>
-							<div class="item__schedule-text">Занятия по интересам</div>
-						</div>
-						<div class="item__schedule-item">
-							<div class="item__schedule-time">11:00–11:30</div>
-							<div class="item__schedule-text">Второй завтрак (фрукты по сезону)</div>
-						</div>
-						<div class="item__schedule-item">
-							<div class="item__schedule-time">11:30–13:00</div>
-							<div class="item__schedule-text">
-								Выполнение врачебных назначений, гимнастика. Культурно-массовые мероприятия,
-								организованный досуг
-							</div>
-						</div>
-						<div class="item__schedule-item">
-							<div class="item__schedule-time">13:00–13:30</div>
-							<div class="item__schedule-text">Обед</div>
-						</div>
-						<div class="item__schedule-item">
-							<div class="item__schedule-time">13:30–14:00</div>
-							<div class="item__schedule-text">
-								Раздача лекарственных средств, контроль приема и другие сестринские манипуляции
-							</div>
-						</div>
-						<div class="item__schedule-item">
-							<div class="item__schedule-time">14:00–16:00</div>
-							<div class="item__schedule-text">Послеобеденный сон</div>
-						</div>
-						<div class="item__schedule-item">
-							<div class="item__schedule-time">16:30–19:00</div>
-							<div class="item__schedule-text">Свободное время, прогулка, занятия по интересам</div>
-						</div>
-						<div class="item__schedule-item">
-							<div class="item__schedule-time">19:00–19:30</div>
-							<div class="item__schedule-text">Ужин</div>
-						</div>
-						<div class="item__schedule-item">
-							<div class="item__schedule-time">19:30–20:00</div>
-							<div class="item__schedule-text">
-								Раздача лекарственных средств, контроль их приема. Выполнение врачебных назначений.
-								Измерение давления/температуры
-							</div>
-						</div>
-						<div class="item__schedule-item">
-							<div class="item__schedule-time">20:00–20:45</div>
-							<div class="item__schedule-text">Организованный досуг</div>
-						</div>
-						<div class="item__schedule-item">
-							<div class="item__schedule-time">20:45–21:30</div>
-							<div class="item__schedule-text">Вечерний туалет, подготовка ко сну, сон</div>
-						</div>
-						<div class="item__schedule-item">
-							<div class="item__schedule-time">21:30</div>
-							<div class="item__schedule-text">Сон</div>
-						</div>
+				{% if item.pansion_documents %}
+					<div class="item__docs" id="docs">
+						{{item.pansion_documents|raw}}
+						{# <h2 class="item__docs-title">Необходимые документы</h2>
+						<ol class="item__docs-list">
+							<li>Паспорт</li>
+							<li>Полис</li>
+							<li>СНИЛС</li>
+							<li>Выписка (при наличии)</li>
+						</ol> #}
 					</div>
-				</div>
+				{% endif %}
+
+				{% if item.pansion_schedule %}
+					<div class="item__schedule" id="schedule">
+						{{item.pansion_schedule|raw}}
+						{# <h2 class="item__schedule-title">Распорядок дня</h2>
+						<div class="item__schedule-list">
+							<div class="item__schedule-item">
+								<div class="item__schedule-time">8:00</div>
+								<div class="item__schedule-text">Подъем</div>
+							</div>
+							<div class="item__schedule-item">
+								<div class="item__schedule-time">8:00–8:30</div>
+								<div class="item__schedule-text">Утренний туалет</div>
+							</div>
+							<div class="item__schedule-item">
+								<div class="item__schedule-time">8:30–9:00</div>
+								<div class="item__schedule-text">
+									Измерение температуры тела, давления, пульса и другие сестринские манипуляции
+								</div>
+							</div>
+							<div class="item__schedule-item">
+								<div class="item__schedule-time">9:00–9:30</div>
+								<div class="item__schedule-text">Завтрак</div>
+							</div>
+							<div class="item__schedule-item">
+								<div class="item__schedule-time">9:30–10:00</div>
+								<div class="item__schedule-text">Замер температуры, давления</div>
+							</div>
+							<div class="item__schedule-item">
+								<div class="item__schedule-time">10:00–11:00</div>
+								<div class="item__schedule-text">Занятия по интересам</div>
+							</div>
+							<div class="item__schedule-item">
+								<div class="item__schedule-time">11:00–11:30</div>
+								<div class="item__schedule-text">Второй завтрак (фрукты по сезону)</div>
+							</div>
+							<div class="item__schedule-item">
+								<div class="item__schedule-time">11:30–13:00</div>
+								<div class="item__schedule-text">
+									Выполнение врачебных назначений, гимнастика. Культурно-массовые мероприятия,
+									организованный досуг
+								</div>
+							</div>
+							<div class="item__schedule-item">
+								<div class="item__schedule-time">13:00–13:30</div>
+								<div class="item__schedule-text">Обед</div>
+							</div>
+							<div class="item__schedule-item">
+								<div class="item__schedule-time">13:30–14:00</div>
+								<div class="item__schedule-text">
+									Раздача лекарственных средств, контроль приема и другие сестринские манипуляции
+								</div>
+							</div>
+							<div class="item__schedule-item">
+								<div class="item__schedule-time">14:00–16:00</div>
+								<div class="item__schedule-text">Послеобеденный сон</div>
+							</div>
+							<div class="item__schedule-item">
+								<div class="item__schedule-time">16:30–19:00</div>
+								<div class="item__schedule-text">Свободное время, прогулка, занятия по интересам</div>
+							</div>
+							<div class="item__schedule-item">
+								<div class="item__schedule-time">19:00–19:30</div>
+								<div class="item__schedule-text">Ужин</div>
+							</div>
+							<div class="item__schedule-item">
+								<div class="item__schedule-time">19:30–20:00</div>
+								<div class="item__schedule-text">
+									Раздача лекарственных средств, контроль их приема. Выполнение врачебных назначений.
+									Измерение давления/температуры
+								</div>
+							</div>
+							<div class="item__schedule-item">
+								<div class="item__schedule-time">20:00–20:45</div>
+								<div class="item__schedule-text">Организованный досуг</div>
+							</div>
+							<div class="item__schedule-item">
+								<div class="item__schedule-time">20:45–21:30</div>
+								<div class="item__schedule-text">Вечерний туалет, подготовка ко сну, сон</div>
+							</div>
+							<div class="item__schedule-item">
+								<div class="item__schedule-time">21:30</div>
+								<div class="item__schedule-text">Сон</div>
+							</div>
+						</div> #}
+					</div>
+				{% endif %}
 
 				{% if item.pansion_conditions %}
 					<div class="item__special">
 						<h2 class="item__special-title">Особенности места</h2>
 						<div class="item__special-list">
-							{% for condition in item.pansion_conditions %}
+							{% for slice in slice_specials %}
+								<a href="/{{slice.url}}/" class="item__special-item">
+									{{slice.name}}
+								</a>
+							{% endfor %}
+							{# {% for condition in item.pansion_conditions %}
 								<div class="item__special-item">
 									{{condition.name}}
 								</div>
@@ -542,7 +501,7 @@
 							{% endif %}
 							{% if item.pansion_type %}
 								<div class="item__special-item">{{ item.pansion_type[0].name }}</div>
-							{% endif %}
+							{% endif %} #}
 						</div>
 					</div>
 				{% endif %}
@@ -593,14 +552,28 @@
 									<div class="stars__fill" style="width:calc({{item.pansion_rev_ya.rate}} * 20%)"></div>
 								</div>
 								<p class="rate__count">{{item.pansion_rev_ya.rate}}</p>
-								<p class="rate__reviews">(<a href="https://yandex.ru/maps/org/{{item.pansion_rev_ya.id}}/" target="_blank">{{item.pansion_rev_ya.count}}</a>)</p>
+								<p class="rate__reviews">(<a href="#reviews">{{item.pansion_rev_ya.count}}</a>)</p>
+							</div>
+						</div>
+					{% elseif item.pansion_reviews_local.rate and item.pansion_rev_ya.id == '' %}
+						<div class="item__info-review">
+							<div class="rate">
+								<div class="stars">
+									<div class="stars__empty"></div>
+									<div class="stars__fill" style="width:calc({{item.pansion_reviews_local.rate}} * 20%)"></div>
+								</div>
+								<p class="rate__count">{{item.pansion_reviews_local.rate}}</p>
+								<p class="rate__reviews">(<a href="#reviews">{{item.pansion_reviews_local.count}}</a>)</p>
 							</div>
 						</div>
 					{% endif %}
-					{% if item.pansion_network %}
+					{# {% if item.pansion_network %}
 						<div class="item__info-net">Сеть: <span>{{item.pansion_network[0].name}}</span></div>
+					{% endif %} #}
+					{% if slice_network %}
+						<div class="item__info-net">Сеть: <a href="/{{slice_network.url}}">{{slice_network.name}}</a></div>
 					{% endif %}
-					<a href="tel:84953002200" class="item__info-phone">8 (495) 300 22 00</a>
+					<a href="tel:84999386439" class="item__info-phone">+7 (499) 938 64 39</a>
 					<div class="item__info-phone-text">Бесплатная круглосуточная консультация</div>
 				</div>
 
@@ -623,7 +596,7 @@
 					</div>
 				</div>
 
-				{{ this.render('//components/generic/form_item_booking.twig') | raw }}
+				{{ this.render('//components/generic/form_item_booking.twig', {'subtitle':item.pansion_name}) | raw }}
 
 				{{ this.render('//components/generic/form_item_callback.twig', {'title':'Бесплатная консультация', 'data_type':'item-callback'}) | raw }}
 
